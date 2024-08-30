@@ -1,0 +1,16 @@
+{
+    "name": "WooLocalization.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3e443f0166b6d594db81ef692aaf6deb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
