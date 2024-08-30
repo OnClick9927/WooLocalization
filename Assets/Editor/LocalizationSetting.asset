@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalizationSetting
   m_EditorClassIdentifier: 
   _localizationType: CN
-  _defaultData: Assets/Examp;e/New Localization Data.asset
+  _defaultData: Assets/Example/New Localization Data.asset
   _lineReg: '"'
   _fieldReg: \G(?:^|,)(?:"((?>[^"]*)(?>""[^"]*)*)"|([^",]*))
   _quotesReg: '""'

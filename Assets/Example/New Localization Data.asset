@@ -18,9 +18,9 @@ MonoBehaviour:
       Value:
         list:
         - Key: smile
-          Value: "\u7B11"
+          Value: Smile{0}
         - Key: cry
-          Value: "\u54ED"
+          Value: cry
     - Key: EN
       Value:
         list:
