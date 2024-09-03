@@ -1,5 +1,7 @@
 ## upm 添加包地址 https://github.com/OnClick9927/WooLocalization.git#upm
-[![Stargazers over time](https://starchart.cc/OnClick9927/WooLocalization)](https://starchart.cc/OnClick9927/WooLocalization)
+
+[![Stargazers over time](https://starchart.cc/OnClick9927/WooLocalization.svg?variant=adaptive)](https://starchart.cc/OnClick9927/WooLocalization)
+
 # WooLocalization
 
 *  支持  文本/图片/特效/预制体/继承自UnityEngine.Object 本地化
