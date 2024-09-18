@@ -52,23 +52,23 @@ namespace WooLocalization
             if (LocalizationSetting.defaultData)
             {
                 var types = LocalizationSetting.defaultData.GetLocalizationTypes();
-                if (types.Count == 0)
+                if (types.Count != 0)
                 {
-                    return;
-                }
-                var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.localizationType), types.ToArray());
-                Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count)]);
-                GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
-                for (var i = 0; i < types.Count; i++)
-                {
-                    var type = types[i];
-                    var src = LocalizationSetting.GetLocalizationTypeReflect(type);
-                    var tmp = EditorGUILayout.TextField(type, src);
-                    if (tmp != src)
+                    var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.localizationType), types.ToArray());
+                    Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count)]);
+                    GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
+                    for (var i = 0; i < types.Count; i++)
                     {
-                        LocalizationSetting.SetLocalizationTypeReflect(type, tmp);
+                        var type = types[i];
+                        var src = LocalizationSetting.GetLocalizationTypeReflect(type);
+                        var tmp = EditorGUILayout.TextField(type, src);
+                        if (tmp != src)
+                        {
+                            LocalizationSetting.SetLocalizationTypeReflect(type, tmp);
+                        }
                     }
                 }
+     
 
             }
             GUILayout.EndVertical();
