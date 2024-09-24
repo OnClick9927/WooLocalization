@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using static WooLocalization.LocalizationAssets;
 
 namespace WooLocalization
 {
@@ -19,7 +18,7 @@ namespace WooLocalization
     {
         [LocalizationActorEditorAttribute]
 
-        class ObjectActorEditor<V> : LocalizationMapActorEditor<ObjectActor<V>, V, LocalizationBehavior> where V : UnityEngine.Object
+        class ObjectActorEditor<V> : LocalizationMapActorEditor<LocalizationAssets<V>.ObjectActor, V, LocalizationBehavior> where V : UnityEngine.Object
         {
             protected override bool NeedExecute()
             {
@@ -70,7 +69,7 @@ namespace WooLocalization
                     {
                         var types = field.FieldType.GetGenericArguments();
                         var type0 = types[0];
-                        if (typeof(ObjectActor<>).MakeGenericType(type0) == field.FieldType)
+                        if (typeof(LocalizationAssets<>.ObjectActor).MakeGenericType(type0) == field.FieldType)
                         {
                             if (!insMap_obj.ContainsKey(type0))
                                 insMap_obj.Add(type0, CreateEditor(typeof(ObjectActorEditor<>).MakeGenericType(type0)));
@@ -104,9 +103,8 @@ namespace WooLocalization
                     {
                         var types = FieldType.GetGenericArguments();
                         var type0 = types[0];
-                        if (typeof(ObjectActor<>).MakeGenericType(type0) == FieldType)
+                        if (typeof(LocalizationAssets<>.ObjectActor).MakeGenericType(type0) == FieldType)
                         {
-                            new ObjectActorEditor<UnityEngine.Object>();
                             if (!insMap_obj.ContainsKey(type0))
                             {
                                 var genericType = typeof(ObjectActorEditor<>).MakeGenericType(new Type[] { typeof(LocalizationBehavior), type0 });
@@ -129,7 +127,6 @@ namespace WooLocalization
                 EditorUtility.SetDirty(comp);
             }
             LoadFields();
-
             comp.enabled = false;
             EditorApplication.delayCall += () =>
             {
@@ -139,6 +136,7 @@ namespace WooLocalization
         }
         private void OnEnable()
         {
+            LoadFields();
 
         }
         private ILocalizationActorEditor CreateEditor(Type type)
@@ -198,12 +196,16 @@ namespace WooLocalization
             EditorGUILayout.LabelField(nameof(Localization), Localization.GetLocalizationType());
 
         }
-        public override void OnInspectorGUI()
+        protected virtual void DrawInspectorGUI()
         {
-
             DrawContext();
             DrawFields();
-
+        }
+        public sealed override void OnInspectorGUI()
+        {
+            GUI.enabled = !Application.isPlaying;
+            DrawInspectorGUI();
+            GUI.enabled = true;
 
         }
     }

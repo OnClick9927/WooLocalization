@@ -6,15 +6,13 @@
 *********************************************************************************/
 
 using System.Collections.Generic;
-using UnityEngine;
 namespace WooLocalization
 {
-    [DisallowMultipleComponent]
-    public class LocalizationAssets : LocalizationBehavior
+    public class LocalizationAssets<T> : LocalizationBehavior where T : UnityEngine.Object
     {
 
         [System.Serializable]
-        public class ObjectActor<T> : LocalizationMapActor<LocalizationBehavior, T> where T : UnityEngine.Object
+        public class ObjectActor : LocalizationMapActor<LocalizationBehavior, T>
         {
             public SerializableDictionary<string, T> objects = new SerializableDictionary<string, T>();
 
@@ -32,13 +30,11 @@ namespace WooLocalization
 
             }
         }
-        public List<ObjectActor<Object>> objects = new List<ObjectActor<Object>>();
-        private Dictionary<string, ObjectActor<Object>> objectMap = new Dictionary<string, ObjectActor<Object>>();
-     
-        
-        public Object GetObject(string key)
+        public List<ObjectActor> objects = new List<ObjectActor>();
+        private Dictionary<string, ObjectActor> objectMap = new Dictionary<string, ObjectActor>();
+        public T GetObject(string key)
         {
-            if (!objectMap.ContainsKey(key))return null;
+            if (!objectMap.ContainsKey(key)) return null;
             var actor = objectMap[key];
             return actor.GetValue();
         }

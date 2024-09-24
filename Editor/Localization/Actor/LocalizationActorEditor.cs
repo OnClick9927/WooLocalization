@@ -13,7 +13,6 @@ namespace WooLocalization
     {
         void ILocalizationActorEditor.OnGUI(string name, LocalizationBehavior component, object value)
         {
-            GUI.enabled = !Application.isPlaying;
             T context = value as T;
             var on = EditorGUILayout.Toggle(context.enable, EditorStyles.toolbarPopup);
             if (on != context.enable)
@@ -39,7 +38,6 @@ namespace WooLocalization
                     }
                 GUILayout.EndVertical();
             }
-            GUI.enabled = true;
 
         }
         protected virtual bool NeedExecute()

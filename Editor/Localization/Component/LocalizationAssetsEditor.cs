@@ -7,29 +7,28 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using static WooLocalization.LocalizationAssets;
 
 namespace WooLocalization
 {
-    [DisallowMultipleComponent]
-    [CustomEditor(typeof(LocalizationAssets))]
-    class LocalizationAssetsEditor : LocalizationBehaviorEditor<LocalizationAssets>
+    class LocalizationAssetsEditor<V, T> : LocalizationBehaviorEditor<LocalizationAssets<T>>
+        where V : LocalizationAssets<T>
+        where T : UnityEngine.Object
     {
         private string _name = "";
 
         protected override void RemoveActor(ILocalizationActor actor)
         {
-            comp.objects.Remove(actor as ObjectActor<Object>);
+            comp.objects.Remove(actor as LocalizationAssets<T>.ObjectActor);
         }
-        public override void OnInspectorGUI()
+        protected override void DrawInspectorGUI()
         {
             DrawContext();
             GUILayout.BeginVertical(EditorStyles.helpBox);
+            GUILayout.Label($"New ObjectActor<{typeof(T)}>");
             GUILayout.Space(5);
-            _name = EditorGUILayout.TextField("Name", _name);
             GUILayout.BeginHorizontal();
-            GUILayout.Label("New Object Actor");
-            if (GUILayout.Button("+",GUILayout.Width(50)))
+            _name = EditorGUILayout.TextField("Name", _name);
+            if (GUILayout.Button("+", GUILayout.Width(50)))
             {
                 if (string.IsNullOrEmpty(_name))
                 {
@@ -41,7 +40,7 @@ namespace WooLocalization
                     EditorWindow.focusedWindow.ShowNotification(new GUIContent("Same Name"));
                     return;
                 }
-                comp.objects.Add(new ObjectActor<Object>(true).SetName(_name).SetCanRemove(true) as ObjectActor<Object>);
+                comp.objects.Add(new LocalizationAssets<T>.ObjectActor(true).SetName(_name).SetCanRemove(true) as LocalizationAssets<T>.ObjectActor);
                 EditorUtility.SetDirty(comp);
                 AssetDatabase.SaveAssetIfDirty(comp);
                 LoadFields();
