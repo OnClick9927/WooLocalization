@@ -832,7 +832,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -977,9 +977,10 @@ GameObject:
   - component: {fileID: 2030665757}
   - component: {fileID: 2030665760}
   - component: {fileID: 2030665758}
+  - component: {fileID: 2030665762}
   - component: {fileID: 2030665761}
   m_Layer: 5
-  m_Name: Image
+  m_Name: misc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1045,13 +1046,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 2030665756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9833c99b08f0446b7942e15a878515, type: 3}
+  m_Script: {fileID: 11500000, guid: 15040f2d1428a734d95ca4cb77d169d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   objects:
   - _enable: 1
-    _name: obj
+    _name: dssa
+    _canRemove: 1
+    map:
+      list:
+      - Key: CN
+        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+      - Key: EN
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+    objects:
+      list: []
+--- !u!114 &2030665762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030665756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c2348fc5f16d14d80d55dfe72e0f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  objects:
+  - _enable: 1
+    _name: 333
     _canRemove: 1
     map:
       list:
@@ -1059,16 +1085,5 @@ MonoBehaviour:
         Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
       - Key: EN
         Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
-    objects:
-      list: []
-  - _enable: 1
-    _name: obj2
-    _canRemove: 1
-    map:
-      list:
-      - Key: CN
-        Value: {fileID: 2800000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
-      - Key: EN
-        Value: {fileID: 2800000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
     objects:
       list: []

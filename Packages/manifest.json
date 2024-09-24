@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.unity.ide.rider": "3.0.16",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.textmeshpro": "3.0.6",
