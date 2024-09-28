@@ -62,11 +62,13 @@ namespace WooLocalization
                     }
                 }
             }
+            private static Regex regex = new Regex("^{[0-9]*}$");
+
             public string GetTargetText(LocalizationBehavior component, out Exception err)
             {
                 err = null;
                 var format = component.GetLocalization(key);
-                if (Regex.Match(format, "^{[0-9]*}$") == null) return format;
+                if (regex.Match(format) == null) return format;
                 try
                 {
                     return string.Format(format, formatArgs);

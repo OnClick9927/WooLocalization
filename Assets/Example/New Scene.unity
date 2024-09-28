@@ -388,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6B63\u5728\u68C0\u67E5\u7248\u672C\u66F4\u65B0\u2026"
+  m_text: "\u5DF2\u4E0B\u8F7D:{0}% {1}MB/{2}MB"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -496,7 +496,7 @@ MonoBehaviour:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_UpdateText_2
+    key: Load_DOWNLOAD_FORMAT
     formatArgs: []
   font:
     _enable: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u5C06\u66F4\u65B0100MB\u7684\u6E38\u620F\u8D44\u6E90\n\n1.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n2.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n3.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug\n4.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug"
+  m_Text: "\u53D1\u73B0\u65B0\u7248\u672C:V{0}\uFF0C\u8BF7\u524D\u5F80\u5E94\u7528\u5E02\u573A/\u5B98\u7F51\u4E0B\u8F7D"
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -622,7 +622,7 @@ MonoBehaviour:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_Tip_Text
+    key: Load_UpdateText_4
     formatArgs: []
   font:
     _enable: 0
@@ -930,7 +930,7 @@ GameObject:
   - component: {fileID: 1587629839}
   - component: {fileID: 1587629840}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -983,10 +983,8 @@ MonoBehaviour:
         Value: 12
       - Key: ja
         Value: 2
-    objects:
-      list: []
   _enum:
-    _enable: 1
+    _enable: 0
     _name: 
     _canRemove: 0
     map:
@@ -999,8 +997,6 @@ MonoBehaviour:
         Value: 0
       - Key: ja
         Value: 3
-    objects:
-      list: []
   _string:
     _enable: 1
     _name: 
@@ -1015,8 +1011,6 @@ MonoBehaviour:
         Value: fasdf
       - Key: ja
         Value: fdsfsd
-    objects:
-      list: []
   _go:
     _enable: 0
     _name: 
@@ -1031,8 +1025,6 @@ MonoBehaviour:
         Value: {fileID: 0}
       - Key: ja
         Value: {fileID: 0}
-    objects:
-      list: []
   _int:
     _enable: 0
     _name: 
@@ -1047,8 +1039,6 @@ MonoBehaviour:
         Value: 0
       - Key: ja
         Value: 0
-    objects:
-      list: []
   _float:
     _enable: 1
     _name: 
@@ -1063,10 +1053,8 @@ MonoBehaviour:
         Value: 0
       - Key: ja
         Value: 0
-    objects:
-      list: []
   _bool:
-    _enable: 1
+    _enable: 0
     _name: 
     _canRemove: 0
     map:
@@ -1079,8 +1067,6 @@ MonoBehaviour:
         Value: 1
       - Key: ja
         Value: 0
-    objects:
-      list: []
   _double:
     _enable: 0
     _name: 
@@ -1095,8 +1081,6 @@ MonoBehaviour:
         Value: 0
       - Key: ja
         Value: 0
-    objects:
-      list: []
   _long:
     _enable: 0
     _name: 
@@ -1111,8 +1095,6 @@ MonoBehaviour:
         Value: 0
       - Key: ja
         Value: 0
-    objects:
-      list: []
   _color:
     _enable: 1
     _name: 
@@ -1127,8 +1109,6 @@ MonoBehaviour:
         Value: {r: 0.2404912, g: 0.63204724, b: 0.9169811, a: 0}
       - Key: ja
         Value: {r: 0, g: 1, b: 0.24578094, a: 0}
-    objects:
-      list: []
   _v3:
     _enable: 0
     _name: 
@@ -1143,8 +1123,6 @@ MonoBehaviour:
         Value: {x: 0, y: 0, z: 0}
       - Key: ja
         Value: {x: 0, y: 0, z: 0}
-    objects:
-      list: []
   _v2:
     _enable: 0
     _name: 
@@ -1159,8 +1137,6 @@ MonoBehaviour:
         Value: {x: 0, y: 0}
       - Key: ja
         Value: {x: 0, y: 0}
-    objects:
-      list: []
   _v4:
     _enable: 0
     _name: 
@@ -1175,8 +1151,6 @@ MonoBehaviour:
         Value: {x: 0, y: 0, z: 0, w: 0}
       - Key: ja
         Value: {x: 0, y: 0, z: 0, w: 0}
-    objects:
-      list: []
   _v2i:
     _enable: 0
     _name: 
@@ -1191,8 +1165,6 @@ MonoBehaviour:
         Value: {x: 0, y: 0}
       - Key: ja
         Value: {x: 0, y: 0}
-    objects:
-      list: []
   _v3i:
     _enable: 0
     _name: 
@@ -1207,8 +1179,6 @@ MonoBehaviour:
         Value: {x: 0, y: 0, z: 0}
       - Key: ja
         Value: {x: 0, y: 0, z: 0}
-    objects:
-      list: []
   _rect:
     _enable: 0
     _name: 
@@ -1243,8 +1213,6 @@ MonoBehaviour:
           y: 0
           width: 0
           height: 0
-    objects:
-      list: []
   _recti:
     _enable: 0
     _name: 
@@ -1275,8 +1243,6 @@ MonoBehaviour:
           y: 0
           width: 0
           height: 0
-    objects:
-      list: []
   _bounds:
     _enable: 0
     _name: 
@@ -1299,8 +1265,6 @@ MonoBehaviour:
         Value:
           m_Center: {x: 0, y: 0, z: 0}
           m_Extent: {x: 0, y: 0, z: 0}
-    objects:
-      list: []
   _curve:
     _enable: 1
     _name: 
@@ -1407,8 +1371,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    objects:
-      list: []
 --- !u!1 &1759332437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,6 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981cca6b95ac6d547a55a29ba8844528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 382205952}
   data: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
 --- !u!4 &1759332439
 Transform:
@@ -1566,8 +1529,6 @@ MonoBehaviour:
         Value: {fileID: 0}
       - Key: ja
         Value: {fileID: 0}
-    objects:
-      list: []
 --- !u!114 &2030665762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,8 +1560,6 @@ MonoBehaviour:
         Value: {fileID: 0}
       - Key: ja
         Value: {fileID: 0}
-    objects:
-      list: []
 --- !u!114 &2030665763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,5 +1587,3 @@ MonoBehaviour:
         Value: 
       - Key: ja
         Value: 
-    objects:
-      list: []

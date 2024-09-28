@@ -97,7 +97,7 @@ namespace WooLocalization
                         {
                             if (!insMap_obj.ContainsKey(type0))
                             {
-                                var genericType = typeof(ObjectActorEditor<>).MakeGenericType(new Type[] { typeof(LocalizationBehavior), type0 });
+                                var genericType = typeof(ObjectActorEditor<>).MakeGenericType(new Type[] { type0 });
                                 insMap_obj.Add(type0, CreateEditor(genericType));
                             }
                             var editor = insMap_obj[type0];

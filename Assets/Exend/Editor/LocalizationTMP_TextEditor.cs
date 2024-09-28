@@ -5,6 +5,7 @@
  *Date:           2024-04-25
 *********************************************************************************/
 #if UNITY_EDITOR
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 namespace WooLocalization
@@ -192,7 +193,10 @@ namespace WooLocalization
                 var format = context.GetTargetText(component, out err);
                 if (err != null)
                     EditorGUILayout.HelpBox(err.Message, MessageType.Error, true);
-                EditorGUILayout.LabelField("Localization", format);
+                var src = component.GetLocalization(context.key);
+                EditorGUILayout.LabelField("Src", src, GUILayout.Height(src.Count(x => x == '\n') * 20 + 20));
+
+                EditorGUILayout.LabelField("Result", format, GUILayout.Height(format.Count(x => x == '\n') * 20+20));
 
                 GUILayout.Space(5);
                 GUILayout.EndVertical();

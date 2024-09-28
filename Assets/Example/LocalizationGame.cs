@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
 {
+
+
     public LocalizationData data;
     private void Start()
     {

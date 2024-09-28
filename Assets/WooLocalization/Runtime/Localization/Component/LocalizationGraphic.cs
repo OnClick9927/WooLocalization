@@ -4,6 +4,7 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,14 +53,22 @@ namespace WooLocalization
                 return UnityEngine.UI.Graphic.defaultGraphicMaterial;
             }
         }
-        public Graphic graphic { get; private set; }
+        [NonSerialized] private Graphic _graphic; 
+        public Graphic graphic
+        {
+            get
+            {
+                if (_graphic == null)
+                {
+                    _graphic = GetComponent<Graphic>();
+                }
+                return _graphic;
+            }
+        }
         public GraphicColorActor color = new GraphicColorActor(false);
         public GraphicMaterialActor material = new GraphicMaterialActor(false);
-        protected override void Awake()
-        {
-            graphic = GetComponent<Graphic>();
-            base.Awake();
-        }
+
+
         protected override List<ILocalizationActor> GetActors()
         {
             return new List<ILocalizationActor>() {
@@ -70,6 +79,19 @@ namespace WooLocalization
 
     public class LocalizationGraphic<T> : LocalizationGraphic where T : Graphic
     {
-        public T graphicT => graphic as T;
+        [NonSerialized] private T _graphic;
+        public T graphicT
+        {
+
+            get
+            {
+
+                if (_graphic == null)
+                {
+                    _graphic = graphic as T;
+                }
+                return _graphic;
+            }
+        }
     }
 }
