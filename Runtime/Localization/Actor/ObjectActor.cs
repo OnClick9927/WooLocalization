@@ -10,8 +10,6 @@ namespace WooLocalization
     [System.Serializable]
     public class ObjectActor<T> : LocalizationMapActor<LocalizationBehavior, T>
     {
-        public SerializableDictionary<string, T> objects = new SerializableDictionary<string, T>();
-
         public ObjectActor(bool enable) : base(enable)
         {
         }
