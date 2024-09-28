@@ -187,6 +187,15 @@ namespace WooLocalization
         {
             if (typeof(UnityEngine.Object).IsAssignableFrom(typeof(V)))
                 return (V)(object)EditorGUILayout.ObjectField(lan, (UnityEngine.Object)(object)value, typeof(V), false);
+            if (typeof(V).IsEnum)
+            {
+
+                if (typeof(V).IsDefined(typeof(System.FlagsAttribute), false))
+                    return (V)(object)EditorGUILayout.EnumFlagsField(lan, (Enum)(object)value);
+                else
+                    return (V)(object)EditorGUILayout.EnumPopup(lan, (Enum)(object)value);
+            }
+
 
             else if (typeof(V) == typeof(string))
             {
