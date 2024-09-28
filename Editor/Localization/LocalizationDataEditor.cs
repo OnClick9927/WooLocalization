@@ -123,7 +123,7 @@ namespace WooLocalization
                 while (style.CalcSize(new GUIContent(text)).x > maxWidth && fontSize > 10) // 最小字体大小设为10
                 {
                     fontSize--;
-                    style.fontSize = fontSize;
+                    style.fontSize = (int)Mathf.Round(fontSize);
                 }
 
                 return style;
