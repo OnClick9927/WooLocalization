@@ -226,22 +226,34 @@ namespace WooLocalization
             var types = context.GetLocalizationTypes();
             var keys = context.GetLocalizationKeys();
             var header = new List<string>(types);
-            header.Insert(0, string.Empty);
+            header.Insert(0, "Key");
             List<string[]> result = new List<string[]>() { header.ToArray() };
+
             for (int i = 0; i < keys.Count; i++)
             {
                 string[] _content = new string[types.Count + 1];
                 var key = keys[i];
-                _content[0] = key;
+                _content[0] = WrapInQuotes(key); // Wrap key in quotes
                 for (int j = 0; j < types.Count; j++)
                 {
                     var type = types[j];
                     var value = context.GetLocalization(type, key);
-                    _content[j + 1] = value;
+                    _content[j + 1] = WrapInQuotes(value); // Wrap value in quotes
                 }
                 result.Add(_content);
             }
+
             CSVHelper.Write(path, result);
+        }
+
+        private static string WrapInQuotes(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+
+            // Escape any existing quotes in the value
+            value = value.Replace("\"", "\"\"");
+
+            return $"\"{value}\""; // Wrap the value in quotes
         }
         private static void ReadCSV()
         {
