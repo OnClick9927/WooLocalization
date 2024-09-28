@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1829bde1a3a029478e7a02a5ce5656a, type: 3}
   m_Name: LocalizationEditorUserData
   m_EditorClassIdentifier: 
-  _lastCSVPath: E:\Project\Unity\WooLocalization\Assets\Examp;e
+  _lastCSVPath: E:\Project\Unity\WooLocalization\Assets\Example
   _lastLocalizationDataPath: Assets

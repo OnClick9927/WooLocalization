@@ -8,33 +8,15 @@
 using System.Collections.Generic;
 namespace WooLocalization
 {
-    public class LocalizationAssets<T> : LocalizationBehavior where T : UnityEngine.Object
+
+    public class LocalizationAssets<T> : LocalizationBehavior
     {
 
-        [System.Serializable]
-        public class ObjectActor : LocalizationMapActor<LocalizationBehavior, T>
-        {
-            public SerializableDictionary<string, T> objects = new SerializableDictionary<string, T>();
-
-            public ObjectActor(bool enable) : base(enable)
-            {
-            }
-
-            public override T GetDefault()
-            {
-                return null;
-            }
-
-            protected override void Execute(string localizationType, LocalizationBehavior component)
-            {
-
-            }
-        }
-        public List<ObjectActor> objects = new List<ObjectActor>();
-        private Dictionary<string, ObjectActor> objectMap = new Dictionary<string, ObjectActor>();
+        public List<ObjectActor<T>> objects = new List<ObjectActor<T>>();
+        private Dictionary<string, ObjectActor<T>> objectMap = new Dictionary<string, ObjectActor<T>>();
         public T GetObject(string key)
         {
-            if (!objectMap.ContainsKey(key)) return null;
+            if (!objectMap.ContainsKey(key)) return default;
             var actor = objectMap[key];
             return actor.GetValue();
         }

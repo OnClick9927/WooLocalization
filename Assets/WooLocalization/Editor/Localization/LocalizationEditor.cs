@@ -42,7 +42,7 @@ namespace WooLocalization
             if (!Directory.Exists(ObjDir))
                 Directory.CreateDirectory(ObjDir);
             Localization.SetRecorder(context);
-
+            LocalizationBehavior.defaultContext = LocalizationSetting.defaultData;
         }
         internal static T LoadContext<T>(string path) where T : UnityEngine.ScriptableObject
         {

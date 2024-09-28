@@ -85,6 +85,22 @@ namespace WooLocalization
                 keys.Remove(key);
             }
         }
+
+
+        public string FindKey(string localizationType, string val)
+        {
+            if (map.TryGetValue(localizationType, out var key_value))
+            {
+                foreach (var item in key_value)
+                {
+                    if (item.Value == val)
+                    {
+                        return item.Key;
+                    }
+                }
+            }
+            return string.Empty;
+        }
     }
 }
 

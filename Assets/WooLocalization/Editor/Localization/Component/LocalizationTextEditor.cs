@@ -17,12 +17,10 @@ namespace WooLocalization
 
         class TextFontActorEditor : LocalizationMapActorEditor<TextFontActor, Font, LocalizationText>
         {
-            protected override Font Draw(string lan, Font value) => EditorGUILayout.ObjectField(lan, value, typeof(Font), false) as Font;
         }
         [LocalizationActorEditorAttribute]
         class TextFontSizeActorEditor : LocalizationMapActorEditor<TextFontSizeActor, int, LocalizationText>
         {
-            protected override int Draw(string lan, int value) => EditorGUILayout.IntField(lan, value);
         }
         [LocalizationActorEditorAttribute]
         class TextValueActorEditor : LocalizationActorEditor<TextValueActor>

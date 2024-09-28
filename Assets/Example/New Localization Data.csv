@@ -1,3 +1,28 @@
-﻿,CN,EN
-smile,笑,smile
-cry,哭,cry
+﻿Key,zh-Hans,zh-TW,en,ja
+"Load_GameTip","《健康游戏忠告》
+抵制不良游戏，拒绝盗版游戏。
+注意自我保护，谨防受骗上当。
+适度游戏益脑，沉迷游戏伤身。
+合理安排时间，享受健康生活。",,,
+"Load_UpdateText","正在检查更新中",,,
+"Load_Tip_Title","游戏更新",,,
+"Load_Tip_Text","将更新100MB的游戏资源
+
+1.修复了开发者太帅的Bug
+2.还是修复了开发者太帅的Bug
+3.修复了开发者太可爱的Bug
+4.还是修复了开发者太可爱的Bug",,,
+"Load_Tip_Button_Text","开始更新",,,
+"Load_UpdateText_1","HotUpdate模块加载中…",,,
+"Load_UpdateText_2","正在检查版本更新…",,,
+"Load_UpdateText_3","更新提示",,,
+"Load_UpdateText_4","发现新版本:V{0}，请前往应用市场/官网下载",,,
+"Load_UpdateText_5","知道了",,,
+"Load_UpdateText_6","资源更新",,,
+"Load_DOWNLOAD_FORMAT","已下载:{0}% {1}MB/{2}MB",,,
+"Load_UpdateText_7","检测到有新版本资源，资源大小：{0}MB，正在下载中，请耐心等待...",,,
+"Load_UpdateText_8","下载出错{0} \r\n {1}",,,
+"Load_UpdateText_9","检查到服务器上有新版本资源",,,
+"Load_UpdateText_10","暂时没有发现更新",,,
+"Load_UpdateText_11","开始加载游戏组件，请耐心等待...",,,
+"Load_UpdateText_12","加载成功",,,

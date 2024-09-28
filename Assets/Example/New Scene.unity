@@ -185,6 +185,14 @@ MonoBehaviour:
         Value: {r: 1, g: 0, b: 0.05529642, a: 1}
       - Key: EN
         Value: {r: 0, g: 0.26829147, b: 1, a: 1}
+      - Key: zh-Hans
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      - Key: zh-TW
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      - Key: en
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      - Key: ja
+        Value: {r: 1, g: 1, b: 1, a: 1}
   material:
     _enable: 0
     _name: 
@@ -207,6 +215,14 @@ MonoBehaviour:
         Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
       - Key: EN
         Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+      - Key: zh-Hans
+        Value: {fileID: 0}
+      - Key: zh-TW
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
 --- !u!114 &335495487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,14 +236,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.05529642, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -324,7 +340,7 @@ GameObject:
   - component: {fileID: 372363573}
   - component: {fileID: 372363576}
   - component: {fileID: 372363575}
-  - component: {fileID: 372363574}
+  - component: {fileID: 372363577}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -352,60 +368,6 @@ RectTransform:
   m_AnchoredPosition: {x: 309, y: 453}
   m_SizeDelta: {x: 448.1595, y: 375.5079}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &372363574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372363572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46782399ded2e6940b7618d75f33b9d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  color:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: CN
-        Value: {r: 1, g: 0, b: 0.11707878, a: 1}
-      - Key: EN
-        Value: {r: 0, g: 0.23082075, b: 0.7830189, a: 1}
-  material:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-    materials:
-      list: []
-  text:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    key: cry
-    formatArgs:
-    - newArg
-  font:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  fontSize:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: EN
-        Value: 100
-      - Key: CN
-        Value: 80
 --- !u!114 &372363575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: cry
+  m_text: "\u6B63\u5728\u68C0\u67E5\u7248\u672C\u66F4\u65B0\u2026"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -435,8 +397,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280156415
-  m_fontColor: {r: 1, g: 0, b: 0.11707878, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -453,8 +415,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -503,6 +465,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372363572}
   m_CullTransparentMesh: 1
+--- !u!114 &372363577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372363572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46782399ded2e6940b7618d75f33b9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  color:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+  material:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    materials:
+      list: []
+  text:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    key: Load_UpdateText_2
+    formatArgs: []
+  font:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+  fontSize:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
 --- !u!1 &382205949
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +521,7 @@ GameObject:
   - component: {fileID: 382205950}
   - component: {fileID: 382205953}
   - component: {fileID: 382205952}
-  - component: {fileID: 382205951}
+  - component: {fileID: 382205954}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -542,60 +549,6 @@ RectTransform:
   m_AnchoredPosition: {x: -121, y: 340}
   m_SizeDelta: {x: 318.5807, y: 459.4895}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &382205951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382205949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22fe7808e7abb948b1fd59db1a8e40a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  color:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: EN
-        Value: {r: 0, g: 1, b: 0.30387568, a: 1}
-      - Key: CN
-        Value: {r: 1, g: 0.54673, b: 0, a: 1}
-  material:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-    materials:
-      list: []
-  text:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    key: smile
-    formatArgs:
-    - '  gaygay'
-  font:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  fontSize:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: EN
-        Value: 100
-      - Key: CN
-        Value: 80
 --- !u!114 &382205952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.54673, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -618,7 +571,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 80
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -629,7 +582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Smile  gaygay
+  m_Text: "\u5C06\u66F4\u65B0100MB\u7684\u6E38\u620F\u8D44\u6E90\n\n1.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n2.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n3.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug\n4.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug"
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -638,6 +591,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382205949}
   m_CullTransparentMesh: 1
+--- !u!114 &382205954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382205949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fe7808e7abb948b1fd59db1a8e40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  color:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+  material:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    materials:
+      list: []
+  text:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    key: Load_Tip_Text
+    formatArgs: []
+  font:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+  fontSize:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
 --- !u!1 &721698454
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +977,7 @@ GameObject:
   - component: {fileID: 2030665758}
   - component: {fileID: 2030665762}
   - component: {fileID: 2030665761}
+  - component: {fileID: 2030665763}
   m_Layer: 5
   m_Name: misc
   m_TagString: Untagged
@@ -1029,6 +1028,14 @@ MonoBehaviour:
         Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
       - Key: EN
         Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
+      - Key: zh-Hans
+        Value: {fileID: 0}
+      - Key: zh-TW
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
 --- !u!222 &2030665760
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1060,6 +1067,14 @@ MonoBehaviour:
         Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
       - Key: EN
         Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+      - Key: zh-Hans
+        Value: {fileID: 0}
+      - Key: zh-TW
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
     objects:
       list: []
 --- !u!114 &2030665762
@@ -1085,5 +1100,42 @@ MonoBehaviour:
         Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
       - Key: EN
         Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
+      - Key: zh-Hans
+        Value: {fileID: 0}
+      - Key: zh-TW
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
+    objects:
+      list: []
+--- !u!114 &2030665763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030665756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eec510d8455f6b4fa743a8154d174da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  objects:
+  - _enable: 1
+    _name: eqwe
+    _canRemove: 1
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 
+      - Key: zh-TW
+        Value: 
+      - Key: en
+        Value: 
+      - Key: ja
+        Value: 
     objects:
       list: []

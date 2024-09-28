@@ -43,8 +43,25 @@ namespace WooLocalization
 
             public TextValueActor(bool enable) : base(enable)
             {
-            }
 
+            }
+            protected override void OnAddComponent()
+            {
+                if (string.IsNullOrEmpty(key))
+                {
+
+                    var txt = this.behavior.graphicT.text;
+                    if (!string.IsNullOrEmpty(txt))
+                    {
+                        var contxt = this.behavior.context;
+                        if (contxt != null)
+                        {
+                            var key = contxt.FindKey(Localization.localizationType, txt);
+                            SetKey(key);
+                        }
+                    }
+                }
+            }
             public string GetTargetText(LocalizationBehavior component, out Exception err)
             {
                 err = null;
@@ -107,7 +124,6 @@ namespace WooLocalization
         public TextValueActor text = new TextValueActor(true);
         public TextFontActor font = new TextFontActor(false);
         public TextFontSizeActor fontSize = new TextFontSizeActor(false);
-
         protected override List<ILocalizationActor> GetActors()
         {
             var _base = base.GetActors();

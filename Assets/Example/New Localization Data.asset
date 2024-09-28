@@ -14,20 +14,178 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map:
     list:
-    - Key: CN
+    - Key: zh-Hans
       Value:
         list:
-        - Key: smile
-          Value: Smile{0}
-        - Key: cry
-          Value: cry
-    - Key: EN
+        - Key: Load_GameTip
+          Value: "\u300A\u5065\u5EB7\u6E38\u620F\u5FE0\u544A\u300B\r\n\u62B5\u5236\u4E0D\u826F\u6E38\u620F\uFF0C\u62D2\u7EDD\u76D7\u7248\u6E38\u620F\u3002\r\n\u6CE8\u610F\u81EA\u6211\u4FDD\u62A4\uFF0C\u8C28\u9632\u53D7\u9A97\u4E0A\u5F53\u3002\r\n\u9002\u5EA6\u6E38\u620F\u76CA\u8111\uFF0C\u6C89\u8FF7\u6E38\u620F\u4F24\u8EAB\u3002\r\n\u5408\u7406\u5B89\u6392\u65F6\u95F4\uFF0C\u4EAB\u53D7\u5065\u5EB7\u751F\u6D3B\u3002"
+        - Key: Load_UpdateText
+          Value: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
+        - Key: Load_Tip_Title
+          Value: "\u6E38\u620F\u66F4\u65B0"
+        - Key: Load_Tip_Text
+          Value: "\u5C06\u66F4\u65B0100MB\u7684\u6E38\u620F\u8D44\u6E90\n\n1.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n2.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u5E05\u7684Bug\n3.\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug\n4.\u8FD8\u662F\u4FEE\u590D\u4E86\u5F00\u53D1\u8005\u592A\u53EF\u7231\u7684Bug"
+        - Key: Load_Tip_Button_Text
+          Value: "\u5F00\u59CB\u66F4\u65B0"
+        - Key: Load_UpdateText_1
+          Value: "HotUpdate\u6A21\u5757\u52A0\u8F7D\u4E2D\u2026"
+        - Key: Load_UpdateText_2
+          Value: "\u6B63\u5728\u68C0\u67E5\u7248\u672C\u66F4\u65B0\u2026"
+        - Key: Load_UpdateText_3
+          Value: "\u66F4\u65B0\u63D0\u793A"
+        - Key: Load_UpdateText_4
+          Value: "\u53D1\u73B0\u65B0\u7248\u672C:V{0}\uFF0C\u8BF7\u524D\u5F80\u5E94\u7528\u5E02\u573A/\u5B98\u7F51\u4E0B\u8F7D"
+        - Key: Load_UpdateText_5
+          Value: "\u77E5\u9053\u4E86"
+        - Key: Load_UpdateText_6
+          Value: "\u8D44\u6E90\u66F4\u65B0"
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: "\u5DF2\u4E0B\u8F7D:{0}% {1}MB/{2}MB"
+        - Key: Load_UpdateText_7
+          Value: "\u68C0\u6D4B\u5230\u6709\u65B0\u7248\u672C\u8D44\u6E90\uFF0C\u8D44\u6E90\u5927\u5C0F\uFF1A{0}MB\uFF0C\u6B63\u5728\u4E0B\u8F7D\u4E2D\uFF0C\u8BF7\u8010\u5FC3\u7B49\u5F85..."
+        - Key: Load_UpdateText_8
+          Value: "\u4E0B\u8F7D\u51FA\u9519{0} \\r\\n {1}"
+        - Key: Load_UpdateText_9
+          Value: "\u68C0\u67E5\u5230\u670D\u52A1\u5668\u4E0A\u6709\u65B0\u7248\u672C\u8D44\u6E90"
+        - Key: Load_UpdateText_10
+          Value: "\u6682\u65F6\u6CA1\u6709\u53D1\u73B0\u66F4\u65B0"
+        - Key: Load_UpdateText_11
+          Value: "\u5F00\u59CB\u52A0\u8F7D\u6E38\u620F\u7EC4\u4EF6\uFF0C\u8BF7\u8010\u5FC3\u7B49\u5F85..."
+        - Key: Load_UpdateText_12
+          Value: "\u52A0\u8F7D\u6210\u529F"
+    - Key: zh-TW
       Value:
         list:
-        - Key: smile
-          Value: smile
-        - Key: cry
-          Value: cry
+        - Key: Load_GameTip
+          Value: 
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 
+    - Key: en
+      Value:
+        list:
+        - Key: Load_GameTip
+          Value: 
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 
+    - Key: ja
+      Value:
+        list:
+        - Key: Load_GameTip
+          Value: 
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 
   keys:
-  - smile
-  - cry
+  - Load_GameTip
+  - Load_UpdateText
+  - Load_Tip_Title
+  - Load_Tip_Text
+  - Load_Tip_Button_Text
+  - Load_UpdateText_1
+  - Load_UpdateText_2
+  - Load_UpdateText_3
+  - Load_UpdateText_4
+  - Load_UpdateText_5
+  - Load_UpdateText_6
+  - Load_DOWNLOAD_FORMAT
+  - Load_UpdateText_7
+  - Load_UpdateText_8
+  - Load_UpdateText_9
+  - Load_UpdateText_10
+  - Load_UpdateText_11
+  - Load_UpdateText_12

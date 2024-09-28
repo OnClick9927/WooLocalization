@@ -206,13 +206,11 @@ namespace WooLocalization
         [LocalizationActorEditorAttribute]
         class TextFontActorEditor : LocalizationMapActorEditor<LocalizationTMP_Text.TMPFontActor, TMPro.TMP_FontAsset, LocalizationTMP_Text>
         {
-            protected override TMPro.TMP_FontAsset Draw(string lan, TMPro.TMP_FontAsset value) => EditorGUILayout.ObjectField(lan, value, typeof(TMPro.TMP_FontAsset), false) as TMPro.TMP_FontAsset;
         }
 
         [LocalizationActorEditorAttribute]
         class TMPFontSizeActorEditor : LocalizationMapActorEditor<LocalizationTMP_Text.TMPFontSizeActor, float, LocalizationTMP_Text>
         {
-            protected override float Draw(string lan, float value) => EditorGUILayout.FloatField(lan, value);
         }
     }
 }
