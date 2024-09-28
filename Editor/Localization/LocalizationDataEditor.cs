@@ -233,12 +233,12 @@ namespace WooLocalization
             {
                 string[] _content = new string[types.Count + 1];
                 var key = keys[i];
-                _content[0] = WrapInQuotes(key); // Wrap key in quotes
+                _content[0] = WrapInQuotes(key); //转义
                 for (int j = 0; j < types.Count; j++)
                 {
                     var type = types[j];
                     var value = context.GetLocalization(type, key);
-                    _content[j + 1] = WrapInQuotes(value); // Wrap value in quotes
+                    _content[j + 1] = WrapInQuotes(value); //转义
                 }
                 result.Add(_content);
             }
@@ -248,12 +248,13 @@ namespace WooLocalization
 
         private static string WrapInQuotes(string value)
         {
+            //如果为空，则返回空字符串
             if (string.IsNullOrEmpty(value)) return string.Empty;
 
-            // Escape any existing quotes in the value
+            //如果已经有引号，则进行转义
             value = value.Replace("\"", "\"\"");
 
-            return $"\"{value}\""; // Wrap the value in quotes
+            return $"\"{value}\""; //转义后加上双引号
         }
         private static void ReadCSV()
         {
