@@ -16,11 +16,7 @@ namespace WooLocalization
         [LocalizationActorEditorAttribute]
         class ImageSpriteActorEditor : LocalizationMapActorEditor<ImageSpriteActor, Sprite, LocalizationImage>
         {
-            protected override Sprite Draw(string lan, Sprite value)
-            {
-                return EditorGUILayout.ObjectField(lan, value, typeof(UnityEngine.Sprite), false) as Sprite;
-
-            }
+     
 
         }
     }

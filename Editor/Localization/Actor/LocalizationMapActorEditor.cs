@@ -48,6 +48,9 @@ namespace WooLocalization
 
             }
         }
-        protected abstract Value Draw(string lan, Value value);
+        protected virtual Value Draw(string lan, Value value)
+        {
+            return LocalizationEditorHelper.DrawObject(lan, value);
+        }
     }
 }

@@ -70,11 +70,6 @@ namespace WooLocalization
 
     public class LocalizationGraphic<T> : LocalizationGraphic where T : Graphic
     {
-        public T graphicT { get; private set; }
-        protected override void Awake()
-        {
-            base.Awake();
-            graphicT = graphic as T;
-        }
+        public T graphicT => graphic as T;
     }
 }

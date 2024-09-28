@@ -19,7 +19,6 @@ namespace WooLocalization
         class PrefabActorEditor : LocalizationMapActorEditor<PrefabActor, GameObject, LocalizationBehavior>
         {
             protected override bool NeedExecute() => false;
-            protected override GameObject Draw(string lan, GameObject value) => EditorGUILayout.ObjectField(lan, value, typeof(GameObject), false) as GameObject;
         }
     }
 }

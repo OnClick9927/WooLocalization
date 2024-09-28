@@ -12,13 +12,13 @@ namespace WooLocalization
 {
     class LocalizationAssetsEditor<V, T> : LocalizationBehaviorEditor<LocalizationAssets<T>>
         where V : LocalizationAssets<T>
-        where T : UnityEngine.Object
+        
     {
         private string _name = "";
 
         protected override void RemoveActor(ILocalizationActor actor)
         {
-            comp.objects.Remove(actor as LocalizationAssets<T>.ObjectActor);
+            comp.objects.Remove(actor as ObjectActor<T>);
         }
         protected override void DrawInspectorGUI()
         {
@@ -40,7 +40,7 @@ namespace WooLocalization
                     EditorWindow.focusedWindow.ShowNotification(new GUIContent("Same Name"));
                     return;
                 }
-                comp.objects.Add(new LocalizationAssets<T>.ObjectActor(true).SetName(_name).SetCanRemove(true) as LocalizationAssets<T>.ObjectActor);
+                comp.objects.Add(new ObjectActor<T>(true).SetName(_name).SetCanRemove(true) as ObjectActor<T>);
                 EditorUtility.SetDirty(comp);
                 AssetDatabase.SaveAssetIfDirty(comp);
                 LoadFields();

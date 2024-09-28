@@ -15,5 +15,7 @@ namespace WooLocalization
         void Execute(string localizationType, LocalizationBehavior component);
         void Execute();
         void SetBehavior(LocalizationBehavior behavior);
+
+        void OnAddComponent();
     }
 }

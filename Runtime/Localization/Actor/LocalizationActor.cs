@@ -58,6 +58,8 @@ namespace WooLocalization
         void ILocalizationActor.SetBehavior(LocalizationBehavior behavior)
         {
             this.behavior = behavior as T;
+
+
         }
         protected virtual bool NeedExecute(string localizationType)
         {
@@ -81,8 +83,13 @@ namespace WooLocalization
             BeforeExecute(localizationType);
             Execute(localizationType, behavior);
         }
+        protected virtual void OnAddComponent()
+        {
+            
+        }
         protected abstract void Execute(string localizationType, T component);
         protected virtual void BeforeExecute(string localizationType) { }
 
+        void ILocalizationActor.OnAddComponent() => OnAddComponent();
     }
 }

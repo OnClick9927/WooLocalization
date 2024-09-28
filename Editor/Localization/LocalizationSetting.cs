@@ -117,7 +117,7 @@ namespace WooLocalization
                 {
                     __defaultData = AssetDatabase.LoadAssetAtPath<LocalizationData>(context._defaultData);
                 }
-
+                LocalizationBehavior.defaultContext = __defaultData;
                 return __defaultData;
             }
             set
@@ -126,7 +126,9 @@ namespace WooLocalization
                 if (context._defaultData == path) return;
                 __defaultData = null;
                 context._defaultData = path;
+
                 context.Save();
+                LocalizationBehavior.defaultContext = __defaultData;
 
             }
         }
