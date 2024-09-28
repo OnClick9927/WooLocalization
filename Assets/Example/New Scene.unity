@@ -765,6 +765,7 @@ RectTransform:
   - {fileID: 382205950}
   - {fileID: 2030665757}
   - {fileID: 372363573}
+  - {fileID: 1587629839}
   m_Father: {fileID: 1759332439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -918,6 +919,496 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1587629838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587629839}
+  - component: {fileID: 1587629840}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1587629839
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587629838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472333950}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1587629840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587629838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9804e3d3023ba8742ac770377eb06849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _enum_flag:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 2
+      - Key: zh-TW
+        Value: -1
+      - Key: en
+        Value: 12
+      - Key: ja
+        Value: 2
+    objects:
+      list: []
+  _enum:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 2
+      - Key: zh-TW
+        Value: 1
+      - Key: en
+        Value: 0
+      - Key: ja
+        Value: 3
+    objects:
+      list: []
+  _string:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: asdas
+      - Key: zh-TW
+        Value: dasdas
+      - Key: en
+        Value: fasdf
+      - Key: ja
+        Value: fdsfsd
+    objects:
+      list: []
+  _go:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {fileID: 0}
+      - Key: zh-TW
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
+    objects:
+      list: []
+  _int:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: -18
+      - Key: zh-TW
+        Value: 0
+      - Key: en
+        Value: 0
+      - Key: ja
+        Value: 0
+    objects:
+      list: []
+  _float:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: -0.15
+      - Key: zh-TW
+        Value: 0
+      - Key: en
+        Value: 0
+      - Key: ja
+        Value: 0
+    objects:
+      list: []
+  _bool:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 1
+      - Key: zh-TW
+        Value: 0
+      - Key: en
+        Value: 1
+      - Key: ja
+        Value: 0
+    objects:
+      list: []
+  _double:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 0
+      - Key: zh-TW
+        Value: 0
+      - Key: en
+        Value: 0
+      - Key: ja
+        Value: 0
+    objects:
+      list: []
+  _long:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 0
+      - Key: zh-TW
+        Value: 0
+      - Key: en
+        Value: 0
+      - Key: ja
+        Value: 0
+    objects:
+      list: []
+  _color:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {r: 0.96981126, g: 0.13723731, b: 0.13723731, a: 0}
+      - Key: zh-TW
+        Value: {r: 0.78113204, g: 0.6411178, b: 0.6411178, a: 1}
+      - Key: en
+        Value: {r: 0.2404912, g: 0.63204724, b: 0.9169811, a: 0}
+      - Key: ja
+        Value: {r: 0, g: 1, b: 0.24578094, a: 0}
+    objects:
+      list: []
+  _v3:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {x: 0, y: 0, z: 0}
+      - Key: zh-TW
+        Value: {x: 0, y: 0, z: 0}
+      - Key: en
+        Value: {x: 0, y: 0, z: 0}
+      - Key: ja
+        Value: {x: 0, y: 0, z: 0}
+    objects:
+      list: []
+  _v2:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {x: 0, y: 0}
+      - Key: zh-TW
+        Value: {x: 0, y: 0}
+      - Key: en
+        Value: {x: 0, y: 0}
+      - Key: ja
+        Value: {x: 0, y: 0}
+    objects:
+      list: []
+  _v4:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {x: 0, y: 0, z: 0, w: 0}
+      - Key: zh-TW
+        Value: {x: 0, y: 0, z: 0, w: 0}
+      - Key: en
+        Value: {x: 0, y: 0, z: 0, w: 0}
+      - Key: ja
+        Value: {x: 0, y: 0, z: 0, w: 0}
+    objects:
+      list: []
+  _v2i:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {x: 0, y: 0}
+      - Key: zh-TW
+        Value: {x: 0, y: 0}
+      - Key: en
+        Value: {x: 0, y: 0}
+      - Key: ja
+        Value: {x: 0, y: 0}
+    objects:
+      list: []
+  _v3i:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {x: 0, y: 0, z: 0}
+      - Key: zh-TW
+        Value: {x: 0, y: 0, z: 0}
+      - Key: en
+        Value: {x: 0, y: 0, z: 0}
+      - Key: ja
+        Value: {x: 0, y: 0, z: 0}
+    objects:
+      list: []
+  _rect:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: zh-TW
+        Value:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: en
+        Value:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: ja
+        Value:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+    objects:
+      list: []
+  _recti:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: zh-TW
+        Value:
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: en
+        Value:
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+      - Key: ja
+        Value:
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+    objects:
+      list: []
+  _bounds:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+      - Key: zh-TW
+        Value:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+      - Key: en
+        Value:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+      - Key: ja
+        Value:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+    objects:
+      list: []
+  _curve:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      - Key: zh-TW
+        Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      - Key: en
+        Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      - Key: ja
+        Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    objects:
+      list: []
 --- !u!1 &1759332437
 GameObject:
   m_ObjectHideFlags: 0

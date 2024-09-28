@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WooLocalization;
@@ -7,15 +8,28 @@ public class ActorTestEditor : WooLocalization.LocalizationBehaviorEditor<ActorT
 {
 
 }
+[Flags]
+public enum FlagEnum
+{
+    A = 2, B = 4, C = 8, D = 16
+}
+public enum TestEnum
+{
+    A, B, C, D
+}
 public class ActorTest : WooLocalization.LocalizationBehavior
 {
     protected override List<ILocalizationActor> GetActors()
     {
         return new List<ILocalizationActor>() {
-         _string_private, _string,_go,_int,_float,_bool,_double,_long,_color,_v3,_v2,_v4,_v2i,_v3i,_rect,_recti,_bounds,_curve
+     _enum, _enum_flag,   _string_private, _string,_go,_int,_float,_bool,_double,_long,_color,_v3,_v2,_v4,_v2i,_v3i,_rect,_recti,_bounds,_curve
        };
     }
     private ObjectActor<string> _string_private = new ObjectActor<string>(true);
+    public ObjectActor<FlagEnum> _enum_flag = new ObjectActor<FlagEnum>(true);
+
+
+    public ObjectActor<TestEnum> _enum = new ObjectActor<TestEnum>(true);
 
     public ObjectActor<string> _string = new ObjectActor<string>(true);
     public ObjectActor<UnityEngine.GameObject> _go = new ObjectActor<GameObject>(true);
