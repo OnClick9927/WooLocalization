@@ -85,14 +85,21 @@ namespace WooLocalization
                 Rect r = args.GetCellRect(0);
                 r.x += indent;
                 r.width -= indent;
-                GUI.Label(r, key);
+
+                // 获取动态字体样式
+                GUIStyle dynamicStyle = GetDynamicLabelStyle(key, r.width);
+                GUI.Label(r, key, dynamicStyle);
+
                 var lanTypes = context.GetLocalizationTypes();
                 for (int i = 0; lanTypes.Count > i; i++)
                 {
                     var type = lanTypes[i];
-                    GUI.Label(args.GetCellRect(i + 1), context.GetLocalization(type, key));
-                }
+                    string localizationText = context.GetLocalization(type, key);
 
+                    // 获取动态字体样式
+                    GUIStyle localStyle = GetDynamicLabelStyle(localizationText, args.GetCellRect(i + 1).width);
+                    GUI.Label(args.GetCellRect(i + 1), localizationText, localStyle);
+                }
             }
             public override void OnGUI(Rect rect)
             {
@@ -107,6 +114,21 @@ namespace WooLocalization
                 }
                 base.OnGUI(r2);
             }
+            private GUIStyle GetDynamicLabelStyle(string text, float maxWidth)
+            {
+                GUIStyle style = new GUIStyle(GUI.skin.label);
+                float fontSize = style.fontSize;
+
+                // 递减字体大小直到文本适应最大宽度
+                while (style.CalcSize(new GUIContent(text)).x > maxWidth && fontSize > 10) // 最小字体大小设为10
+                {
+                    fontSize--;
+                    style.fontSize = fontSize;
+                }
+
+                return style;
+            }
+
             protected override bool CanMultiSelect(TreeViewItem item)
             {
                 return true;
