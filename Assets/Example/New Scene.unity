@@ -388,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
+  m_text: "\u53D1\u73B0\u65B0\u7248\u672C:V{0}\uFF0C\u8BF7\u524D\u5F80\u5E94\u7528\u5E02\u573A/\u5B98\u7F51\u4E0B\u8F7D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -496,8 +496,9 @@ MonoBehaviour:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_UpdateText
-    formatArgs: []
+    key: Load_UpdateText_4
+    formatArgs:
+    - newArg
   font:
     _enable: 0
     _name: 

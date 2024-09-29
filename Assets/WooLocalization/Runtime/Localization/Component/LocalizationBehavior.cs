@@ -78,7 +78,8 @@ namespace WooLocalization
         protected virtual void Awake()
         {
 #if UNITY_EDITOR
-            context = defaultContext;
+            if (context == null)
+                context = defaultContext;
 #endif
             LoadActors();
         }
