@@ -86,11 +86,11 @@ namespace WooLocalization
 
 
 
-        protected  void OnDisable()
+        protected void OnDisable()
         {
             Localization.RemoveHandler(this);
         }
-        protected   void OnEnable()
+        protected void OnEnable()
         {
             Localization.AddHandler(this);
             Execute();

@@ -4,6 +4,12 @@ using UnityEngine;
 public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
 {
 
+    public TMPro.TextMeshProUGUI text;
+    [ContextMenu("HH")]
+    public void GG()
+    {
+        text.gameObject.AddComponent<LocalizationTMP_Text>();
+    }
 
     public LocalizationData data;
     private void Start()

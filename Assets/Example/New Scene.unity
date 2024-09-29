@@ -347,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &372363573
 RectTransform:
   m_ObjectHideFlags: 0
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5DF2\u4E0B\u8F7D:{0}% {1}MB/{2}MB"
+  m_text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -496,7 +496,7 @@ MonoBehaviour:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_DOWNLOAD_FORMAT
+    key: Load_UpdateText
     formatArgs: []
   font:
     _enable: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u53D1\u73B0\u65B0\u7248\u672C:V{0}\uFF0C\u8BF7\u524D\u5F80\u5E94\u7528\u5E02\u573A/\u5B98\u7F51\u4E0B\u8F7D"
+  m_Text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -622,7 +622,7 @@ MonoBehaviour:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_UpdateText_4
+    key: Load_UpdateText
     formatArgs: []
   font:
     _enable: 0
@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981cca6b95ac6d547a55a29ba8844528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 382205952}
+  text: {fileID: 372363575}
   data: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
 --- !u!4 &1759332439
 Transform:
