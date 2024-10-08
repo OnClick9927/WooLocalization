@@ -25,7 +25,11 @@ namespace WooLocalization
 
             public override Font GetDefault()
             {
+#if UNITY_2023
+                return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+#else
                 return Resources.GetBuiltinResource<Font>("Arial.ttf");
+#endif
             }
 
             protected override void Execute(string localizationType, LocalizationText component)
