@@ -4,7 +4,6 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -39,7 +38,21 @@ namespace WooLocalization
         {
             return keys;
         }
-
+        public void Merge(ILocalizationContext context)
+        {
+            var types = context.GetLocalizationTypes();
+            var keys = context.GetLocalizationKeys();
+            for (var i = 0; i < types.Count; i++)
+            {
+                var type = types[i];
+                for (var j = 0; j < keys.Count; j++)
+                {
+                    var key = keys[j];
+                    var value = context.GetLocalization(type, key);
+                    Add(type, key, value);
+                }
+            }
+        }
         public void Clear()
         {
             map.Clear();
@@ -55,16 +68,20 @@ namespace WooLocalization
         }
         public void Add(string lan, string key, string value)
         {
-            if (!map.ContainsKey(lan))
-                map.Add(lan, new SerializableDictionary<string, string>());
-            map[lan][key] = value;
+            SerializableDictionary<string, string> dic = Add(lan);
+            dic[key] = value;
             if (!keys.Contains(key)) { keys.Add(key); }
         }
 
-        public void Add(string lan)
+        public SerializableDictionary<string,string> Add(string lan)
         {
-            if (!map.ContainsKey(lan))
-                map.Add(lan, new SerializableDictionary<string, string>());
+            SerializableDictionary<string, string> dic;
+            if (!map.TryGetValue(lan, out dic))
+            {
+                dic = new SerializableDictionary<string, string>();
+                map.Add(lan, dic);
+            }
+            return dic;
         }
 
 
@@ -101,6 +118,8 @@ namespace WooLocalization
             }
             return string.Empty;
         }
+
+
     }
 }
 

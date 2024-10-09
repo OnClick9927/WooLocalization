@@ -22,10 +22,7 @@ namespace WooLocalization
             {
             }
 
-            public override Color GetDefault()
-            {
-                return Color.white;
-            }
+
 
             protected override void Execute(string localizationType, LocalizationGraphic component)
             {
@@ -48,10 +45,7 @@ namespace WooLocalization
 
             }
 
-            public override Material GetDefault()
-            {
-                return UnityEngine.UI.Graphic.defaultGraphicMaterial;
-            }
+            protected override Material GetDefault() => UnityEngine.UI.Graphic.defaultGraphicMaterial;
         }
         [NonSerialized] private Graphic _graphic; 
         public Graphic graphic

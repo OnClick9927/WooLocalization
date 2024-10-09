@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22d7c0c6904f474482df62e724ef632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 0}
   color:
     _enable: 1
     _name: 
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46782399ded2e6940b7618d75f33b9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 0}
   color:
     _enable: 0
     _name: 
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fe7808e7abb948b1fd59db1a8e40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   color:
     _enable: 0
     _name: 
@@ -626,11 +626,19 @@ MonoBehaviour:
     key: Load_UpdateText
     formatArgs: []
   font:
-    _enable: 0
+    _enable: 1
     _name: 
     _canRemove: 0
     map:
-      list: []
+      list:
+      - Key: zh-Hans
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: zh-TW
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: en
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: ja
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   fontSize:
     _enable: 0
     _name: 
@@ -969,7 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9804e3d3023ba8742ac770377eb06849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 0}
   _enum_flag:
     _enable: 1
     _name: 
@@ -1472,7 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c789697b478d544a78bc3d664a6397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   prefab:
     _enable: 1
     _name: 
@@ -1511,7 +1519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15040f2d1428a734d95ca4cb77d169d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   objects:
   - _enable: 1
     _name: dssa
@@ -1542,7 +1550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c2348fc5f16d14d80d55dfe72e0f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   objects:
   - _enable: 1
     _name: 333
@@ -1573,7 +1581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eec510d8455f6b4fa743a8154d174da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   objects:
   - _enable: 1
     _name: eqwe

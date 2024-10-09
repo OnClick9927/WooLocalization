@@ -4,13 +4,18 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
-using System.Collections.Generic;
+
 namespace WooLocalization
 {
-    public interface ILocalizationContext
+    [System.Serializable]
+    public class ObjectActor<T> : LocalizationMapActor<LocalizationBehavior, T>
     {
-        string GetLocalization(string localizationType, string key);
-        List<string> GetLocalizationKeys();
-        List<string> GetLocalizationTypes();
+        public ObjectActor(bool enable) : base(enable)
+        {
+        }
+        protected override void Execute(string localizationType, LocalizationBehavior component)
+        {
+
+        }
     }
 }

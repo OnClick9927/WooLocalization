@@ -52,10 +52,7 @@ namespace WooLocalization
                 ((ILocalizationActor)this).Execute();
             }
 
-            public override GameObject GetDefault()
-            {
-                return null;
-            }
+
         }
         public PrefabActor prefab = new PrefabActor(true);
         protected override List<ILocalizationActor> GetActors()

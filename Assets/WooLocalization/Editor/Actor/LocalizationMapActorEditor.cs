@@ -19,9 +19,8 @@ namespace WooLocalization
             for (int i = 0; keys.Count > i; i++)
             {
                 var key = keys[i];
-                if (!map.ContainsKey(key))
+                if (context.AddLocalizationTypeToMap(key))
                 {
-                    map.Add(key, context.GetDefault());
                     SetDirty(component);
                 }
             }
