@@ -127,7 +127,7 @@ namespace WooLocalization
                                 GUIUtility.ExitGUI();
                                 return;
                             }
-                            var keys = data.GetLocalizationKeys();
+                            var keys = component.GetLocalizationKeys();
                             if (keys.Contains(key))
                             {
                                 bool bo = EditorUtility.DisplayDialog("same key exist", $"replace \n key {key} \n" +
@@ -138,10 +138,7 @@ namespace WooLocalization
                                     return;
                                 }
                             }
-
-                            data.Add(lan, key, value);
-                            EditorUtility.SetDirty(data);
-                            AssetDatabase.SaveAssetIfDirty(data);
+                            LocalizationEditorHelper.AddLocalizationPair(data, lan, key, value);
                             context.SetKey(key);
                             SetDirty(component);
 
@@ -165,10 +162,7 @@ namespace WooLocalization
                                 GUIUtility.ExitGUI();
                                 return;
                             }
-
-                            data.Add(lan, key, value);
-                            EditorUtility.SetDirty(data);
-                            AssetDatabase.SaveAssetIfDirty(data);
+                            LocalizationEditorHelper.AddLocalizationPair(data, lan, key, value);
                             context.SetKey(key);
                             SetDirty(component);
                         }

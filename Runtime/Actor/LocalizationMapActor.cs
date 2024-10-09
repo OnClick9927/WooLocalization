@@ -13,15 +13,21 @@ namespace WooLocalization
         protected LocalizationMapActor(bool enable) : base(enable)
         {
         }
-        protected sealed override void BeforeExecute(string localizationType)
+        public bool AddLocalizationTypeToMap(string localizationType)
         {
             Value value;
-            if (!map.TryGetValue(localizationType ,out value))
+            if (!map.TryGetValue(localizationType, out value))
             {
                 map.Add(localizationType, GetDefault());
+                return true;
             }
+            return false;
         }
-        public abstract Value GetDefault();
+        protected sealed override void BeforeExecute(string localizationType)
+        {
+            AddLocalizationTypeToMap(localizationType);
+        }
+        protected virtual Value GetDefault() => default;
         public Value GetValue()
         {
             return GetValue(Localization.GetLocalizationType());

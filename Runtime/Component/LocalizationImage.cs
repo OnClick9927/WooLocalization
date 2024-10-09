@@ -21,10 +21,7 @@ namespace WooLocalization
             {
             }
 
-            public override Sprite GetDefault()
-            {
-                return null;
-            }
+
 
             protected override void Execute(string localizationType, LocalizationImage component)
             {

@@ -31,12 +31,9 @@ namespace WooLocalization
                 var txt = GetComponentText();
                 if (!string.IsNullOrEmpty(txt))
                 {
-                    var contxt = this.behavior.context;
-                    if (contxt != null)
-                    {
-                        var key = contxt.FindKey(Localization.localizationType, txt);
+                    var key = this.behavior.FindKey(Localization.localizationType, txt);
+                    if (!string.IsNullOrEmpty(key))
                         SetKey(key);
-                    }
                 }
             }
         }

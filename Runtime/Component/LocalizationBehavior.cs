@@ -15,26 +15,34 @@ namespace WooLocalization
     [ExecuteAlways]
     public abstract class LocalizationBehavior : MonoBehaviour, ILocalizationEventActor
     {
-        public LocalizationData context;
+        [SerializeField]
+        private LocalizationData _context;
+        public LocalizationData context { get { return _context; } set { _context = value; } }
 
         public static LocalizationData defaultContext;
         public List<string> GetLocalizationTypes()
         {
-            if (context == null)
+            if (_context == null)
                 return Localization.GetLocalizationTypes();
-            return Localization.GetLocalizationTypes(context);
+            return Localization.GetLocalizationTypes(_context);
         }
         public List<string> GetLocalizationKeys()
         {
-            if (context == null)
+            if (_context == null)
                 return Localization.GetLocalizationKeys();
-            return Localization.GetLocalizationKeys(context);
+            return Localization.GetLocalizationKeys(_context);
         }
         public string GetLocalization(string key)
         {
-            if (context == null)
+            if (_context == null)
                 return Localization.GetLocalization(key);
-            return Localization.GetLocalization(context, key);
+            return Localization.GetLocalization(_context, key);
+        }
+        public string GetLocalization(string type, string key)
+        {
+            if (_context == null)
+                return Localization.GetLocalization(type, key);
+            return Localization.GetLocalization(_context, type, key);
         }
         public string GetLocalizationType()
         {
@@ -49,6 +57,16 @@ namespace WooLocalization
             {
                 actors[i].enable = enable;
             }
+        }
+
+        public string FindKey(string type, string value)
+        {
+            if (_context != null)
+            {
+                var key = _context.FindKey(type, value);
+                return key;
+            }
+            return string.Empty;
         }
 
         public List<ILocalizationActor> LoadActors()
@@ -78,8 +96,8 @@ namespace WooLocalization
         protected virtual void Awake()
         {
 #if UNITY_EDITOR
-            if (context == null)
-                context = defaultContext;
+            if (_context == null)
+                _context = defaultContext;
 #endif
             LoadActors();
         }
