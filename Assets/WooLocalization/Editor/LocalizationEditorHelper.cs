@@ -50,6 +50,103 @@ namespace WooLocalization
             static Regex lineReg;
             static Regex fieldReg;
             static Regex quotesReg;
+
+
+            public static Encoding GBK => Encoding.GetEncoding("GBK");
+
+            public static Encoding GuessStreamEncoding(Stream stream)
+            {
+                if (!stream.CanRead)
+                    return null;
+                var br = new BinaryReader(stream);
+                var buffer = br.ReadBytes(3);
+                if (buffer[0] == 0xFE && buffer[1] == 0xFF)//FE FF 254 255  UTF-16 BE (big-endian)
+                    return Encoding.BigEndianUnicode;
+
+                if (buffer[0] == 0xFF && buffer[1] == 0xFE)//FF FE 255 254  UTF-16 LE (little-endian)
+                    return Encoding.Unicode;
+                if (buffer[0] == 0xEF && buffer[1] == 0xBB & buffer[2] == 0xBF)//EF BB BF 239 187 191 UTF-8 
+                    return Encoding.UTF8;//with BOM
+
+                if (IsUtf8WithoutBom(stream))
+                    return Encoding.UTF8;//without BOM
+                if (IsPlainASCII(stream))
+                    return Encoding.ASCII; //默认返回ascii编码
+                return GBK;
+            }
+
+
+            private static bool IsPlainASCII(Stream stream)
+            {
+                bool isAllASCII = true;
+                long totalLength = stream.Length;
+                stream.Seek(0, SeekOrigin.Begin);//重置 position 位置
+                var br = new BinaryReader(stream, Encoding.Default, true);
+                for (long i = 0; i < totalLength; i++)
+                {
+                    byte b = br.ReadByte();
+                    /*
+                     * 原理是
+                     * 0x80     1000 0000
+                     * &
+                     * 0x75 (p) 0111 0101
+                     * ASCII字符都比128小，与运算自然都是0
+                     */
+                    if ((b & 0x80) != 0)// (1000 0000): 值小于0x80的为ASCII字符    
+                    {
+                        isAllASCII = false;
+                        break;
+                    }
+                }
+
+                return isAllASCII;
+            }
+
+            private static bool IsUtf8WithoutBom(Stream stream)
+            {
+                stream.Seek(0, SeekOrigin.Begin);//重置 position 位置
+                bool isAllASCII = true;
+                long totalLength = stream.Length;
+                long nBytes = 0;
+                var br = new BinaryReader(stream, Encoding.Default, true);
+                for (long i = 0; i < totalLength; i++)
+                {
+                    byte b = br.ReadByte();
+                    // (1000 0000): 值小于0x80的为ASCII字符    
+                    // 等同于 if(b < 0x80 )
+                    if ((b & 0x80) != 0) //0x80 128
+                    {
+                        isAllASCII = false;
+                    }
+                    if (nBytes == 0)
+                    {
+                        if (b >= 0x80)
+                        {
+                            if (b >= 0xFC && b <= 0xFD) { nBytes = 6; }//此范围内为6字节UTF-8字符
+                            else if (b >= 0xF8) { nBytes = 5; }// 此范围内为5字节UTF-8字符
+                            else if (b >= 0xF0) { nBytes = 4; }// 此范围内为4字节UTF-8字符    
+                            else if (b >= 0xE0) { nBytes = 3; }// 此范围内为3字节UTF-8字符    
+                            else if (b >= 0xC0) { nBytes = 2; }// 此范围内为2字节UTF-8字符    
+                            else { return false; }
+                            nBytes--;
+                        }
+                    }
+                    else
+                    {
+                        if ((b & 0xC0) != 0x80) { return false; }//0xc0 192  (11000000): 值介于0x80与0xC0之间的为无效UTF-8字符    
+                        nBytes--;
+                    }
+                }
+
+                if (nBytes > 0) return false;
+                if (isAllASCII) return false;
+                return true;
+            }
+
+
+
+
+
             public static void BeginRead(string path)
             {
                 lineReg = new Regex(LocalizationSetting.lineReg);
@@ -57,11 +154,19 @@ namespace WooLocalization
                 quotesReg = new Regex(LocalizationSetting.quotesReg);
                 sbr = new StringBuilder();
                 index = 0;
-                var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                var bytes = new byte[stream.Length];
-                stream.Read(bytes, 0, bytes.Length);
-                stream.Dispose();
-                txt = Encoding.UTF8.GetString(bytes);
+
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    var en = GuessStreamEncoding(stream);
+
+                    stream.Seek(0, SeekOrigin.Begin);
+                    using (StreamReader reader = new StreamReader(stream, en, true))
+                    {
+                        txt = reader.ReadToEnd();
+
+                    }
+                }
+
             }
 
             public static string[] ReadFields()
