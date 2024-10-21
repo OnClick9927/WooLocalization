@@ -196,7 +196,7 @@ namespace WooLocalization
                 {
                     c = (char)txt[index];
                     index++;
-                    if (c == '\n' && sbr.Length > 0 && sbr[sbr.Length - 1] == '\r')
+                    if (c == '\n' && sbr.Length > 0 /*&& sbr[sbr.Length - 1] == '\r'*/)
                     {
                         sbr.Remove(sbr.Length - 1, 1);
                         return sbr.ToString();
