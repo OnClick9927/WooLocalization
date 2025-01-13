@@ -192,13 +192,20 @@ namespace WooLocalization
             {
                 StringBuilder sbr = new StringBuilder();
                 char c;
+                bool inQuotes = false; // 用于标记是否在引号内
+
                 while (txt.Length > index)
                 {
-                    c = (char)txt[index];
+                    c = txt[index];
                     index++;
-                    if (c == '\n' && sbr.Length > 0 /*&& sbr[sbr.Length - 1] == '\r'*/)
+
+                    if (c == '"') // 如果遇到引号，切换 inQuotes 状态
                     {
-                        sbr.Remove(sbr.Length - 1, 1);
+                        inQuotes = !inQuotes;
+                    }
+
+                    if (c == '\n' && !inQuotes) // 如果遇到换行符且不在引号内，返回当前行
+                    {
                         return sbr.ToString();
                     }
                     else
@@ -206,8 +213,29 @@ namespace WooLocalization
                         sbr.Append(c);
                     }
                 }
+
                 return sbr.Length > 0 ? sbr.ToString() : null;
             }
+            //private static string ReadLine(string txt, ref int index)
+            //{
+            //    StringBuilder sbr = new StringBuilder();
+            //    char c;
+            //    while (txt.Length > index)
+            //    {
+            //        c = (char)txt[index];
+            //        index++;
+            //        if (c == '\n' && sbr.Length > 0 /*&& sbr[sbr.Length - 1] == '\r'*/)
+            //        {
+            //            sbr.Remove(sbr.Length - 1, 1);
+            //            return sbr.ToString();
+            //        }
+            //        else
+            //        {
+            //            sbr.Append(c);
+            //        }
+            //    }
+            //    return sbr.Length > 0 ? sbr.ToString() : null;
+            //}
             private static List<string> ParseCsvLine(string line, Regex fieldReg, Regex quotesReg)
             {
                 var fieldMath = fieldReg.Match(line);
