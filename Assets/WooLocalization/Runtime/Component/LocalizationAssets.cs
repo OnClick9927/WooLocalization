@@ -9,17 +9,25 @@ using System.Collections.Generic;
 namespace WooLocalization
 {
 
-    public class LocalizationAssets<T> : LocalizationBehavior
+    public class LocalizationAssets<T> : LocalizationBehavior,IMapActorContext<T>
     {
 
         public List<ObjectActor<T>> objects = new List<ObjectActor<T>>();
         private Dictionary<string, ObjectActor<T>> objectMap = new Dictionary<string, ObjectActor<T>>();
+        public T GetObject(string localizationType, string key)
+        {
+            if (!objectMap.ContainsKey(key)) return default;
+            var actor = objectMap[key];
+            return actor.GetValue(localizationType);
+        }
         public T GetObject(string key)
         {
             if (!objectMap.ContainsKey(key)) return default;
             var actor = objectMap[key];
             return actor.GetValue();
         }
+        public T GetValue(string localizationType, string key) => GetObject(localizationType, key);
+
         protected override void Awake()
         {
             base.Awake();
