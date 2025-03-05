@@ -10,9 +10,9 @@ using UnityEngine;
 
 namespace WooLocalization
 {
-    class LocalizationAssetsEditor<V, T> : LocalizationBehaviorEditor<LocalizationAssets<T>>
-        where V : LocalizationAssets<T>
-        
+    public class LocalizationAssetsEditor<V, T> : LocalizationBehaviorEditor<LocalizationAssets<T>>
+          where V : LocalizationAssets<T>
+
     {
         private string _name = "";
 
