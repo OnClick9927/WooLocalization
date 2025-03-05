@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 335495485}
   - component: {fileID: 335495488}
   - component: {fileID: 335495487}
-  - component: {fileID: 335495486}
+  - component: {fileID: 335495489}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -162,67 +162,6 @@ RectTransform:
   m_AnchoredPosition: {x: -9.9113, y: 176.75146}
   m_SizeDelta: {x: 628.6023, y: 453.5028}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &335495486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335495484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b22d7c0c6904f474482df62e724ef632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _context: {fileID: 0}
-  color:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: CN
-        Value: {r: 1, g: 0, b: 0.05529642, a: 1}
-      - Key: EN
-        Value: {r: 0, g: 0.26829147, b: 1, a: 1}
-      - Key: zh-Hans
-        Value: {r: 1, g: 1, b: 1, a: 1}
-      - Key: zh-TW
-        Value: {r: 1, g: 1, b: 1, a: 1}
-      - Key: en
-        Value: {r: 1, g: 1, b: 1, a: 1}
-      - Key: ja
-        Value: {r: 1, g: 1, b: 1, a: 1}
-  material:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: CN
-        Value: {fileID: 0}
-      - Key: EN
-        Value: {fileID: 0}
-    materials:
-      list: []
-  sprite:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: CN
-        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
-      - Key: EN
-        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
-      - Key: zh-Hans
-        Value: {fileID: 0}
-      - Key: zh-TW
-        Value: {fileID: 0}
-      - Key: en
-        Value: {fileID: 0}
-      - Key: ja
-        Value: {fileID: 0}
 --- !u!114 &335495487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +200,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335495484}
   m_CullTransparentMesh: 1
+--- !u!114 &335495489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335495484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22d7c0c6904f474482df62e724ef632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  color:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+  material:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    materials:
+      list: []
+  sprite:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: en
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+      - Key: zh-Hans
+        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
 --- !u!1 &350485563
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +559,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
+  m_Text: Load_UpdateText
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -633,11 +609,7 @@ MonoBehaviour:
       list:
       - Key: zh-Hans
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-      - Key: zh-TW
-        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       - Key: en
-        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-      - Key: ja
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   fontSize:
     _enable: 0
@@ -977,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9804e3d3023ba8742ac770377eb06849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _context: {fileID: 0}
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   _enum_flag:
     _enable: 1
     _name: 
@@ -985,27 +957,15 @@ MonoBehaviour:
     map:
       list:
       - Key: zh-Hans
-        Value: 2
-      - Key: zh-TW
-        Value: -1
+        Value: 0
       - Key: en
-        Value: 12
-      - Key: ja
-        Value: 2
+        Value: 0
   _enum:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: 2
-      - Key: zh-TW
-        Value: 1
-      - Key: en
-        Value: 0
-      - Key: ja
-        Value: 3
+      list: []
   _string:
     _enable: 1
     _name: 
@@ -1013,41 +973,21 @@ MonoBehaviour:
     map:
       list:
       - Key: zh-Hans
-        Value: asdas
-      - Key: zh-TW
-        Value: dasdas
+        Value: 
       - Key: en
-        Value: fasdf
-      - Key: ja
-        Value: fdsfsd
+        Value: 
   _go:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {fileID: 0}
-      - Key: zh-TW
-        Value: {fileID: 0}
-      - Key: en
-        Value: {fileID: 0}
-      - Key: ja
-        Value: {fileID: 0}
+      list: []
   _int:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: -18
-      - Key: zh-TW
-        Value: 0
-      - Key: en
-        Value: 0
-      - Key: ja
-        Value: 0
+      list: []
   _float:
     _enable: 1
     _name: 
@@ -1055,55 +995,27 @@ MonoBehaviour:
     map:
       list:
       - Key: zh-Hans
-        Value: -0.15
-      - Key: zh-TW
         Value: 0
       - Key: en
-        Value: 0
-      - Key: ja
         Value: 0
   _bool:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: 1
-      - Key: zh-TW
-        Value: 0
-      - Key: en
-        Value: 1
-      - Key: ja
-        Value: 0
+      list: []
   _double:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: 0
-      - Key: zh-TW
-        Value: 0
-      - Key: en
-        Value: 0
-      - Key: ja
-        Value: 0
+      list: []
   _long:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: 0
-      - Key: zh-TW
-        Value: 0
-      - Key: en
-        Value: 0
-      - Key: ja
-        Value: 0
+      list: []
   _color:
     _enable: 1
     _name: 
@@ -1111,169 +1023,57 @@ MonoBehaviour:
     map:
       list:
       - Key: zh-Hans
-        Value: {r: 0.96981126, g: 0.13723731, b: 0.13723731, a: 0}
-      - Key: zh-TW
-        Value: {r: 0.78113204, g: 0.6411178, b: 0.6411178, a: 1}
+        Value: {r: 0, g: 0, b: 0, a: 0}
       - Key: en
-        Value: {r: 0.2404912, g: 0.63204724, b: 0.9169811, a: 0}
-      - Key: ja
-        Value: {r: 0, g: 1, b: 0.24578094, a: 0}
+        Value: {r: 0, g: 0, b: 0, a: 0}
   _v3:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {x: 0, y: 0, z: 0}
-      - Key: zh-TW
-        Value: {x: 0, y: 0, z: 0}
-      - Key: en
-        Value: {x: 0, y: 0, z: 0}
-      - Key: ja
-        Value: {x: 0, y: 0, z: 0}
+      list: []
   _v2:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {x: 0, y: 0}
-      - Key: zh-TW
-        Value: {x: 0, y: 0}
-      - Key: en
-        Value: {x: 0, y: 0}
-      - Key: ja
-        Value: {x: 0, y: 0}
+      list: []
   _v4:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {x: 0, y: 0, z: 0, w: 0}
-      - Key: zh-TW
-        Value: {x: 0, y: 0, z: 0, w: 0}
-      - Key: en
-        Value: {x: 0, y: 0, z: 0, w: 0}
-      - Key: ja
-        Value: {x: 0, y: 0, z: 0, w: 0}
+      list: []
   _v2i:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {x: 0, y: 0}
-      - Key: zh-TW
-        Value: {x: 0, y: 0}
-      - Key: en
-        Value: {x: 0, y: 0}
-      - Key: ja
-        Value: {x: 0, y: 0}
+      list: []
   _v3i:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {x: 0, y: 0, z: 0}
-      - Key: zh-TW
-        Value: {x: 0, y: 0, z: 0}
-      - Key: en
-        Value: {x: 0, y: 0, z: 0}
-      - Key: ja
-        Value: {x: 0, y: 0, z: 0}
+      list: []
   _rect:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: zh-TW
-        Value:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: en
-        Value:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: ja
-        Value:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
+      list: []
   _recti:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value:
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: zh-TW
-        Value:
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: en
-        Value:
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-      - Key: ja
-        Value:
-          x: 0
-          y: 0
-          width: 0
-          height: 0
+      list: []
   _bounds:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value:
-          m_Center: {x: 0, y: 0, z: 0}
-          m_Extent: {x: 0, y: 0, z: 0}
-      - Key: zh-TW
-        Value:
-          m_Center: {x: 0, y: 0, z: 0}
-          m_Extent: {x: 0, y: 0, z: 0}
-      - Key: en
-        Value:
-          m_Center: {x: 0, y: 0, z: 0}
-          m_Extent: {x: 0, y: 0, z: 0}
-      - Key: ja
-        Value:
-          m_Center: {x: 0, y: 0, z: 0}
-          m_Extent: {x: 0, y: 0, z: 0}
+      list: []
   _curve:
     _enable: 1
     _name: 
@@ -1283,100 +1083,14 @@ MonoBehaviour:
       - Key: zh-Hans
         Value:
           serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 1
-            outSlope: 1
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 1
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      - Key: zh-TW
-        Value:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 2
-            outSlope: 2
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
+          m_Curve: []
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
       - Key: en
         Value:
           serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      - Key: ja
-        Value:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 2
-            outSlope: 2
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
+          m_Curve: []
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
@@ -1487,17 +1201,9 @@ MonoBehaviour:
     _canRemove: 0
     map:
       list:
-      - Key: CN
-        Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
-      - Key: EN
-        Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
       - Key: zh-Hans
         Value: {fileID: 0}
-      - Key: zh-TW
-        Value: {fileID: 0}
       - Key: en
-        Value: {fileID: 0}
-      - Key: ja
         Value: {fileID: 0}
 --- !u!222 &2030665760
 CanvasRenderer:
@@ -1526,17 +1232,9 @@ MonoBehaviour:
     _canRemove: 1
     map:
       list:
-      - Key: CN
-        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
-      - Key: EN
-        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
       - Key: zh-Hans
         Value: {fileID: 0}
-      - Key: zh-TW
-        Value: {fileID: 0}
       - Key: en
-        Value: {fileID: 0}
-      - Key: ja
         Value: {fileID: 0}
 --- !u!114 &2030665762
 MonoBehaviour:
@@ -1557,17 +1255,9 @@ MonoBehaviour:
     _canRemove: 1
     map:
       list:
-      - Key: CN
-        Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
-      - Key: EN
-        Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
       - Key: zh-Hans
         Value: {fileID: 0}
-      - Key: zh-TW
-        Value: {fileID: 0}
       - Key: en
-        Value: {fileID: 0}
-      - Key: ja
         Value: {fileID: 0}
 --- !u!114 &2030665763
 MonoBehaviour:
@@ -1590,9 +1280,5 @@ MonoBehaviour:
       list:
       - Key: zh-Hans
         Value: 
-      - Key: zh-TW
-        Value: 
       - Key: en
-        Value: 
-      - Key: ja
         Value: 
