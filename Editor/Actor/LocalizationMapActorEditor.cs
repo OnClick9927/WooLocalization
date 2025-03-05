@@ -5,6 +5,9 @@
  *Date:           2024-04-25
 *********************************************************************************/
 
+using UnityEditor;
+using UnityEngine;
+
 namespace WooLocalization
 {
     public abstract class LocalizationMapActorEditor<Actor, Value, Behavior> : LocalizationActorEditor<Actor>
@@ -14,6 +17,15 @@ namespace WooLocalization
         protected override void OnGUI(LocalizationBehavior component, Actor context)
         {
             if (component.context == null) return;
+            GUI.enabled = false;
+            EditorGUILayout.EnumPopup(nameof(context.mode), context.mode);
+            if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
+            {
+                EditorGUILayout.TextField(nameof(context.key), context.key);
+                EditorGUILayout.TextField(nameof(context.CustomContextType), context.CustomContextType);
+            }
+
+            GUI.enabled = true;
             var keys = component.GetLocalizationTypes();
             var map = context.map;
             for (int i = 0; keys.Count > i; i++)
@@ -24,10 +36,13 @@ namespace WooLocalization
                     SetDirty(component);
                 }
             }
+            if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
+                return;
             for (int i = 0; i < keys.Count; i++)
             {
                 var lan = keys[i];
                 var src = map[lan];
+
                 var tmp = Draw(lan, src);
                 bool change = false;
                 if (src == null)
