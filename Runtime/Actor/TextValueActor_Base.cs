@@ -23,7 +23,7 @@ namespace WooLocalization
         protected abstract string GetComponentText();
         protected abstract void SetComponentText(string value);
 
-        protected sealed override void OnAddComponent()
+        protected sealed override void OnEditorLoad()
         {
             if (string.IsNullOrEmpty(key))
             {

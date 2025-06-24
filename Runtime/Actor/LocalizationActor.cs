@@ -83,13 +83,10 @@ namespace WooLocalization
             BeforeExecute(localizationType);
             Execute(localizationType, behavior);
         }
-        protected virtual void OnAddComponent()
-        {
-            
-        }
+        protected virtual void OnEditorLoad() { }
         protected abstract void Execute(string localizationType, T component);
-        protected virtual void BeforeExecute(string localizationType) { }
+        internal virtual void BeforeExecute(string localizationType) { }
 
-        void ILocalizationActor.OnAddComponent() => OnAddComponent();
+        void ILocalizationActor.OnEditorLoad() => OnEditorLoad();
     }
 }

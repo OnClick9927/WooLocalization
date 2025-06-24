@@ -6,7 +6,7 @@ using System.Collections;
 namespace WooLocalization
 {
     [Serializable]
-    public class SerializableDictionary<TKey, TValue> :
+    internal class SerializableDictionary<TKey, TValue> :
         
         ISerializationCallbackReceiver,
         IDictionary<TKey, TValue>

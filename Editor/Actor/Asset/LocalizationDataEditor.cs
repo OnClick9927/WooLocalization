@@ -15,14 +15,19 @@ using static UnityEditor.IMGUI.Controls.MultiColumnHeaderState;
 namespace WooLocalization
 {
 
+
     [CustomEditor(typeof(LocalizationData))]
     class LocalizationDataEditor : Editor
     {
         private class Tree : TreeView
         {
             private SearchField search = new SearchField();
-            public Tree(TreeViewState state) : base(state)
+            private LocalizationData context => parent.context;
+            private LocalizationDataEditor parent;
+
+            public Tree(TreeViewState state, LocalizationDataEditor parent) : base(state)
             {
+                this.parent = parent;
                 this.showBorder = true;
                 this.showAlternatingRowBackgrounds = true;
                 Reload();
@@ -152,6 +157,9 @@ namespace WooLocalization
                 GenericMenu menu = new GenericMenu();
 
                 var lanTypes = context.GetLocalizationTypes();
+
+
+
                 for (int i = 0; i < lanTypes.Count; i++)
                 {
                     var type = lanTypes[i];
@@ -172,7 +180,7 @@ namespace WooLocalization
 
                         menu.AddItem(new GUIContent($"Translate/{src}To{dst}"), false, () =>
                         {
-                            LocalizationEditorHelper.Translate(context, context.GetLocalizationKeys(), src, dst);
+                            LocalizationEditorHelper.Translate(context, context.GetLocalizationKeys(), src, dst).Wait();
 
                         });
                     }
@@ -183,6 +191,25 @@ namespace WooLocalization
                 {
                     var keys = select.Select(x => _rows.Find(y => y.id == x).displayName).ToList();
 
+                    if (select.Count == 1)
+                    {
+                        var key = keys.First();
+                        menu.AddItem(new GUIContent("CopySelect/Key"), false, () =>
+                        {
+                            GUIUtility.systemCopyBuffer = key;
+                        });
+                        for (int i = 0; lanTypes.Count > i; i++)
+                        {
+                            var type = lanTypes[i];
+                            menu.AddItem(new GUIContent($"CopySelect/{type}"), false, () =>
+                            {
+
+                                GUIUtility.systemCopyBuffer = context.GetLocalization(type, key);
+                            });
+
+
+                        }
+                    }
 
                     for (int i = 0; lanTypes.Count > i; i++)
                     {
@@ -207,54 +234,55 @@ namespace WooLocalization
 
                     });
                 }
+
                 menu.ShowAsContext();
             }
         }
         private Tree tree;
         private TreeViewState state = new TreeViewState();
-        private static LocalizationData context;
+        private LocalizationData context;
         private void OnEnable()
         {
             context = target as LocalizationData;
-            tree = new Tree(state);
+            tree = new Tree(state, this);
         }
         private string LanType = "";
         private string Key = "";
         private string VAL = "";
 
-        private static void WriteCSV()
+        void WriteCSV()
         {
             var path = EditorUtility.SaveFilePanel("Save CSV",
-                LocalizationEditorUserData.lastCSVPath, $"{context.name}.csv",
+                LocalizationSetting.lastCSVPath, $"{context.name}.csv",
                 "csv");
             if (string.IsNullOrEmpty(path)) return;
-            LocalizationEditorUserData.lastCSVPath = path;
+            LocalizationSetting.lastCSVPath = path;
             LocalizationEditorHelper.WriteCSV(path, context);
         }
 
-        private static void ReadCSV()
+        void ReadCSV()
         {
-            var path = EditorUtility.OpenFilePanelWithFilters("Select CSV", LocalizationEditorUserData.lastCSVPath, new string[] { "CSV", "csv" });
+            var path = EditorUtility.OpenFilePanelWithFilters("Select CSV", LocalizationSetting.lastCSVPath, new string[] { "CSV", "csv" });
             if (string.IsNullOrEmpty(path)) return;
-            LocalizationEditorUserData.lastCSVPath = Path.GetDirectoryName(path);
+            LocalizationSetting.lastCSVPath = Path.GetDirectoryName(path);
             LocalizationEditorHelper.ReadCSV(path, context);
         }
-        private static void ReadLocalizationData()
-        {
 
-            var path = EditorUtility.OpenFilePanelWithFilters("Select LocalizationData", LocalizationEditorUserData.lastLocalizationDataPath, new string[] { "LocalizationData", "asset" });
-            if (string.IsNullOrEmpty(path)) return;
-            path = LocalizationEditorHelper.ToAssetsPath(path);
-            var src = AssetDatabase.LoadAssetAtPath<LocalizationData>(path);
-            if (src == null) return;
-            LocalizationEditorUserData.lastLocalizationDataPath = path;
-            LocalizationEditorHelper.ReadLocalizationData(src, context);
-        }
 
 
 
         public override void OnInspectorGUI()
         {
+            if (Event.current?.commandName == "ObjectSelectorClosed")
+            {
+                var selectObj = EditorGUIUtility.GetObjectPickerObject();
+                var other = EditorGUIUtility.GetObjectPickerObject() as LocalizationData;
+                if (other != null && other != context)
+                {
+                    LocalizationEditorHelper.ReadContext(other, context);
+                    tree.Reload();
+                }
+            }
             if (GUILayout.Button("Clear Data"))
             {
                 LocalizationEditorHelper.ClearContext(context);
@@ -262,8 +290,10 @@ namespace WooLocalization
             }
             if (GUILayout.Button("Read From Asset"))
             {
-                ReadLocalizationData();
-                tree.Reload();
+                var control = EditorGUIUtility.GetControlID(FocusType.Passive);
+                EditorGUIUtility.ShowObjectPicker<LocalizationData>(null, false, "", control);
+                GUIUtility.ExitGUI();
+
             }
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Read From CSV"))
@@ -284,7 +314,7 @@ namespace WooLocalization
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
             GUILayout.BeginHorizontal();
-            LanType = EditorGUILayout.TextField("LanType", LanType);
+            LanType = EditorGUILayout.TextField("Language", LanType);
             if (GUILayout.Button("+", GUILayout.Width(20)))
             {
                 LocalizationEditorHelper.AddLocalizationType(context, LanType);

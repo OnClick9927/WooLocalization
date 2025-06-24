@@ -15,6 +15,7 @@ namespace WooLocalization
             var comp = tmp.GetComponent<WooLocalization.LocalizationText>();
             if (comp == null)
                 comp = tmp.gameObject.AddComponent<WooLocalization.LocalizationText>();
+            comp.LoadActors();
             comp.text.formatArgs = args;
             comp.text.SetKey(key);
         }

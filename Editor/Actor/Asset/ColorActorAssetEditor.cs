@@ -4,19 +4,18 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
-using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace WooLocalization
 {
-    [LocalizationActorEditorAttribute]
-
-    class ObjectActorEditor<V> : LocalizationMapActorEditor<ObjectActor<V>, V, LocalizationBehavior>
+    [CustomEditor(typeof(ColorActorAsset))]
+    class ColorActorAssetEditor : ActorAssetEditor<Color, ColorActorAsset>
     {
-        protected override Type GetAssetType() => typeof(ActorAsset<V>);
-        protected override bool NeedExecute()
-        {
-            return false;
-        }
 
+        protected override Color DrawField(Rect pos, Color src)
+        {
+            return EditorGUI.ColorField(pos, src);
+        }
     }
 }

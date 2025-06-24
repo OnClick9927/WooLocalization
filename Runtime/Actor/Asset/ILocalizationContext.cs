@@ -6,8 +6,8 @@
 *********************************************************************************/
 namespace WooLocalization
 {
-    public interface IMapActorContext<Value>
+    public interface ILocalizationContext: IActorContext<string>
     {
-        Value GetValue(string localizationType, string key);
+        void Merge(ILocalizationContext context);
     }
 }

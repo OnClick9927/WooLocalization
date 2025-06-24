@@ -33,8 +33,6 @@ namespace WooLocalization
         [System.Serializable]
         public class GraphicMaterialActor : LocalizationMapActor<LocalizationGraphic, Material>
         {
-            public SerializableDictionary<string, Material> materials = new SerializableDictionary<string, Material>();
-
             public GraphicMaterialActor(bool enable) : base(enable)
             {
             }

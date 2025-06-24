@@ -5,14 +5,13 @@
  *Date:           2024-04-25
 *********************************************************************************/
 using System.Collections.Generic;
+
 namespace WooLocalization
 {
-    public interface ILocalizationContext
+    public interface IActorContext<Value>
     {
-        string GetLocalization(string localizationType, string key);
+        Value GetLocalization(string localizationType, string key);
         List<string> GetLocalizationKeys();
         List<string> GetLocalizationTypes();
-
-        void Merge(ILocalizationContext context);
     }
 }

@@ -4,6 +4,7 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WooLocalization
@@ -12,11 +13,11 @@ namespace WooLocalization
     public abstract class LocalizationMapActor<Behavior, Value> : LocalizationActor<Behavior> where Behavior : LocalizationBehavior
     {
         [System.Serializable]
-        public class MapContext : IMapActorContext<Value>
+        class MapContext : IActorContext<Value>
         {
             internal SerializableDictionary<string, Value> map => actor.map;
             internal LocalizationMapActor<Behavior, Value> actor;
-            public Value GetValue(string localizationType, string key)
+            Value IActorContext<Value>.GetLocalization(string localizationType, string key)
             {
                 Value v;
                 map.TryGetValue(localizationType, out v);
@@ -33,39 +34,65 @@ namespace WooLocalization
                 }
                 return false;
             }
+
+            List<string> IActorContext<Value>.GetLocalizationKeys() => null;
+
+            List<string> IActorContext<Value>.GetLocalizationTypes() => actor.behavior.GetLocalizationTypes();
         }
         public enum Mode
         {
-            Default, Custom
+            Default, Custom, asset
         }
-        public SerializableDictionary<string, Value> map = new SerializableDictionary<string, Value>();
-        public Mode mode { get; private set; }
-        public string key { get; private set; }
+        [SerializeField]
+        internal SerializableDictionary<string, Value> map = new SerializableDictionary<string, Value>();
+
+        [SerializeField]
+        private Mode _mode;
+        public Mode mode => _mode;
+
+        internal void SetMode(Mode mode) => this._mode = mode;
+        [SerializeField]
+        private string _key;
+        public string key => _key;
 
 
         [SerializeField] private MapContext context = new MapContext();
-        private IMapActorContext<Value> customContext;
+        [SerializeField]
+        internal ActorAsset<Value> asset;
+        private IActorContext<Value> customContext;
         public string CustomContextType { get; private set; }
-        public void SetCustomContext(IMapActorContext<Value> context, string key)
+
+        public void SetKey(string key)
+        {
+            this._key = key;
+            ((ILocalizationActor)this).enable = true;
+            ((ILocalizationActor)this).Execute();
+        }
+
+        public void SetContext(IActorContext<Value> context)
         {
             customContext = context;
             if (context != null)
             {
                 CustomContextType = context.GetType().Name;
-                mode = Mode.Custom;
-                this.key = key;
+                _mode = Mode.Custom;
+                if (context is UnityEngine.ScriptableObject obj)
+                {
+                    _mode = Mode.asset;
+                    asset = customContext as ActorAsset<Value>;
+                }
             }
         }
         protected LocalizationMapActor(bool enable) : base(enable)
         {
             context.actor = this;
         }
-        protected override void OnAddComponent()
+        protected override void OnEditorLoad()
         {
             context.actor = this;
-            base.OnAddComponent();
+            base.OnEditorLoad();
         }
-        public bool AddLocalizationTypeToMap(string localizationType)
+        internal bool AddLocalizationTypeToMap(string localizationType)
         {
 #if UNITY_EDITOR
             if (Application.isPlaying)
@@ -74,7 +101,7 @@ namespace WooLocalization
 #endif
             return false;
         }
-        protected sealed override void BeforeExecute(string localizationType)
+        internal sealed override void BeforeExecute(string localizationType)
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
@@ -82,15 +109,16 @@ namespace WooLocalization
 #endif
         }
         protected virtual Value GetDefault() => default;
-        public Value GetValue()
-        {
-            return GetValue(Localization.GetLocalizationType());
-        }
+        public Value GetValue() => GetValue(Localization.GetLocalizationType());
         public Value GetValue(string localizationType)
         {
-            if (mode == Mode.Custom)
-                return customContext.GetValue(localizationType, key);
-            return context.GetValue(localizationType, key);
+            if (mode == Mode.Custom && customContext != null)
+                return customContext.GetLocalization(localizationType, key);
+            if (mode == Mode.asset && asset != null)
+                return asset.GetLocalization(localizationType, key);
+            return ((IActorContext<Value>)context).GetLocalization(localizationType, key);
         }
+
+
     }
 }
