@@ -21,11 +21,15 @@ public class ActorTest : WooLocalization.LocalizationBehavior
 {
     protected override List<ILocalizationActor> GetActors()
     {
+        _string_private.SetName("_string_private");
         return new List<ILocalizationActor>() {
      _enum, _enum_flag,   _string_private, _string,_go,_int,_float,_bool,_double,_long,_color,_v3,_v2,_v4,_v2i,_v3i,_rect,_recti,_bounds,_curve
        };
     }
-    private ObjectActor<string> _string_private = new ObjectActor<string>(true);
+    [SerializeField]
+    private ObjectActor<string> _string_private = new ObjectActor<string>(true) { 
+  
+    };
     public ObjectActor<FlagEnum> _enum_flag = new ObjectActor<FlagEnum>(true);
 
 
