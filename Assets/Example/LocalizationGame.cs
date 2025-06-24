@@ -8,14 +8,15 @@ public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
     [ContextMenu("HH")]
     public void GG()
     {
-        text.gameObject.AddComponent<LocalizationTMP_Text>();
-    }
+        text.SetLocalization("Load_Tip_Text");
 
+    }
     public LocalizationData data;
     private void Start()
     {
         Localization.SetContext(data);
         Localization.SetRecorder(this);
+        GG();
     }
 
     private void OnGUI()

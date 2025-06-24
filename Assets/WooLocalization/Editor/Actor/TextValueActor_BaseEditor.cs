@@ -107,7 +107,7 @@ namespace WooLocalization
                         var rect = EditorGUILayout.GetControlRect();
                         GUILayout.BeginHorizontal();
                         rect = EditorGUI.PrefixLabel(rect, new GUIContent("Key"));
-                        var index = AdvancedPopup(rect,_index, keys.ToArray(), 350, EditorStyles.miniPullDown);
+                        var index = LocalizationEditorHelper.AdvancedPopup(rect, _index, keys.ToArray(), 350, EditorStyles.miniPullDown);
                         GUILayout.EndHorizontal();
                         if (index >= keys.Count || index == -1)
                             index = 0;
@@ -204,58 +204,6 @@ namespace WooLocalization
 
 
 
-        private static Type winType;
-        static MethodInfo _AdvancedPopup, _AdvancedPopup_layout;
-        public static int AdvancedPopup(Rect rect, int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style)
-        {
-            if (_AdvancedPopup == null)
-            {
-                _AdvancedPopup = typeof(EditorGUI).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
-                 typeof(Rect),   typeof(int),typeof(string[]),typeof(GUIStyle)
-                }, null);
-            }
-            if (winType == null)
-                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
-            var find = Resources.FindObjectsOfTypeAll(winType);
-            if (find != null && find.Length != 0)
-            {
-                var win = (find[0] as EditorWindow);
-                var pos = win.position;
-                win.minSize = new Vector2(win.minSize.x, minHeight);
-            }
-            var value = _AdvancedPopup.Invoke(null, new object[]
-                {
-                       rect, selectedIndex,displayedOptions,style
-                });
-            return (int)value;
 
-        }
-        public static int AdvancedPopup(int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style, params GUILayoutOption[] options)
-        {
-            if (_AdvancedPopup_layout == null)
-            {
-                _AdvancedPopup_layout = typeof(EditorGUILayout).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
-                    typeof(int),typeof(string[]),typeof(GUIStyle),typeof(GUILayoutOption[])
-                }, null);
-
-
-            }
-
-            var value = _AdvancedPopup_layout.Invoke(null, new object[]
-                  {
-                        selectedIndex,displayedOptions,style,options
-                  });
-            if (winType == null)
-                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
-
-            var find = Resources.FindObjectsOfTypeAll(winType);
-            if (find != null && find.Length != 0)
-            {
-                var win = (find[0] as EditorWindow);
-                var pos = win.position;
-                win.minSize = new Vector2(win.minSize.x, minHeight);
-            }
-            return (int)value;
-        }
     }
 }

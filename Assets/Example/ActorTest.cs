@@ -48,5 +48,8 @@ public class ActorTest : WooLocalization.LocalizationBehavior
     public ObjectActor<UnityEngine.RectInt> _recti = new ObjectActor<RectInt>(true);
     public ObjectActor<UnityEngine.Bounds> _bounds = new ObjectActor<Bounds>(true);
     public ObjectActor<UnityEngine.AnimationCurve> _curve = new ObjectActor<AnimationCurve>(true);
+    public ObjectActor<UnityEngine.Gradient> _gradient = new ObjectActor<Gradient>(true);
+
+
 
 }

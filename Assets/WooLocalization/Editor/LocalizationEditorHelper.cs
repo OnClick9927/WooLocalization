@@ -9,11 +9,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace WooLocalization
@@ -315,18 +317,79 @@ namespace WooLocalization
             }
 
         }
+        private static Type winType;
+        static MethodInfo _AdvancedPopup, _AdvancedPopup_layout;
+        public static int AdvancedPopup(Rect rect, int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style)
+        {
+            if (_AdvancedPopup == null)
+            {
+                _AdvancedPopup = typeof(EditorGUI).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
+                 typeof(Rect),   typeof(int),typeof(string[]),typeof(GUIStyle)
+                }, null);
+            }
+            if (winType == null)
+                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
+            var find = Resources.FindObjectsOfTypeAll(winType);
+            if (find != null && find.Length != 0)
+            {
+                var win = (find[0] as EditorWindow);
+                var pos = win.position;
+                win.minSize = new Vector2(win.minSize.x, minHeight);
+            }
+            var value = _AdvancedPopup.Invoke(null, new object[]
+                {
+                       rect, selectedIndex,displayedOptions,style
+                });
+            return (int)value;
 
-        public static V DrawObject<V>(string lan, V value)
+        }
+        public static int AdvancedPopup(int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style, params GUILayoutOption[] options)
+        {
+            if (_AdvancedPopup_layout == null)
+            {
+                _AdvancedPopup_layout = typeof(EditorGUILayout).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
+                    typeof(int),typeof(string[]),typeof(GUIStyle),typeof(GUILayoutOption[])
+                }, null);
+
+
+            }
+
+            var value = _AdvancedPopup_layout.Invoke(null, new object[]
+                  {
+                        selectedIndex,displayedOptions,style,options
+                  });
+            if (winType == null)
+                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
+
+            var find = Resources.FindObjectsOfTypeAll(winType);
+            if (find != null && find.Length != 0)
+            {
+                var win = (find[0] as EditorWindow);
+                var pos = win.position;
+                win.minSize = new Vector2(win.minSize.x, minHeight);
+            }
+            return (int)value;
+        }
+        public static V DrawObject<V>(string label, V value)
         {
             if (typeof(UnityEngine.Object).IsAssignableFrom(typeof(V)))
-                return (V)(object)EditorGUILayout.ObjectField(lan, (UnityEngine.Object)(object)value, typeof(V), false);
+            {
+                UnityEngine.Object src = null;
+
+                if (value != null)
+                    src = (UnityEngine.Object)(object)value;
+                var result = EditorGUILayout.ObjectField(label, src, typeof(V), false);
+                if (result != null)
+                    return (V)(object)result;
+                return default;
+            }
             if (typeof(V).IsEnum)
             {
 
                 if (typeof(V).IsDefined(typeof(System.FlagsAttribute), false))
-                    return (V)(object)EditorGUILayout.EnumFlagsField(lan, (Enum)(object)value);
+                    return (V)(object)EditorGUILayout.EnumFlagsField(label, (Enum)(object)value);
                 else
-                    return (V)(object)EditorGUILayout.EnumPopup(lan, (Enum)(object)value);
+                    return (V)(object)EditorGUILayout.EnumPopup(label, (Enum)(object)value);
             }
 
 
@@ -336,51 +399,56 @@ namespace WooLocalization
                 if (value != null)
                     src = (string)(object)value;
                 GUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(lan, GUILayout.Width(100));
+                EditorGUILayout.LabelField(label, GUILayout.Width(100));
                 string tmp = EditorGUILayout.TextArea(src, GUILayout.MinHeight(40));
                 GUILayout.EndHorizontal();
                 return (V)(object)tmp;
             }
             else if (typeof(V) == typeof(int))
-                return (V)(object)EditorGUILayout.IntField(lan, (int)(object)value);
+                return (V)(object)EditorGUILayout.IntField(label, (int)(object)value);
             else if (typeof(V) == typeof(float))
-                return (V)(object)EditorGUILayout.FloatField(lan, (float)(object)value);
+                return (V)(object)EditorGUILayout.FloatField(label, (float)(object)value);
             else if (typeof(V) == typeof(bool))
-                return (V)(object)EditorGUILayout.Toggle(lan, (bool)(object)value);
+                return (V)(object)EditorGUILayout.Toggle(label, (bool)(object)value);
             else if (typeof(V) == typeof(double))
-                return (V)(object)EditorGUILayout.DoubleField(lan, (double)(object)value);
+                return (V)(object)EditorGUILayout.DoubleField(label, (double)(object)value);
             else if (typeof(V) == typeof(long))
-                return (V)(object)EditorGUILayout.LongField(lan, (long)(object)value);
+                return (V)(object)EditorGUILayout.LongField(label, (long)(object)value);
             else if (typeof(V) == typeof(Color))
-                return (V)(object)EditorGUILayout.ColorField(lan, (Color)(object)value);
+                return (V)(object)EditorGUILayout.ColorField(label, (Color)(object)value);
             else if (typeof(V) == typeof(Vector3))
-                return (V)(object)EditorGUILayout.Vector3Field(lan, (Vector3)(object)value);
+                return (V)(object)EditorGUILayout.Vector3Field(label, (Vector3)(object)value);
             else if (typeof(V) == typeof(Vector2))
-                return (V)(object)EditorGUILayout.Vector2Field(lan, (Vector2)(object)value);
+                return (V)(object)EditorGUILayout.Vector2Field(label, (Vector2)(object)value);
             else if (typeof(V) == typeof(Vector4))
-                return (V)(object)EditorGUILayout.Vector4Field(lan, (Vector4)(object)value);
+                return (V)(object)EditorGUILayout.Vector4Field(label, (Vector4)(object)value);
             else if (typeof(V) == typeof(Vector2Int))
-                return (V)(object)EditorGUILayout.Vector2IntField(lan, (Vector2Int)(object)value);
+                return (V)(object)EditorGUILayout.Vector2IntField(label, (Vector2Int)(object)value);
             else if (typeof(V) == typeof(Vector3Int))
-                return (V)(object)EditorGUILayout.Vector3IntField(lan, (Vector3Int)(object)value);
+                return (V)(object)EditorGUILayout.Vector3IntField(label, (Vector3Int)(object)value);
             else if (typeof(V) == typeof(Rect))
-                return (V)(object)EditorGUILayout.RectField(lan, (Rect)(object)value);
+                return (V)(object)EditorGUILayout.RectField(label, (Rect)(object)value);
             else if (typeof(V) == typeof(RectInt))
-                return (V)(object)EditorGUILayout.RectIntField(lan, (RectInt)(object)value);
+                return (V)(object)EditorGUILayout.RectIntField(label, (RectInt)(object)value);
             else if (typeof(V) == typeof(Bounds))
-                return (V)(object)EditorGUILayout.BoundsField(lan, (Bounds)(object)value);
+                return (V)(object)EditorGUILayout.BoundsField(label, (Bounds)(object)value);
             else if (typeof(V) == typeof(AnimationCurve))
             {
                 AnimationCurve src = (AnimationCurve)(object)value;
                 if (src == null) src = new AnimationCurve();
-                return (V)(object)EditorGUILayout.CurveField(lan, src);
+                return (V)(object)EditorGUILayout.CurveField(label, src);
             }
-
+            else if (typeof(V) == typeof(Gradient))
+            {
+                Gradient src = (Gradient)(object)value;
+                if (src == null) src = new Gradient();
+                return (V)(object)EditorGUILayout.GradientField(label, src);
+            }
 
             return default;
         }
 
-        public static void SaveContext(LocalizationData context)
+        private static void SaveContext(ScriptableObject context)
         {
             EditorUtility.SetDirty(context);
             AssetDatabase.SaveAssetIfDirty(context);
@@ -453,7 +521,7 @@ namespace WooLocalization
         }
 
 
-        public static void ClearContext(LocalizationData context)
+        public static void ClearContext<T>(ActorAsset<T> context)
         {
             context.Clear();
             SaveContext(context);
@@ -463,7 +531,7 @@ namespace WooLocalization
             string assetRootPath = Path.GetFullPath(Application.dataPath);
             return "Assets" + Path.GetFullPath(self).Substring(assetRootPath.Length).Replace("\\", "/");
         }
-        public static void ReadLocalizationData(LocalizationData src, LocalizationData context)
+        public static void ReadContext<T>(ActorAsset<T> src, ActorAsset<T> target)
         {
             if (src == null) return;
             var types = src.GetLocalizationTypes();
@@ -473,10 +541,10 @@ namespace WooLocalization
                 foreach (var type in types)
                 {
                     var value = src.GetLocalization(type, key);
-                    context.Add(type, key, value);
+                    target.Add(type, key, value);
                 }
             }
-            SaveContext(context);
+            SaveContext(target);
         }
 
         public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
@@ -503,7 +571,7 @@ namespace WooLocalization
             };
         }
 
-        public static void DeleteKeys(LocalizationData context, List<string> keys)
+        public static void DeleteKeys<T>(ActorAsset<T> context, List<string> keys)
         {
             context.ClearKeys(keys);
 
@@ -524,7 +592,7 @@ namespace WooLocalization
             SaveContext(context);
 
         }
-        public static void AddLocalizationPair(LocalizationData context, string type, string key, string val)
+        public static void AddLocalizationPair<T>(ActorAsset<T> context, string type, string key, T val)
         {
             context.Add(type, key, val);
             SaveContext(context);

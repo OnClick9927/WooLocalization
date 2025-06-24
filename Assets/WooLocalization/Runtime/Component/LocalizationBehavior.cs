@@ -5,7 +5,6 @@
  *Date:           2024-04-25
 *********************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,6 +70,7 @@ namespace WooLocalization
 
         public List<ILocalizationActor> LoadActors()
         {
+            if (actors != null) return actors;
             actors = GetActors();
 
             for (int i = 0; i < actors.Count; i++)
@@ -79,19 +79,16 @@ namespace WooLocalization
                 actor.SetBehavior(this);
             }
 #if UNITY_EDITOR
-            OnAddComponent();
+            if (!Application.isPlaying)
+                for (int i = 0; i < actors.Count; i++)
+                {
+                    var actor = actors[i];
+                    actor.OnEditorLoad();
+                }
 #endif
             return actors;
         }
 
-        private void OnAddComponent()
-        {
-            for (int i = 0; i < actors.Count; i++)
-            {
-                var actor = actors[i];
-                actor.OnAddComponent();
-            }
-        }
 
         protected virtual void Awake()
         {

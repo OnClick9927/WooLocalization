@@ -218,29 +218,32 @@ MonoBehaviour:
     _name: 
     _canRemove: 0
     map:
-      list:
-      - Key: en
-        Value: {r: 0, g: 0, b: 0, a: 0}
-      - Key: zh-Hans
-        Value: {r: 0, g: 0, b: 0, a: 0}
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   material:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
-    materials:
-      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   sprite:
     _enable: 1
     _name: 
     _canRemove: 0
     map:
       list:
-      - Key: en
-        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
       - Key: zh-Hans
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+      - Key: en
         Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+    _mode: 0
+    _key: 2
+    asset: {fileID: 11400000, guid: 94d31239d453c0742bfe1a47bc098a7f, type: 2}
 --- !u!1 &350485563
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +344,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1472333950}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -368,7 +371,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u53D1\u73B0\u65B0\u7248\u672C:V{0}\uFF0C\u8BF7\u524D\u5F80\u5E94\u7528\u5E02\u573A/\u5B98\u7F51\u4E0B\u8F7D"
+  m_text: Load_GameTip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -464,33 +467,42 @@ MonoBehaviour:
     _canRemove: 0
     map:
       list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   material:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
-    materials:
-      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   text:
     _enable: 1
     _name: 
     _canRemove: 0
-    key: Load_UpdateText_4
-    formatArgs:
-    - newArg
+    key: Load_GameTip
+    formatArgs: []
   font:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   fontSize:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
 --- !u!1 &382205949
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +575,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Load_UpdateText
+  m_Text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -591,14 +603,18 @@ MonoBehaviour:
     _canRemove: 0
     map:
       list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   material:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
-    materials:
-      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   text:
     _enable: 1
     _name: 
@@ -615,12 +631,18 @@ MonoBehaviour:
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       - Key: en
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
   fontSize:
     _enable: 0
     _name: 
     _canRemove: 0
     map:
       list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
 --- !u!1 &721698454
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,9 +770,7 @@ RectTransform:
   m_Children:
   - {fileID: 335495485}
   - {fileID: 382205950}
-  - {fileID: 2030665757}
   - {fileID: 372363573}
-  - {fileID: 1587629839}
   m_Father: {fileID: 1759332439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -904,200 +924,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1587629838
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1587629839}
-  - component: {fileID: 1587629840}
-  m_Layer: 5
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1587629839
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587629838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1472333950}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1587629840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587629838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9804e3d3023ba8742ac770377eb06849, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  _enum_flag:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: zh-Hans
-        Value: 0
-      - Key: en
-        Value: 0
-  _enum:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _string:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: zh-Hans
-        Value: 
-      - Key: en
-        Value: 
-  _go:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _int:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _float:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: zh-Hans
-        Value: 0
-      - Key: en
-        Value: 0
-  _bool:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _double:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _long:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _color:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: zh-Hans
-        Value: {r: 0, g: 0, b: 0, a: 0}
-      - Key: en
-        Value: {r: 0, g: 0, b: 0, a: 0}
-  _v3:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _v2:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _v4:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _v2i:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _v3i:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _rect:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _recti:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _bounds:
-    _enable: 0
-    _name: 
-    _canRemove: 0
-    map:
-      list: []
-  _curve:
-    _enable: 1
-    _name: 
-    _canRemove: 0
-    map:
-      list:
-      - Key: zh-Hans
-        Value:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      - Key: en
-        Value:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
 --- !u!1 &1759332437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +934,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1759332439}
   - component: {fileID: 1759332438}
+  - component: {fileID: 1759332440}
+  - component: {fileID: 1759332441}
   m_Layer: 0
   m_Name: logic
   m_TagString: Untagged
@@ -1145,54 +973,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2030665756
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2030665757}
-  - component: {fileID: 2030665760}
-  - component: {fileID: 2030665758}
-  - component: {fileID: 2030665762}
-  - component: {fileID: 2030665761}
-  - component: {fileID: 2030665763}
-  m_Layer: 5
-  m_Name: misc
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2030665757
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1472333950}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.9113, y: -271}
-  m_SizeDelta: {x: 430.99, y: 403.9464}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2030665758
+--- !u!114 &1759332440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
+  m_GameObject: {fileID: 1759332437}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9c789697b478d544a78bc3d664a6397, type: 3}
@@ -1209,80 +996,289 @@ MonoBehaviour:
         Value: {fileID: 0}
       - Key: en
         Value: {fileID: 0}
---- !u!222 &2030665760
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
-  m_CullTransparentMesh: 1
---- !u!114 &2030665761
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+--- !u!114 &1759332441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
+  m_GameObject: {fileID: 1759332437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15040f2d1428a734d95ca4cb77d169d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9804e3d3023ba8742ac770377eb06849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  objects:
-  - _enable: 1
-    _name: dssa
-    _canRemove: 1
+  _enum_flag:
+    _enable: 1
+    _name: 
+    _canRemove: 0
     map:
       list:
       - Key: zh-Hans
-        Value: {fileID: 0}
+        Value: 0
       - Key: en
-        Value: {fileID: 0}
---- !u!114 &2030665762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80c2348fc5f16d14d80d55dfe72e0f26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  objects:
-  - _enable: 1
-    _name: 333
-    _canRemove: 1
+        Value: 0
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _enum:
+    _enable: 0
+    _name: 
+    _canRemove: 0
     map:
-      list:
-      - Key: zh-Hans
-        Value: {fileID: 0}
-      - Key: en
-        Value: {fileID: 0}
---- !u!114 &2030665763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030665756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eec510d8455f6b4fa743a8154d174da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
-  objects:
-  - _enable: 1
-    _name: eqwe
-    _canRemove: 1
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _string:
+    _enable: 1
+    _name: 
+    _canRemove: 0
     map:
       list:
       - Key: zh-Hans
         Value: 
       - Key: en
         Value: 
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _go:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _int:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _float:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: 0
+      - Key: en
+        Value: 0
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _bool:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _double:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _long:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _color:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value: {r: 0, g: 0, b: 0, a: 0}
+      - Key: en
+        Value: {r: 0, g: 0, b: 0, a: 0}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _v3:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _v2:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _v4:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _v2i:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _v3i:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _rect:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _recti:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _bounds:
+    _enable: 0
+    _name: 
+    _canRemove: 0
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _curve:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      - Key: en
+        Value:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  _gradient:
+    _enable: 1
+    _name: 
+    _canRemove: 0
+    map:
+      list:
+      - Key: zh-Hans
+        Value:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+      - Key: en
+        Value:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
