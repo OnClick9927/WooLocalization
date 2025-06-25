@@ -15,7 +15,7 @@ namespace WooLocalization
     {
 
 
-        private static LocalizationSetting context => LocalizationEditor.context;
+        private static LocalizationSetting context => LocalizationEditorHelper.context;
 
 
         LocalizationPref ILocalizationPrefRecorder.Read()
@@ -44,7 +44,7 @@ namespace WooLocalization
 
         private void Save()
         {
-            LocalizationEditor.SaveContext(this);
+            LocalizationEditorHelper.SaveContext(this);
         }
         [UnityEngine.SerializeField] private string _lastCSVPath = "Assets";
         public static string lastCSVPath

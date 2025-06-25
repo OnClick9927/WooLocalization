@@ -68,6 +68,16 @@ namespace WooLocalization
             return string.Empty;
         }
 
+        public T FindActor<T>() where T : class, ILocalizationActor
+        {
+            var actors = LoadActors();
+            for (int i = 0; i < actors.Count; i++)
+            {
+
+                if (actors[i] is T) return actors[i] as T;
+            }
+            return default;
+        }
         public List<ILocalizationActor> LoadActors()
         {
             if (actors != null) return actors;

@@ -19,7 +19,6 @@ namespace WooLocalization
         private SerializableDictionary<string, SerializableDictionary<string, Value>> map = new SerializableDictionary<string, SerializableDictionary<string, Value>>();
 
         public List<string> GetLocalizationKeys() => keys;
-
         public List<string> GetLocalizationTypes() => map.Keys.ToList();
         public Value GetLocalization(string localizationType, string key)
         {
@@ -33,9 +32,9 @@ namespace WooLocalization
             return default;
 
         }
-        public void Merge(ActorAsset<Value> context)
+        public void Merge(IActorContext<Value> context)
         {
-            var types = context.map.Keys.ToList();
+            var types = context.GetLocalizationTypes();
             var keys = context.GetLocalizationKeys();
             for (var i = 0; i < types.Count; i++)
             {
@@ -44,16 +43,17 @@ namespace WooLocalization
                 {
                     var key = keys[j];
                     var value = context.GetLocalization(type, key);
-                    Add(type, key, value);
+                    AddPair(type, key, value);
                 }
             }
         }
-        public void Add(string lan, string key, Value value)
+
+
+
+        public void AddPair(string lan, string key, Value value)
         {
             if (!keys.Contains(key))
-            {
                 keys.Add(key);
-            }
             SerializableDictionary<string, Value> dic = null;
             if (!map.TryGetValue(lan, out dic))
             {
@@ -62,14 +62,7 @@ namespace WooLocalization
             }
             dic[key] = value;
         }
-        public void ClearLan(string lan)
-        {
-            if (map.ContainsKey(lan))
-                map.Remove(lan);
-
-            if (map.Count == 0)
-                Clear();
-        }
+        public void ClearLanguage(string lan) => map.Remove(lan);
         public void ClearKeys(IList<string> list)
         {
             var lanTypes = this.map.Keys.ToList();
@@ -105,7 +98,7 @@ namespace WooLocalization
             }
             return string.Empty;
         }
-        internal SerializableDictionary<string, Value> Add(string lan)
+        internal SerializableDictionary<string, Value> AddLanguage(string lan)
         {
             SerializableDictionary<string, Value> dic;
             if (!map.TryGetValue(lan, out dic))

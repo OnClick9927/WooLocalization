@@ -116,7 +116,7 @@ namespace WooLocalization
                     Value value = context.GetLocalization(lan, key);
                     var rect = args.GetCellRect(i + 1);
                     var tmp = this.parent.DrawField(rect, value);
-                    context.Add(lan, key, tmp);
+                    context.AddPair(lan, key, tmp);
                 }
             }
             public override void OnGUI(Rect rect)
@@ -199,7 +199,7 @@ namespace WooLocalization
         {
 
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Clear Data"))
+            if (GUILayout.Button("Clear"))
             {
                 LocalizationEditorHelper.ClearContext(context);
                 tree.Reload();
