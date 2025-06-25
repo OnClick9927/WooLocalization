@@ -1,5 +1,4 @@
 ## upm 添加包地址 https://github.com/OnClick9927/WooLocalization.git#upm
-## upm 添加包地址 https://gitee.com/OnClick9927/WooLocalization.git#upm
 
 [![Stargazers over time](https://starchart.cc/OnClick9927/WooLocalization.svg?variant=adaptive)](https://starchart.cc/OnClick9927/WooLocalization)
 
