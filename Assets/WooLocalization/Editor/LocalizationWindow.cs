@@ -12,7 +12,7 @@ namespace WooLocalization
 
     class LocalizationWindow : EditorWindow
     {
-        [MenuItem("Tools/Localization")]
+        [MenuItem("Tools/WooLocalization/Window")]
         static void Open()
         {
             GetWindow<LocalizationWindow>();
@@ -75,7 +75,7 @@ namespace WooLocalization
             GUILayout.Space(10);
             if (GUILayout.Button("Import TMP Extend"))
             {
-                string path = $"{LocalizationEditor.pkgPath}/Package Resources/LocalizationTmp Extend.unitypackage";
+                string path = $"{LocalizationEditorHelper.pkgPath}/Package Resources/LocalizationTmp Extend.unitypackage";
                 AssetDatabase.ImportPackage(path, true);
             }
         }

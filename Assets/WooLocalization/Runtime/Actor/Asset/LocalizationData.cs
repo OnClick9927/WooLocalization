@@ -23,7 +23,7 @@ namespace WooLocalization
                 {
                     var key = keys[j];
                     var value = context.GetLocalization(type, key);
-                    Add(type, key, value);
+                    AddPair(type, key, value);
                 }
             }
         }

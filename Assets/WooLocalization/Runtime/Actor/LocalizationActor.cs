@@ -5,8 +5,6 @@
  *Date:           2024-04-25
 *********************************************************************************/
 
-using UnityEngine;
-
 namespace WooLocalization
 {
     public abstract class LocalizationActor<T> : ILocalizationActor where T : LocalizationBehavior
@@ -14,8 +12,13 @@ namespace WooLocalization
         [UnityEngine.SerializeField] private bool _enable = true;
         [UnityEngine.SerializeField] private string _name = string.Empty;
         [UnityEngine.SerializeField] private bool _canRemove = false;
-
         [System.NonSerialized] private string _localizationType;
+        [System.NonSerialized] private bool dirty = true;
+
+        protected void SetDirty()
+        {
+            dirty = true;
+        }
         bool ILocalizationActor.enable
         {
             get => _enable; set
@@ -34,6 +37,7 @@ namespace WooLocalization
         protected LocalizationActor(bool enable)
         {
             this._enable = enable;
+            SetDirty();
         }
         protected T behavior { get; private set; }
 
@@ -61,22 +65,16 @@ namespace WooLocalization
 
 
         }
-        protected virtual bool NeedExecute(string localizationType)
+        protected bool NeedExecute(string localizationType)
         {
             if (!((ILocalizationActor)this).enable) return false;
-#if UNITY_EDITOR
-            if (Application.isPlaying)
-                if (_localizationType == localizationType)
-                    return false;
-
-#else
-            if (_localizationType == localizationType) return false;
-#endif
-            return true;
+            if (_localizationType != localizationType) return true;
+            return dirty;
         }
         void ILocalizationActor.Execute(string localizationType, LocalizationBehavior component)
         {
             if (!NeedExecute(localizationType)) return;
+            dirty = false;
             _localizationType = localizationType;
             T behavior = component as T;
             if (behavior == null) return;

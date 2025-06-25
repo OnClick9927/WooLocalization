@@ -38,19 +38,26 @@ namespace WooLocalization
             List<string> IActorContext<Value>.GetLocalizationKeys() => null;
 
             List<string> IActorContext<Value>.GetLocalizationTypes() => actor.behavior.GetLocalizationTypes();
+
+            void IActorContext<Value>.Merge(IActorContext<Value> context) { }
         }
-        public enum Mode
+        internal enum Mode
         {
-            Default, Custom, asset
+            Default, Custom, Asset
         }
         [SerializeField]
         internal SerializableDictionary<string, Value> map = new SerializableDictionary<string, Value>();
 
         [SerializeField]
         private Mode _mode;
-        public Mode mode => _mode;
+        internal Mode mode => _mode;
 
-        internal void SetMode(Mode mode) => this._mode = mode;
+        internal void SetMode(Mode mode)
+        {
+            this._mode = mode;
+            SetDirty();
+        }
+
         [SerializeField]
         private string _key;
         public string key => _key;
@@ -65,6 +72,7 @@ namespace WooLocalization
         public void SetKey(string key)
         {
             this._key = key;
+            SetDirty();
             ((ILocalizationActor)this).enable = true;
             ((ILocalizationActor)this).Execute();
         }
@@ -75,13 +83,14 @@ namespace WooLocalization
             if (context != null)
             {
                 CustomContextType = context.GetType().Name;
-                _mode = Mode.Custom;
+                SetMode(Mode.Custom);
                 if (context is UnityEngine.ScriptableObject obj)
                 {
-                    _mode = Mode.asset;
+                    SetMode(Mode.Asset);
                     asset = customContext as ActorAsset<Value>;
                 }
             }
+            SetDirty();
         }
         protected LocalizationMapActor(bool enable) : base(enable)
         {
@@ -114,7 +123,7 @@ namespace WooLocalization
         {
             if (mode == Mode.Custom && customContext != null)
                 return customContext.GetLocalization(localizationType, key);
-            if (mode == Mode.asset && asset != null)
+            if (mode == Mode.Asset && asset != null)
                 return asset.GetLocalization(localizationType, key);
             return ((IActorContext<Value>)context).GetLocalization(localizationType, key);
         }

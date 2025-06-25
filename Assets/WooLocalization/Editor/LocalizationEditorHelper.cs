@@ -4,12 +4,15 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
+using ExcelDataReader;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,8 +23,69 @@ using UnityEngine;
 
 namespace WooLocalization
 {
+    [UnityEditor.InitializeOnLoad]
     public static class LocalizationEditorHelper
     {
+
+        private const string ObjDir = "Assets/Editor";
+
+        private static string GetFilePath()
+        {
+            return AssetDatabase.GetAllAssetPaths().FirstOrDefault(x => x.Contains(nameof(WooLocalization))
+            && x.EndsWith($"{nameof(LocalizationEditorHelper)}.cs"));
+        }
+        internal static string pkgPath
+        {
+            get
+            {
+                string packagePath = Path.GetFullPath("Packages/com.woo.localization");
+                if (Directory.Exists(packagePath))
+                {
+                    return packagePath;
+                }
+
+                string path = GetFilePath();
+                var index = path.LastIndexOf("WooLocalization");
+                path = path.Substring(0, index + "WooLocalization".Length);
+                return path;
+            }
+        }
+        static LocalizationEditorHelper()
+        {
+            if (!Directory.Exists(ObjDir))
+                Directory.CreateDirectory(ObjDir);
+            Localization.SetRecorder(context);
+            LocalizationBehavior.defaultContext = LocalizationSetting.defaultData;
+        }
+        internal static T LoadContext<T>(string path) where T : UnityEngine.ScriptableObject
+        {
+            T _context;
+            if (!System.IO.File.Exists(path))
+            {
+                _context = LocalizationSetting.CreateInstance<T>();
+                AssetDatabase.CreateAsset(_context, path);
+            }
+            else
+            {
+                _context = AssetDatabase.LoadAssetAtPath<T>(path);
+            }
+            return _context;
+        }
+
+        private static LocalizationSetting _context;
+        internal static LocalizationSetting context
+        {
+            get
+            {
+                if (_context == null)
+                {
+                    _context = LoadContext<LocalizationSetting>("Assets/Editor/LocalizationSetting.asset");
+                }
+                return _context;
+            }
+        }
+
+
         class CSVHelper
         {
             private static string FieldsToLine(IEnumerable<string> fields)
@@ -448,7 +512,7 @@ namespace WooLocalization
             return default;
         }
 
-        private static void SaveContext(ScriptableObject context)
+        internal static void SaveContext(ScriptableObject context)
         {
             EditorUtility.SetDirty(context);
             AssetDatabase.SaveAssetIfDirty(context);
@@ -474,7 +538,7 @@ namespace WooLocalization
                     {
                         var value = fields[j];
                         var lan = lanTypes[j];
-                        context.Add(lan, key, value);
+                        context.AddPair(lan, key, value);
                     }
                 }
 
@@ -482,6 +546,41 @@ namespace WooLocalization
             }
             SaveContext(context);
         }
+        public static void ReadExcel(string path, LocalizationData context)
+        {
+            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                using (IExcelDataReader excelDataReader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    var FieldCount = excelDataReader.FieldCount;
+                    var row_count = excelDataReader.RowCount;
+                    string[] lanTypes = new string[FieldCount];
+                    for (int i = 0; i < row_count; i++)
+                    {
+                        excelDataReader.Read();
+                        if (i == 0)
+                        {
+                            for (int j = 0; j < FieldCount; j++)
+                                lanTypes[j] = excelDataReader.GetString(j);
+                        }
+                        else
+                        {
+                            var key = excelDataReader.GetString(0);
+                            for (int j = 1; j < FieldCount; j++)
+                            {
+                                var value = excelDataReader.GetString(j);
+                                var lan = lanTypes[j];
+                                context.AddPair(lan, key, value);
+                            }
+                        }
+                    }
+                }
+            }
+            SaveContext(context);
+        }
+
+
+
         private static string WrapInQuotes(string value)
         {
             //如果为空，则返回空字符串
@@ -541,7 +640,7 @@ namespace WooLocalization
                 foreach (var type in types)
                 {
                     var value = src.GetLocalization(type, key);
-                    target.Add(type, key, value);
+                    target.AddPair(type, key, value);
                 }
             }
             SaveContext(target);
@@ -558,7 +657,7 @@ namespace WooLocalization
                 if (result.errorCode == 0)
                 {
                     var value = result.translation[0];
-                    context.Add(dest, key, value);
+                    context.AddPair(dest, key, value);
                 }
                 else
                 {
@@ -580,7 +679,7 @@ namespace WooLocalization
         }
         public static void DeleteLocalizationType(LocalizationData context, string type)
         {
-            context.ClearLan(type);
+            context.ClearLanguage(type);
 
 
             SaveContext(context);
@@ -588,17 +687,91 @@ namespace WooLocalization
         }
         public static void AddLocalizationType(LocalizationData context, string type)
         {
-            context.Add(type);
+            context.AddLanguage(type);
             SaveContext(context);
 
         }
         public static void AddLocalizationPair<T>(ActorAsset<T> context, string type, string key, T val)
         {
-            context.Add(type, key, val);
+            context.AddPair(type, key, val);
             SaveContext(context);
 
         }
+        private static IEnumerable<Type> GetAllSubclassesOfGenericType(this Type genericBaseType)
+        {
+            if (!genericBaseType.IsGenericTypeDefinition) return Enumerable.Empty<Type>();
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes())
+                .Where(type => type.IsClass && !type.IsAbstract)
+                .Where(type => IsSubclassOfGeneric(genericBaseType, type));
+        }
+        private static IEnumerable<Type> GetBaseTypes(this Type type)
+        {
+            while (type != null)
+            {
+                yield return type;
+                type = type.BaseType;
+            }
+        }
+        private static bool IsSubclassOfGeneric(Type genericBaseType, Type type) =>
+            type.GetBaseTypes()
+                .Where(t => t.IsGenericType)
+                .Select(t => t.GetGenericTypeDefinition())
+                .Any(t => t == genericBaseType);
+        [MenuItem("Tools/WooLocalization/GenScript")]
+        public static void Gen()
+        {
+            string sriptName = "LocalizationKeys";
+            var path = AssetDatabase.FindAssets($"t:script")
+                .Select(x => AssetDatabase.GUIDToAssetPath(x))
+                .FirstOrDefault(x => Path.GetFileNameWithoutExtension(x) == sriptName) ?? $"Assets/{sriptName}.cs";
 
 
+
+
+            string cls = $"namespace {nameof(WooLocalization)}{{\n";
+            cls += $"class {sriptName} {{\n";
+            var types = typeof(ActorAsset<>).GetAllSubclassesOfGenericType().ToList();
+            List<string> languages = new List<string>();
+            foreach (var type in types)
+            {
+                var assets = AssetDatabase.FindAssets($"t:{type.Name}").Select(x => AssetDatabase.GUIDToAssetPath(x)).Select(x => AssetDatabase.LoadAssetAtPath(x, type)).ToList();
+                var _type = type.BaseType.GetGenericArguments()[0];
+                var method = type.GetMethod(nameof(LocalizationData.GetLocalizationKeys));
+                var method2 = type.GetMethod(nameof(LocalizationData.GetLocalizationTypes));
+
+                if (assets.Count > 0)
+                {
+                    var keys = assets.SelectMany(x => method.Invoke(x, null) as List<string>).Distinct();
+                    var lans = assets.SelectMany(x => method2.Invoke(x, null) as List<string>).Distinct();
+                    languages.AddRange(lans);
+                    if (keys.Count() > 0)
+                    {
+                        cls += $"class {_type.Name} {{\n";
+                        foreach (var key in keys)
+                        {
+
+                            cls += $"public const string {key.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("/", "_")}=\"{key}\";\n";
+                        }
+                        cls += "}\n";
+                    }
+
+                }
+            }
+            cls += $"class Languages {{\n";
+
+            foreach (var language in languages.Distinct())
+            {
+
+                cls += $"public const string {language.Replace("-", "_")}=\"{language}\";\n";
+
+            }
+            cls += "}\n";
+
+            cls += "\n}}";
+
+            File.WriteAllText(path, cls);
+            AssetDatabase.Refresh();
+        }
     }
 }

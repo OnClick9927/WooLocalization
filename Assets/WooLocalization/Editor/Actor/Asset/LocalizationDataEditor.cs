@@ -88,7 +88,11 @@ namespace WooLocalization
                         {
                             var type = lanTypes[j];
                             string localizationText = context.GetLocalization(type, key);
-                            max = Mathf.Max(localizationText.Replace("\r\n", "\n").Count(x => x == '\n'), max);
+                            if (localizationText != null)
+                            {
+
+                                max = Mathf.Max(localizationText.Replace("\r\n", "\n").Count(x => x == '\n'), max);
+                            }
                         }
                         row_lines[key] = max;
                         rows.Add(new TreeViewItem()
@@ -267,7 +271,13 @@ namespace WooLocalization
             LocalizationSetting.lastCSVPath = Path.GetDirectoryName(path);
             LocalizationEditorHelper.ReadCSV(path, context);
         }
-
+        void ReadExcel()
+        {
+            var path = EditorUtility.OpenFilePanelWithFilters("Select Excel", LocalizationSetting.lastCSVPath, new string[] { "xlsx", "xlsx" });
+            if (string.IsNullOrEmpty(path)) return;
+            LocalizationSetting.lastCSVPath = Path.GetDirectoryName(path);
+            LocalizationEditorHelper.ReadExcel(path, context);
+        }
 
 
 
@@ -283,26 +293,36 @@ namespace WooLocalization
                     tree.Reload();
                 }
             }
-            if (GUILayout.Button("Clear Data"))
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Clear"))
             {
                 LocalizationEditorHelper.ClearContext(context);
                 tree.Reload();
             }
-            if (GUILayout.Button("Read From Asset"))
+            if (GUILayout.Button("Merge"))
             {
                 var control = EditorGUIUtility.GetControlID(FocusType.Passive);
                 EditorGUIUtility.ShowObjectPicker<LocalizationData>(null, false, "", control);
                 GUIUtility.ExitGUI();
 
             }
+            GUILayout.EndHorizontal();
+
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Read From CSV"))
+            if (GUILayout.Button("Read  Excel"))
+            {
+                ReadExcel();
+                tree.Reload();
+                GUIUtility.ExitGUI();
+            }
+            if (GUILayout.Button("Read  CSV"))
             {
                 ReadCSV();
                 tree.Reload();
                 GUIUtility.ExitGUI();
             }
-            if (GUILayout.Button("Write To CSV"))
+            if (GUILayout.Button("Write  CSV"))
             {
                 WriteCSV();
                 GUIUtility.ExitGUI();

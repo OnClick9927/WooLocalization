@@ -71,6 +71,8 @@ namespace WooLocalization
         public static List<string> GetLocalizationTypes() => GetLocalizationTypes(context);
         public static List<string> GetLocalizationKeys() => GetLocalizationKeys(context);
 
+
+
         public static string GetLocalization(ILocalizationContext context, string type, string key)
         {
             if (string.IsNullOrEmpty(key)) return string.Empty;

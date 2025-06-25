@@ -1,22 +1,21 @@
 using WooLocalization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
 {
-
+    public SpriteActorAsset sprite;
+    public Image image;
     public TMPro.TextMeshProUGUI text;
-    [ContextMenu("HH")]
-    public void GG()
-    {
-        text.SetLocalization("Load_Tip_Text");
 
-    }
     public LocalizationData data;
     private void Start()
     {
-        Localization.SetContext(data);
         Localization.SetRecorder(this);
-        GG();
+        Localization.SetContext(data);
+        Localization.SetDefaultLocalizationType("zh-Hans");
+        text.SetLocalization("Load_Tip_Text");
+        image.SetLocalizationByAsset<LocalizationImage, LocalizationImage.ImageSpriteActor,Sprite>(sprite, "text");
     }
 
     private void OnGUI()

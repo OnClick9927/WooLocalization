@@ -33,7 +33,7 @@ namespace WooLocalization
                     GUI.enabled = true;
                 }
 
-                if (context.mode == LocalizationMapActor<Behavior, Value>.Mode.asset)
+                if (context.mode == LocalizationMapActor<Behavior, Value>.Mode.Asset)
                 {
 
                     context.asset = EditorGUILayout.ObjectField(nameof(context.asset), context.asset, GetAssetType(), false) as ActorAsset<Value>;

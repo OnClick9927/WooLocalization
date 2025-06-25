@@ -13,5 +13,7 @@ namespace WooLocalization
         Value GetLocalization(string localizationType, string key);
         List<string> GetLocalizationKeys();
         List<string> GetLocalizationTypes();
+        public void Merge(IActorContext<Value> context);
+
     }
 }

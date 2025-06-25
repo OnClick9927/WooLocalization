@@ -6,14 +6,13 @@
 *********************************************************************************/
 using System;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace WooLocalization
 {
     public abstract class TextValueActor_Base<T> : LocalizationActor<T> where T : LocalizationBehavior
     {
-        public string key;
-        private string _lastKey;
+        [UnityEngine.SerializeField] private string _key;
+        public string key => _key;
         public string[] formatArgs = new string[0];
 
         public TextValueActor_Base(bool enable) : base(enable)
@@ -56,7 +55,6 @@ namespace WooLocalization
         }
         protected sealed override void Execute(string localizationType, T component)
         {
-            _lastKey = key;
             Exception err;
             SetComponentText(GetTargetText(component, out err));
             if (err != null)
@@ -64,19 +62,11 @@ namespace WooLocalization
         }
         public void SetKey(string key)
         {
-            this.key = key;
+            this._key = key;
+            SetDirty();
             ((ILocalizationActor)this).enable = true;
             ((ILocalizationActor)this).Execute();
         }
-        protected sealed override bool NeedExecute(string localizationType)
-        {
-            var _base = base.NeedExecute(localizationType);
-            bool self = _lastKey != this.key;
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-                self = true;
-#endif
-            return self || _base;
-        }
+
     }
 }
