@@ -9,10 +9,10 @@ using UnityEngine;
 namespace WooLocalization
 {
     [CreateAssetMenu(menuName = "WooLocalization/LocalizationData", order = -1000)]
-    public class LocalizationData : ActorAsset<string>, ILocalizationContext
+    public class LocalizationData : ActorAsset<string>
     {
 
-        public void Merge(ILocalizationContext context)
+        public void Merge(LocalizationData context)
         {
             var types = context.GetLocalizationTypes();
             var keys = context.GetLocalizationKeys();

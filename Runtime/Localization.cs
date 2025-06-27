@@ -15,7 +15,7 @@ namespace WooLocalization
     public static class Localization
     {
         public static string localizationType => pref.localizationType;
-        public static ILocalizationContext context;
+        public static LocalizationData context;
         private static LocalizationPref pref;
         private static ILocalizationPrefRecorder recorder = new MixedRecorder();
         private static List<ILocalizationEventActor> handlers = new List<ILocalizationEventActor>();
@@ -33,8 +33,8 @@ namespace WooLocalization
             if (string.IsNullOrEmpty(localizationType))
                 SetLocalizationType(type);
         }
-        public static void SetContext(ILocalizationContext context) => Localization.context = context;
-        public static void MergeContext(ILocalizationContext context)
+        public static void SetContext(LocalizationData context) => Localization.context = context;
+        public static void MergeContext(LocalizationData context)
         {
             if (Localization.context == null)
                 SetContext(context);
@@ -56,13 +56,13 @@ namespace WooLocalization
         public static string GetLocalizationType() => pref.localizationType;
 
 
-        public static List<string> GetLocalizationTypes(ILocalizationContext context)
+        public static List<string> GetLocalizationTypes(LocalizationData context)
         {
             if (context == null)
                 return null;
             return context.GetLocalizationTypes();
         }
-        public static List<string> GetLocalizationKeys(ILocalizationContext context)
+        public static List<string> GetLocalizationKeys(LocalizationData context)
         {
             if (context == null) return null;
             return context.GetLocalizationKeys();
@@ -73,7 +73,7 @@ namespace WooLocalization
 
 
 
-        public static string GetLocalization(ILocalizationContext context, string type, string key)
+        public static string GetLocalization(LocalizationData context, string type, string key)
         {
             if (string.IsNullOrEmpty(key)) return string.Empty;
             if (context == null) return string.Empty;
@@ -82,7 +82,7 @@ namespace WooLocalization
                 return key;
             return restult;
         }
-        public static string GetLocalization(ILocalizationContext context, string key) => GetLocalization(context, localizationType, key);
+        public static string GetLocalization(LocalizationData context, string key) => GetLocalization(context, localizationType, key);
         public static string GetLocalization(string type, string key) => GetLocalization(context, type, key);
         public static string GetLocalization(string key) => GetLocalization(context, key);
     }
