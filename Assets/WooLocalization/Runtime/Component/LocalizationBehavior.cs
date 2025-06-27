@@ -16,9 +16,9 @@ namespace WooLocalization
     {
         [SerializeField]
         private LocalizationData _context;
-        public LocalizationData context { get { return _context; } set { _context = value; } }
+        internal LocalizationData context { get { return _context; } set { _context = value; } }
 
-        public static LocalizationData defaultContext;
+        internal static LocalizationData defaultContext;
         public List<string> GetLocalizationTypes()
         {
             if (_context == null)
@@ -102,10 +102,20 @@ namespace WooLocalization
 
         protected virtual void Awake()
         {
+
+
+            if (Application.isPlaying)
+            {
+                if (_context == null)
+                    _context = Localization.context;
+            }
+            else
+            {
 #if UNITY_EDITOR
-            if (_context == null)
-                _context = defaultContext;
+                if (_context == null)
+                    _context = defaultContext;
 #endif
+            }
             LoadActors();
         }
 
@@ -131,22 +141,11 @@ namespace WooLocalization
             actor.SetBehavior(this);
             actor.Execute(Localization.GetLocalizationType(), this);
         }
-        public void RemoveActor(ILocalizationActor actor)
-        {
-            actors.Remove(actor);
-        }
-        void ILocalizationEventActor.OnLocalizationChange()
-        {
-            Execute();
-        }
+        public void RemoveActor(ILocalizationActor actor) => actors.Remove(actor);
+        void ILocalizationEventActor.OnLocalizationChange() => Execute();
         private void Execute()
         {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                LoadActors();
-            }
-#endif
+            LoadActors();
             var _type = Localization.GetLocalizationType();
             for (int i = 0; i < actors.Count; i++)
                 actors[i].Execute(_type, this);
