@@ -570,9 +570,13 @@ namespace WooLocalization
                             {
                                 for (int j = 1; j < FieldCount; j++)
                                 {
-                                    var value = excelDataReader.GetString(j);
+
+                                    var value = excelDataReader.GetValue(j);
                                     var lan = lanTypes[j];
-                                    context.AddPair(lan, key, value);
+                                    if (value != null)
+                                        context.AddPair(lan, key, value.ToString());
+                                    else
+                                        context.AddPair(lan, key, string.Empty);
                                 }
                             }
                         }
