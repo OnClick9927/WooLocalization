@@ -762,8 +762,8 @@ namespace WooLocalization
 
             foreach (var language in languages.Distinct())
             {
-
-                cls += $"public const string {language.Replace("-", "_")}=\"{language}\";\n";
+                var src = language.Replace("\r", "\n").Replace("\n", "");
+                cls += $"public const string {src.Replace("-", "_")}=\"{src}\";\n";
 
             }
             cls += "}\n";
