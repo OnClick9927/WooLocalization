@@ -721,8 +721,8 @@ namespace WooLocalization
                 .Where(t => t.IsGenericType)
                 .Select(t => t.GetGenericTypeDefinition())
                 .Any(t => t == genericBaseType);
-        [MenuItem("Tools/WooLocalization/GenScript")]
-        public static void Gen()
+        [MenuItem("Tools/WooLocalization/GenKeys")]
+        public static void GenKeys()
         {
             string sriptName = "LocalizationKeys";
             var path = AssetDatabase.FindAssets($"t:script")
@@ -733,7 +733,7 @@ namespace WooLocalization
 
 
             string cls = $"namespace {nameof(WooLocalization)}{{\n";
-            cls += $"class {sriptName} {{\n";
+            cls += $"public class {sriptName} {{\n";
             var types = typeof(ActorAsset<>).GetAllSubclassesOfGenericType().ToList();
             List<string> languages = new List<string>();
             foreach (var type in types)
@@ -750,7 +750,7 @@ namespace WooLocalization
                     languages.AddRange(lans);
                     if (keys.Count() > 0)
                     {
-                        cls += $"class {_type.Name} {{\n";
+                        cls += $"public class {_type.Name} {{\n";
                         foreach (var key in keys)
                         {
 
@@ -761,7 +761,7 @@ namespace WooLocalization
 
                 }
             }
-            cls += $"class Languages {{\n";
+            cls += $"public class Languages {{\n";
 
             foreach (var language in languages.Distinct())
             {

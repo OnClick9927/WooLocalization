@@ -1,6 +1,6 @@
 namespace WooLocalization{
-class LocalizationKeys {
-class String {
+public class LocalizationKeys {
+public class String {
 public const string Load_GameTip="Load_GameTip";
 public const string Load_UpdateText="Load_UpdateText";
 public const string Load_Tip_Title="Load_Tip_Title";
@@ -20,15 +20,13 @@ public const string Load_UpdateText_10="Load_UpdateText_10";
 public const string Load_UpdateText_11="Load_UpdateText_11";
 public const string Load_UpdateText_12="Load_UpdateText_12";
 }
-class Sprite {
+public class Sprite {
 public const string text="text";
 public const string test2="test2";
 }
-class Languages {
+public class Languages {
 public const string zh_Hans="zh-Hans";
 public const string en="en";
-public const string zh_TW="zh-TW";
-public const string ja="ja";
 }
 
 }}
