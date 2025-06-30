@@ -566,11 +566,14 @@ namespace WooLocalization
                         else
                         {
                             var key = excelDataReader.GetString(0);
-                            for (int j = 1; j < FieldCount; j++)
+                            if (!string.IsNullOrEmpty(key))
                             {
-                                var value = excelDataReader.GetString(j);
-                                var lan = lanTypes[j];
-                                context.AddPair(lan, key, value);
+                                for (int j = 1; j < FieldCount; j++)
+                                {
+                                    var value = excelDataReader.GetString(j);
+                                    var lan = lanTypes[j];
+                                    context.AddPair(lan, key, value);
+                                }
                             }
                         }
                     }
