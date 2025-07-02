@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02facdc7cf6749f47959bc9e742e80d8, type: 3}
   m_Name: LocalizationSetting
   m_EditorClassIdentifier: 
-  _localizationType: zh-Hans
+  _localizationType: en
   _defaultData: Assets/Example/New Localization Data.asset
   _lineReg: '"'
   _fieldReg: \G(?:^|,)(?:"((?>[^"]*)(?>""[^"]*)*)"|([^",]*))
   _quotesReg: '""'
   _youDaoAppId: 
   _youDaoAppSecret: 
-  reflect:
-    list: []
   _lastCSVPath: E:\Project\Unity\WooLocalization\Assets\Example

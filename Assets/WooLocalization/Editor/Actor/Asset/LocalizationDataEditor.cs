@@ -182,11 +182,14 @@ namespace WooLocalization
                         var dst = lanTypes[j];
                         if (src == dst) continue;
 
-                        menu.AddItem(new GUIContent($"Translate/{src}To{dst}"), false, () =>
-                        {
-                            LocalizationEditorHelper.Translate(context, context.GetLocalizationKeys(), src, dst).Wait();
+                        if (LocalizationSetting.YouDaoLegal)
+                            menu.AddItem(new GUIContent($"Translate/{src} --> {dst}"), false, () =>
+                            {
+                                LocalizationEditorHelper.Translate(context, context.GetLocalizationKeys(), src, dst);
 
-                        });
+                            });
+                        else
+                            menu.AddDisabledItem(new GUIContent($"Translate"));
                     }
 
                 }
@@ -194,6 +197,27 @@ namespace WooLocalization
                 if (search != null && select.Count > 0)
                 {
                     var keys = select.Select(x => _rows.Find(y => y.id == x).displayName).ToList();
+
+
+                    for (int i = 0; lanTypes.Count > i; i++)
+                    {
+                        for (int j = 0; lanTypes.Count > j; j++)
+                        {
+                            var src = lanTypes[i];
+                            var dst = lanTypes[j];
+                            if (src == dst) continue;
+                            string appKey = LocalizationSetting.youDaoAppId;
+                            string appSecret = LocalizationSetting.youDaoAppSecret;
+                            if (LocalizationSetting.YouDaoLegal)
+                                menu.AddItem(new GUIContent($"TranslateSelect/{src} --> {dst}"), false, () =>
+                                {
+                                    LocalizationEditorHelper.Translate(context, keys, src, dst);
+                                });
+                            else
+                                menu.AddDisabledItem(new GUIContent($"TranslateSelect"));
+                        }
+
+                    }
 
                     if (select.Count == 1)
                     {
@@ -214,23 +238,6 @@ namespace WooLocalization
 
                         }
                     }
-
-                    for (int i = 0; lanTypes.Count > i; i++)
-                    {
-                        for (int j = 0; lanTypes.Count > j; j++)
-                        {
-                            var src = lanTypes[i];
-                            var dst = lanTypes[j];
-                            if (src == dst) continue;
-
-                            menu.AddItem(new GUIContent($"TranslateSelect/{src}To{dst}"), false, async () =>
-                            {
-                                await LocalizationEditorHelper.Translate(context, keys, src, dst);
-                            });
-                        }
-
-                    }
-
                     menu.AddItem(new GUIContent("Delete Select"), false, () =>
                     {
                         LocalizationEditorHelper.DeleteKeys(context, keys);

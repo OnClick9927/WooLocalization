@@ -182,7 +182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -241,6 +241,8 @@ MonoBehaviour:
         Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
       - Key: en
         Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+      - Key: zh-CHS
+        Value: {fileID: 0}
     _mode: 2
     _key: text
     asset: {fileID: 11400000, guid: 89a2e053f7951de4bbb89bda646bc86a, type: 2}
@@ -576,7 +578,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
+  m_Text: The update is being checked
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -631,6 +633,8 @@ MonoBehaviour:
       - Key: zh-Hans
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       - Key: en
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: zh-CHS
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     _mode: 0
     _key: 
@@ -1076,6 +1080,8 @@ MonoBehaviour:
         Value: {fileID: 1650236985246834161, guid: 955fa673c5767994abc2684c1d7e1498, type: 3}
       - Key: en
         Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
+      - Key: zh-CHS
+        Value: {fileID: 0}
     _mode: 0
     _key: 
     asset: {fileID: 0}
@@ -1101,6 +1107,8 @@ MonoBehaviour:
       - Key: en
         Value: 
       - Key: zh-Hans
+        Value: 
+      - Key: zh-CHS
         Value: 
     _mode: 0
     _key: Load_UpdateText_7

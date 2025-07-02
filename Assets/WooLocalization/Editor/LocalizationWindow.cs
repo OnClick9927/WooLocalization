@@ -39,7 +39,7 @@ namespace WooLocalization
             }
             if (GUILayout.Button("Code && Language"))
             {
-                Application.OpenURL("https://ai.youdao.com/DOCSIRMA/html/trans/api/wbfy/index.html");
+                Application.OpenURL("https://ai.youdao.com/DOCSIRMA/html/trans/api/plwbfy/index.html");
             }
 
             GUILayout.EndHorizontal();
@@ -56,17 +56,17 @@ namespace WooLocalization
                 {
                     var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.localizationType), types.ToArray());
                     Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count)]);
-                    GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
-                    for (var i = 0; i < types.Count; i++)
-                    {
-                        var type = types[i];
-                        var src = LocalizationSetting.GetLocalizationTypeReflect(type);
-                        var tmp = EditorGUILayout.TextField(type, src);
-                        if (tmp != src)
-                        {
-                            LocalizationSetting.SetLocalizationTypeReflect(type, tmp);
-                        }
-                    }
+                    //GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
+                    //for (var i = 0; i < types.Count; i++)
+                    //{
+                    //    var type = types[i];
+                    //    var src = LocalizationSetting.GetLocalizationTypeReflect(type);
+                    //    var tmp = EditorGUILayout.TextField(type, src);
+                    //    if (tmp != src)
+                    //    {
+                    //        LocalizationSetting.SetLocalizationTypeReflect(type, tmp);
+                    //    }
+                    //}
                 }
      
 
