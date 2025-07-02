@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace WooLocalization
 {
@@ -326,59 +327,93 @@ namespace WooLocalization
 
         class YouDao
         {
-
+            [System.Serializable]
+            public class Result
+            {
+                public int errorCode;
+                public string requestId;
+                public string l;
+                public List<TranslateResult> translateResults;
+            }
 
             [System.Serializable]
             public class TranslateResult
             {
-                public int errorCode;
-                public string[] translation;
-                public string speakUrl;
-                public string requestId;
-                public string tSpeakUrl;
-                public string l;
-                public bool isWord;
+                public string type;
+                public string translation;
                 public string query;
             }
-            public static async Task<TranslateResult> Translate(string content, string from, string to)
+            public static async Task<Result> Translate(string[] content, string from, string to)
             {
                 string appKey = LocalizationSetting.youDaoAppId;
                 string appSecret = LocalizationSetting.youDaoAppSecret;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://openapi.youdao.com/api");
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                //当前UTC时间戳（秒）
-                string curtime = ((long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds / 1000).ToString();
-                //UUID 唯一通用识别码
+                var dic = new Dictionary<string, string>();
+                string[] qArray = content;
                 string salt = DateTime.Now.Millisecond.ToString();
-                string input = content == null ? null : content.Length <= 20 ? content : (content.Substring(0, 10) + content.Length + content.Substring(content.Length - 10, 10));
-                byte[] inputBytes = Encoding.UTF8.GetBytes(appKey + input + salt + curtime + appSecret);
-                byte[] hashedBytes = new SHA256CryptoServiceProvider().ComputeHash(inputBytes);
-                //签名 sha256(应用ID + input + salt + curtime + 应用秘钥)
-                //其中input的计算方式为：input=content前10个字符 + content长度 + cotent后10个字符（当cotent长度大于20）或 input=content字符串（当content长度小于等于20）
-                string sign = BitConverter.ToString(hashedBytes).Replace("-", "");
-                //签名类型
-                string signType = "v3";
-                //参数列表
-                string args = string.Format("from={0}&to={1}&signType={2}&curtime={3}&q={4}&appKey={5}&salt={6}&sign={7}",
-                    from, to, signType, curtime, content, appKey, salt, sign);
-                byte[] data = Encoding.UTF8.GetBytes(args);
-                request.ContentLength = data.Length;
-                using (Stream reqStream = request.GetRequestStream())
+                dic.Add("from", from);
+                dic.Add("to", to);
+                dic.Add("signType", "v3");
+                TimeSpan ts = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+                long millis = (long)ts.TotalMilliseconds;
+                string curtime = Convert.ToString(millis / 1000);
+                dic.Add("curtime", curtime);
+                string signStr = appKey + Truncate(string.Join("", qArray)) + salt + curtime + appSecret; ;
+                string sign = ComputeHash(signStr, new SHA256CryptoServiceProvider());
+                dic.Add("appKey", appKey);
+                dic.Add("salt", salt);
+                dic.Add("sign", sign);
+                //dic.Add("vocabId", "您的用户词表ID");
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://openapi.youdao.com/v2/api");
+                req.Method = "POST";
+                req.ContentType = "application/x-www-form-urlencoded";
+                StringBuilder builder = new StringBuilder();
+                int i = 0;
+                foreach (var item in dic)
                 {
-                    await reqStream.WriteAsync(data, 0, data.Length);
+                    if (i > 0)
+                        builder.Append("&");
+                    builder.AppendFormat("{0}={1}", item.Key, item.Value);
+                    i++;
+                }
+                foreach (var item in qArray)
+                {
+
+                    builder.Append("&");
+                    builder.AppendFormat("q={0}", UnityWebRequest.EscapeURL(item));
+                }
+                byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
+                req.ContentLength = data.Length;
+                using (Stream reqStream = req.GetRequestStream())
+                {
+                    reqStream.Write(data, 0, data.Length);
                     reqStream.Close();
                 }
-                var httpWebResponse = await request.GetResponseAsync();
-                Stream stream = httpWebResponse.GetResponseStream();
+                HttpWebResponse resp = (HttpWebResponse)(await req.GetResponseAsync());
+                Stream stream = resp.GetResponseStream();
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
-                    string responseStr = await reader.ReadToEndAsync();
-
-                    var response = JsonUtility.FromJson<TranslateResult>(responseStr);
-                    return response;
+                    var result = await reader.ReadToEndAsync();
+                    return JsonUtility.FromJson<Result>(result);
                 }
             }
+            private static string ComputeHash(string input, HashAlgorithm algorithm)
+            {
+                Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+                return BitConverter.ToString(hashedBytes).Replace("-", "");
+            }
+
+
+            protected static string Truncate(string q)
+            {
+                if (q == null)
+                {
+                    return null;
+                }
+                int len = q.Length;
+                return len <= 20 ? q : (q.Substring(0, 10) + len + q.Substring(len - 10, 10));
+            }
+
 
         }
         private static Type winType;
@@ -655,22 +690,17 @@ namespace WooLocalization
 
         public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
         {
-            for (int i = 0; i < keys.Count; i++)
-            {
-                var key = keys[i];
-                var from = context.GetLocalization(src, key);
-                var result = await YouDao.Translate(from,
-                    LocalizationSetting.GetLocalizationTypeReflect(src), LocalizationSetting.GetLocalizationTypeReflect(dest));
-                if (result.errorCode == 0)
+            List<string> _from = keys.Select(x => context.GetLocalization(src, x)).ToList();
+            var result = await YouDao.Translate(_from.ToArray(), src, dest);
+            if (result.errorCode == 0)
+                for (var i = 0; i < result.translateResults.Count; i++)
                 {
-                    var value = result.translation[0];
-                    context.AddPair(dest, key, value);
+                    var item = result.translateResults[i];
+                    var _key = keys[i];
+                    context.AddPair(dest, _key, item.translation);
                 }
-                else
-                {
-                    Debug.LogError($"key:{key}\t from:{from}\t ErrCode:{result.errorCode}");
-                }
-            }
+            else
+                Debug.LogError($"from:{src}\t to{dest} ErrCode:{result.errorCode}");
             EditorApplication.delayCall += () =>
             {
                 SaveContext(context);

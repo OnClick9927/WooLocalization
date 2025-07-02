@@ -39,7 +39,7 @@ namespace WooLocalization
         [UnityEngine.SerializeField] private string _youDaoAppId = "";
         [UnityEngine.SerializeField] private string _youDaoAppSecret = "";
 
-        [UnityEngine.SerializeField] private SerializableDictionary<string, string> reflect = new SerializableDictionary<string, string>();
+        //[UnityEngine.SerializeField] private SerializableDictionary<string, string> reflect = new SerializableDictionary<string, string>();
 
 
         private void Save()
@@ -120,7 +120,10 @@ namespace WooLocalization
                 context.Save();
             }
         }
-
+        public static bool YouDaoLegal
+        {
+            get { return !string.IsNullOrEmpty(youDaoAppId) && !string.IsNullOrEmpty(youDaoAppSecret); }
+        }
         private static LocalizationData __defaultData;
         public static LocalizationData defaultData
         {
@@ -147,19 +150,19 @@ namespace WooLocalization
         }
 
 
-        public static string GetLocalizationTypeReflect(string src)
-        {
-            if (context.reflect.ContainsKey(src))
-                return context.reflect[src];
-            return src;
-        }
-        public static void SetLocalizationTypeReflect(string src, string dst)
-        {
-            if (context.reflect.ContainsKey(src))
-                context.reflect[src] = dst;
-            else
-                context.reflect.Add(src, dst);
-            context.Save();
-        }
+        //public static string GetLocalizationTypeReflect(string src)
+        //{
+        //    if (context.reflect.ContainsKey(src))
+        //        return context.reflect[src];
+        //    return src;
+        //}
+        //public static void SetLocalizationTypeReflect(string src, string dst)
+        //{
+        //    if (context.reflect.ContainsKey(src))
+        //        context.reflect[src] = dst;
+        //    else
+        //        context.reflect.Add(src, dst);
+        //    context.Save();
+        //}
     }
 }

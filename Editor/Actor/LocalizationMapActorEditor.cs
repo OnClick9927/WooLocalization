@@ -57,6 +57,8 @@ namespace WooLocalization
                             context.SetKey(keys[index]);
                             SetDirty(component);
                         }
+                        using (new EditorGUI.DisabledScope(true))
+                            LocalizationEditorHelper.DrawObject("Preview", context.GetValue());
                     }
 
 
