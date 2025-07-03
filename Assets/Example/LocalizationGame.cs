@@ -21,7 +21,7 @@ public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
     private void OnGUI()
     {
         var types = Localization.GetLocalizationTypes();
-        var type = Localization.localizationType;
+        var type = Localization.language;
         var index = GUILayout.Toolbar(Mathf.Max(types.IndexOf(type), 0), types.ToArray(), new GUIStyle(GUI.skin.button) { fontSize = 40 }, GUILayout.Height(100), GUILayout.Width(300));
         Localization.SetLocalizationType(types[index]);
     }

@@ -31,9 +31,9 @@ namespace WooLocalization
 
             protected override TMP_FontAsset GetDefault() => TMP_Settings.instance != null ? TMP_Settings.defaultFontAsset : null;
 
-            protected override void Execute(string localizationType, LocalizationTMP_Text component)
+            protected override void Execute(string language, LocalizationTMP_Text component)
             {
-                component.graphicT.font = GetValue(localizationType);
+                component.graphicT.font = GetValue(language);
             }
         }
 
@@ -46,9 +46,9 @@ namespace WooLocalization
 
             protected override float GetDefault() => 36;
 
-            protected override void Execute(string localizationType, LocalizationTMP_Text component)
+            protected override void Execute(string language, LocalizationTMP_Text component)
             {
-                component.graphicT.fontSize = GetValue(localizationType);
+                component.graphicT.fontSize = GetValue(language);
             }
         }
         public TMPTextActor text = new TMPTextActor(true);

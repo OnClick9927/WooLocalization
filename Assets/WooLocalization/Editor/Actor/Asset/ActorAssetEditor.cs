@@ -112,11 +112,11 @@ namespace WooLocalization
                 //var lanTypes = GetLocalizationTypes();
                 for (int i = 0; LocalizationTypes.Count > i; i++)
                 {
-                    var lan = LocalizationTypes[i];
-                    Value value = context.GetLocalization(lan, key);
+                    var language = LocalizationTypes[i];
+                    Value value = context.GetLocalization(language, key);
                     var rect = args.GetCellRect(i + 1);
                     var tmp = this.parent.DrawField(rect, value);
-                    context.AddPair(lan, key, tmp);
+                    context.AddPair(language, key, tmp);
                 }
             }
             public override void OnGUI(Rect rect)

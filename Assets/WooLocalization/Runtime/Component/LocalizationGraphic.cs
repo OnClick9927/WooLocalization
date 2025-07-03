@@ -24,9 +24,9 @@ namespace WooLocalization
 
 
 
-            protected override void Execute(string localizationType, LocalizationGraphic component)
+            protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.graphic.color = GetValue(localizationType);
+                component.graphic.color = GetValue(language);
 
             }
         }
@@ -37,9 +37,9 @@ namespace WooLocalization
             {
             }
 
-            protected override void Execute(string localizationType, LocalizationGraphic component)
+            protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.graphic.material = GetValue(localizationType);
+                component.graphic.material = GetValue(language);
 
             }
 

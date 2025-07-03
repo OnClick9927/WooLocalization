@@ -9,6 +9,6 @@ namespace WooLocalization
     [System.Serializable]
     public class LocalizationPref
     {
-        public string localizationType;
+        public string language;
     }
 }

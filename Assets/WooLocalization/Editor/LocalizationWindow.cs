@@ -54,7 +54,7 @@ namespace WooLocalization
                 var types = LocalizationSetting.defaultData.GetLocalizationTypes();
                 if (types.Count != 0)
                 {
-                    var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.localizationType), types.ToArray());
+                    var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.language), types.ToArray());
                     Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count)]);
                     //GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
                     //for (var i = 0; i < types.Count; i++)

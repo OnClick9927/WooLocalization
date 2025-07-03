@@ -20,9 +20,9 @@ namespace WooLocalization
 
         public List<string> GetLocalizationKeys() => keys;
         public List<string> GetLocalizationTypes() => map.Keys.ToList();
-        public Value GetLocalization(string localizationType, string key)
+        public Value GetLocalization(string language, string key)
         {
-            if (map.TryGetValue(localizationType, out var dic))
+            if (map.TryGetValue(language, out var dic))
             {
                 if (dic.TryGetValue(key, out var value))
                 {
@@ -50,25 +50,25 @@ namespace WooLocalization
 
 
 
-        public void AddPair(string lan, string key, Value value)
+        public void AddPair(string language, string key, Value value)
         {
             if (!keys.Contains(key))
                 keys.Add(key);
             SerializableDictionary<string, Value> dic = null;
-            if (!map.TryGetValue(lan, out dic))
+            if (!map.TryGetValue(language, out dic))
             {
                 dic = new SerializableDictionary<string, Value>();
-                map.Add(lan, dic);
+                map.Add(language, dic);
             }
             dic[key] = value;
         }
-        public void ClearLanguage(string lan) => map.Remove(lan);
-        public void ClearKeys(IList<string> list)
+        public void ClearLanguage(string language) => map.Remove(language);
+        public void ClearKeys(IList<string> keys)
         {
             var lanTypes = this.map.Keys.ToList();
-            for (int i = list.Count - 1; i >= 0; i--)
+            for (int i = keys.Count - 1; i >= 0; i--)
             {
-                var key = list[i];
+                var key = keys[i];
 
                 for (int j = 0; j < lanTypes.Count; j++)
                 {
@@ -76,7 +76,7 @@ namespace WooLocalization
                     map[type].Remove(key);
                 }
 
-                keys.Remove(key);
+                this.keys.Remove(key);
             }
         }
         public void Clear()
@@ -84,9 +84,9 @@ namespace WooLocalization
             map.Clear();
             keys.Clear();
         }
-        public string FindKey(string localizationType, Value val)
+        public string FindKey(string language, Value val)
         {
-            if (map.TryGetValue(localizationType, out var key_value))
+            if (map.TryGetValue(language, out var key_value))
             {
                 foreach (var item in key_value)
                 {
@@ -98,13 +98,13 @@ namespace WooLocalization
             }
             return string.Empty;
         }
-        internal SerializableDictionary<string, Value> AddLanguage(string lan)
+        internal SerializableDictionary<string, Value> AddLanguage(string language)
         {
             SerializableDictionary<string, Value> dic;
-            if (!map.TryGetValue(lan, out dic))
+            if (!map.TryGetValue(language, out dic))
             {
                 dic = new SerializableDictionary<string, Value>();
-                map.Add(lan, dic);
+                map.Add(language, dic);
             }
             return dic;
         }

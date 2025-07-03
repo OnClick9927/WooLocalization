@@ -12,7 +12,7 @@ namespace WooLocalization
         bool canRemove {  get; }
         string name { get; }
         bool enable { get; set; }
-        void Execute(string localizationType, LocalizationBehavior component);
+        void Execute(string language, LocalizationBehavior component);
         void Execute();
         void SetBehavior(LocalizationBehavior behavior);
 
