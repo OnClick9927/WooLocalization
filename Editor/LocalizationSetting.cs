@@ -22,13 +22,13 @@ namespace WooLocalization
         {
             return new LocalizationPref()
             {
-                localizationType = localizationType,
+                language = language,
             };
         }
 
         void ILocalizationPrefRecorder.Write(LocalizationPref pref)
         {
-            this._localizationType = pref.localizationType;
+            this._localizationType = pref.language;
             Save();
         }
         [UnityEngine.SerializeField] private string _localizationType = "CN";
@@ -60,7 +60,7 @@ namespace WooLocalization
 
             }
         }
-        public static string localizationType
+        public static string language
         {
             get { return context._localizationType; }
             set

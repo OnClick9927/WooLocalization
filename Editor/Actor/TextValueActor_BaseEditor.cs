@@ -4,11 +4,8 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
-using System;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace WooLocalization
@@ -79,7 +76,7 @@ namespace WooLocalization
 
         protected override void OnGUI(LocalizationBehavior component, T context)
         {
-            var lan = Localization.GetLocalizationType();
+            var language = Localization.GetLocalizationType();
             var __mode = (Mode)EditorGUILayout.EnumPopup(nameof(Mode), _mode);
             if (__mode != _mode)
             {
@@ -92,7 +89,8 @@ namespace WooLocalization
                         break;
                     case Mode.ReplaceValue:
                         key = context.key;
-                        value = component.GetLocalization(key);
+                        //value = component.GetLocalization(key);
+                        value = context.GetTargetText(component, out System.Exception _);
                         break;
                 }
             }
@@ -138,14 +136,14 @@ namespace WooLocalization
                             if (keys.Contains(key))
                             {
                                 bool bo = EditorUtility.DisplayDialog("same key exist", $"replace \n key {key} \n" +
-                                      $"value: {data.GetLocalization(lan, key)} => {value}", "yes", "no");
+                                      $"value: {data.GetLocalization(language, key)} => {value}", "yes", "no");
                                 if (!bo)
                                 {
                                     GUIUtility.ExitGUI();
                                     return;
                                 }
                             }
-                            LocalizationEditorHelper.AddLocalizationPair(data, lan, key, value);
+                            LocalizationEditorHelper.AddLocalizationPair(data, language, key, value);
                             context.SetKey(key);
                             SetDirty(component);
 
@@ -163,13 +161,13 @@ namespace WooLocalization
                             var data = component.context;
                             //key = context.key;
                             bool bo = EditorUtility.DisplayDialog("same key exist", $"replace \n key {key} \n" +
-                                      $"value: {data.GetLocalization(lan, key)} => {value}", "yes", "no");
+                                      $"value: {data.GetLocalization(language, key)} => {value}", "yes", "no");
                             if (!bo)
                             {
                                 GUIUtility.ExitGUI();
                                 return;
                             }
-                            LocalizationEditorHelper.AddLocalizationPair(data, lan, key, value);
+                            LocalizationEditorHelper.AddLocalizationPair(data, language, key, value);
                             context.SetKey(key);
                             SetDirty(component);
                         }
@@ -182,23 +180,14 @@ namespace WooLocalization
             argList.DoLayoutList();
 
 
-            //GUI.enabled = false;
-            GUILayout.BeginVertical(EditorStyles.helpBox);
-            GUILayout.Label("Preview");
-            EditorGUILayout.LabelField("key", context.key);
+
             System.Exception err = null;
-            var format = context.GetTargetText(component, out err);
+            var result = context.GetTargetText(component, out err);
             if (err != null)
                 EditorGUILayout.HelpBox(err.Message, MessageType.Error, true);
-            var src = component.GetLocalization(context.key);
-            EditorGUILayout.LabelField("Src", src, GUILayout.Height(src.Count(x => x == '\n') * 20 + 20));
-
-            EditorGUILayout.LabelField("Result", format, GUILayout.Height(format.Count(x => x == '\n') * 20 + 20));
-
-            GUILayout.Space(5);
-            GUILayout.EndVertical();
-
-            //GUI.enabled = true;
+            else
+                EditorGUILayout.HelpBox($"Result\n{result}", MessageType.Info, true);
+      
         }
 
 

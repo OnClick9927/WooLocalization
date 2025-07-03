@@ -30,22 +30,20 @@ namespace WooLocalization
                 var txt = GetComponentText();
                 if (!string.IsNullOrEmpty(txt))
                 {
-                    var key = this.behavior.FindKey(Localization.localizationType, txt);
+                    var key = this.behavior.FindKey(Localization.language, txt);
                     if (!string.IsNullOrEmpty(key))
                         SetKey(key);
                 }
             }
         }
-        private static Regex regex = new Regex("^{[0-9]*}$");
-
         public string GetTargetText(LocalizationBehavior component, out Exception err)
         {
             err = null;
-            var format = component.GetLocalization(key);
-            if (regex.Match(format) == null) return format;
+            string format = null;
             try
             {
-                return string.Format(format, formatArgs);
+                format = component.GetLocalization(key, formatArgs);
+                return format;
             }
             catch (Exception ex)
             {
@@ -53,7 +51,7 @@ namespace WooLocalization
                 return format;
             }
         }
-        protected sealed override void Execute(string localizationType, T component)
+        protected sealed override void Execute(string language, T component)
         {
             Exception err;
             SetComponentText(GetTargetText(component, out err));

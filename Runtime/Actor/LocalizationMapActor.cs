@@ -17,19 +17,19 @@ namespace WooLocalization
         {
             internal SerializableDictionary<string, Value> map => actor.map;
             internal LocalizationMapActor<Behavior, Value> actor;
-            Value IActorContext<Value>.GetLocalization(string localizationType, string key)
+            Value IActorContext<Value>.GetLocalization(string language, string key)
             {
                 Value v;
-                map.TryGetValue(localizationType, out v);
+                map.TryGetValue(language, out v);
                 return v;
             }
 
-            internal bool AddLocalizationTypeToMap(string localizationType, Value _default)
+            internal bool AddLocalizationTypeToMap(string language, Value _default)
             {
                 Value value;
-                if (!map.TryGetValue(localizationType, out value))
+                if (!map.TryGetValue(language, out value))
                 {
-                    map.Add(localizationType, _default);
+                    map.Add(language, _default);
                     return true;
                 }
                 return false;
@@ -101,31 +101,31 @@ namespace WooLocalization
             context.actor = this;
             base.OnEditorLoad();
         }
-        internal bool AddLocalizationTypeToMap(string localizationType)
+        internal bool AddLocalizationTypeToMap(string language)
         {
 #if UNITY_EDITOR
             if (Application.isPlaying)
                 return false;
-            return context.AddLocalizationTypeToMap(localizationType, GetDefault());
+            return context.AddLocalizationTypeToMap(language, GetDefault());
 #endif
             return false;
         }
-        internal sealed override void BeforeExecute(string localizationType)
+        internal sealed override void BeforeExecute(string language)
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
-                AddLocalizationTypeToMap(localizationType);
+                AddLocalizationTypeToMap(language);
 #endif
         }
         protected virtual Value GetDefault() => default;
         public Value GetValue() => GetValue(Localization.GetLocalizationType());
-        public Value GetValue(string localizationType)
+        public Value GetValue(string language)
         {
             if (mode == Mode.Custom && customContext != null)
-                return customContext.GetLocalization(localizationType, key);
+                return customContext.GetLocalization(language, key);
             if (mode == Mode.Asset && asset != null)
-                return asset.GetLocalization(localizationType, key);
-            return ((IActorContext<Value>)context).GetLocalization(localizationType, key);
+                return asset.GetLocalization(language, key);
+            return ((IActorContext<Value>)context).GetLocalization(language, key);
         }
 
 

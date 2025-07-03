@@ -98,10 +98,10 @@ namespace WooLocalization
                 return;
             for (int i = 0; i < laguages.Count; i++)
             {
-                var lan = laguages[i];
-                var src = map[lan];
+                var language = laguages[i];
+                var src = map[language];
 
-                var tmp = LocalizationEditorHelper.DrawObject(lan, src);
+                var tmp = LocalizationEditorHelper.DrawObject(language, src);
                 bool change = false;
                 if (src == null)
                 {
@@ -114,7 +114,7 @@ namespace WooLocalization
                 }
                 if (change)
                 {
-                    map[lan] = tmp;
+                    map[language] = tmp;
                     SetDirty(component);
                 }
 

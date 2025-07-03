@@ -32,9 +32,9 @@ namespace WooLocalization
 #endif
             }
 
-            protected override void Execute(string localizationType, LocalizationText component)
+            protected override void Execute(string language, LocalizationText component)
             {
-                component.graphicT.font = GetValue(localizationType);
+                component.graphicT.font = GetValue(language);
             }
         }
         [System.Serializable]
@@ -53,9 +53,9 @@ namespace WooLocalization
 
             protected override int GetDefault() => 14;
 
-            protected override void Execute(string localizationType, LocalizationText component)
+            protected override void Execute(string language, LocalizationText component)
             {
-                component.graphicT.fontSize = GetValue(localizationType);
+                component.graphicT.fontSize = GetValue(language);
 
             }
         }

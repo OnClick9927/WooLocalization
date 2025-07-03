@@ -23,9 +23,9 @@ namespace WooLocalization
 
 
 
-            protected override void Execute(string localizationType, LocalizationImage component)
+            protected override void Execute(string language, LocalizationImage component)
             {
-                component.graphicT.sprite = GetValue(localizationType);
+                component.graphicT.sprite = GetValue(language);
             }
         }
         public ImageSpriteActor sprite = new ImageSpriteActor(true);

@@ -157,7 +157,7 @@ namespace WooLocalization
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        internal void Add(string localizationType, object getDefault)
+        internal void Add(string language, object getDefault)
         {
             throw new NotImplementedException();
         }

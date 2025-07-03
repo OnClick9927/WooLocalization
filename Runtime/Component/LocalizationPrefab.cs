@@ -23,7 +23,7 @@ namespace WooLocalization
             {
             }
 
-            protected override void Execute(string localizationType, LocalizationBehavior component)
+            protected override void Execute(string language, LocalizationBehavior component)
             {
 #if UNITY_EDITOR
                 if (!Application.isPlaying) return;
@@ -32,7 +32,7 @@ namespace WooLocalization
 
                 if (UnityEditor.SceneManagement.EditorSceneManager.IsPreviewSceneObject(component)) return;
 #endif
-                var prefab = GetValue(localizationType);
+                var prefab = GetValue(language);
                 if (prefab != null)
                 {
                     if (ins != null)

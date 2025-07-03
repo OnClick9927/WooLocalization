@@ -572,8 +572,8 @@ namespace WooLocalization
                     for (int j = 1; j < fields.Length; j++)
                     {
                         var value = fields[j];
-                        var lan = lanTypes[j];
-                        context.AddPair(lan, key, value);
+                        var language = lanTypes[j];
+                        context.AddPair(language, key, value);
                     }
                 }
 
@@ -607,11 +607,11 @@ namespace WooLocalization
                                 {
 
                                     var value = excelDataReader.GetValue(j);
-                                    var lan = lanTypes[j];
+                                    var language = lanTypes[j];
                                     if (value != null)
-                                        context.AddPair(lan, key, value.ToString());
+                                        context.AddPair(language, key, value.ToString());
                                     else
-                                        context.AddPair(lan, key, string.Empty);
+                                        context.AddPair(language, key, string.Empty);
                                 }
                             }
                         }

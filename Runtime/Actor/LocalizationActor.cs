@@ -57,7 +57,7 @@ namespace WooLocalization
         }
         void ILocalizationActor.Execute()
         {
-            (this as ILocalizationActor).Execute(this.behavior.GetLocalizationType(), this.behavior);
+            (this as ILocalizationActor).Execute(Localization.GetLocalizationType(), this.behavior);
         }
         void ILocalizationActor.SetBehavior(LocalizationBehavior behavior)
         {
@@ -65,25 +65,25 @@ namespace WooLocalization
 
 
         }
-        protected bool NeedExecute(string localizationType)
+        protected bool NeedExecute(string language)
         {
             if (!((ILocalizationActor)this).enable) return false;
-            if (_localizationType != localizationType) return true;
+            if (_localizationType != language) return true;
             return dirty;
         }
-        void ILocalizationActor.Execute(string localizationType, LocalizationBehavior component)
+        void ILocalizationActor.Execute(string language, LocalizationBehavior component)
         {
-            if (!NeedExecute(localizationType)) return;
+            if (!NeedExecute(language)) return;
             dirty = false;
-            _localizationType = localizationType;
+            _localizationType = language;
             T behavior = component as T;
             if (behavior == null) return;
-            BeforeExecute(localizationType);
-            Execute(localizationType, behavior);
+            BeforeExecute(language);
+            Execute(language, behavior);
         }
         protected virtual void OnEditorLoad() { }
-        protected abstract void Execute(string localizationType, T component);
-        internal virtual void BeforeExecute(string localizationType) { }
+        protected abstract void Execute(string language, T component);
+        internal virtual void BeforeExecute(string language) { }
 
         void ILocalizationActor.OnEditorLoad() => OnEditorLoad();
     }

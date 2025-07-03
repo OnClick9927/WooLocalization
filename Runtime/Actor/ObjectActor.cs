@@ -13,7 +13,7 @@ namespace WooLocalization
         public ObjectActor(bool enable) : base(enable)
         {
         }
-        protected override void Execute(string localizationType, LocalizationBehavior component)
+        protected override void Execute(string language, LocalizationBehavior component)
         {
 
         }
