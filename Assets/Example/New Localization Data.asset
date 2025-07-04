@@ -76,65 +76,116 @@ MonoBehaviour:
       Value:
         list:
         - Key: Load_GameTip
-          Value: '"Healthy Gaming Advice
-
-            Resist bad games and refuse
-            pirated games.
-
-            Pay attention to self-protection and be cautious
-            of being deceived.
-
-            Moderate gaming benefits the brain, but
-            excessive gaming harms the body.
-
-            Arrange your time reasonably
-            and enjoy a healthy life.'
+          Value: 
         - Key: Load_UpdateText
-          Value: The update is being checked
+          Value: 
         - Key: Load_Tip_Title
-          Value: Game update
+          Value: 
         - Key: Load_Tip_Text
-          Value: '100MB of game resources will be updated
-
-
-            Fixed the
-            Bug where the developer was too handsome
-
-            2. It still fixed
-            the Bug where the developer was too cool
-
-            3. Fixed the Bug
-            where the developer was too cute
-
-            4. It still fixed the Bug
-            where the developer was too cute'
+          Value: 
         - Key: Load_Tip_Button_Text
-          Value: Start updating
+          Value: 
         - Key: Load_UpdateText_1
-          Value: The HotUpdate module is loading...
+          Value: 
         - Key: Load_UpdateText_2
-          Value: Checking for version updates...
+          Value: 
         - Key: Load_UpdateText_3
-          Value: Update prompt
+          Value: 
         - Key: Load_UpdateText_4
-          Value: Discover new version :V{0}. Please download it from the app store/official
-            website
+          Value: 
         - Key: Load_UpdateText_5
-          Value: Got it
+          Value: 
         - Key: Load_UpdateText_6
-          Value: Resource update
+          Value: 
         - Key: Load_DOWNLOAD_FORMAT
-          Value: Downloaded :{0}% {1}MB/{2}MB
+          Value: 
         - Key: Load_UpdateText_7
-          Value: A new version of the resource has been detected. The resource size
-            is {0}MB and it is being downloaded. Please wait patiently...
+          Value: 
         - Key: Load_UpdateText_8
-          Value: Download error {0} \r\n {1}
+          Value: 
         - Key: Load_UpdateText_9
-          Value: A new version of the resource has been detected on the server
+          Value: 
         - Key: Load_UpdateText_10
-          Value: No updates have been found for the time being
+          Value: 
         - Key: Load_UpdateText_11
-          Value: Start loading the game components. Please wait patiently...
+          Value: 
         - Key: Load_UpdateText_12
-          Value: Loading successful
+          Value: 
+    - Key: zh-TW
+      Value:
+        list:
+        - Key: Load_GameTip
+          Value: 
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 
+    - Key: ja
+      Value:
+        list:
+        - Key: Load_GameTip
+          Value: 
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 

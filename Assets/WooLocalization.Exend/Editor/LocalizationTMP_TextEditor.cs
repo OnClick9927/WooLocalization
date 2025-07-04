@@ -6,6 +6,7 @@
 *********************************************************************************/
 #if UNITY_EDITOR
 using System;
+using TMPro;
 using UnityEditor;
 namespace WooLocalization
 {
@@ -24,13 +25,15 @@ namespace WooLocalization
         class TextFontActorEditor : LocalizationMapActorEditor<LocalizationTMP_Text.TMPFontActor, TMPro.TMP_FontAsset, LocalizationTMP_Text>
         {
             protected override Type GetAssetType() => typeof(TMPFontAsset);
-
+            protected override TMP_FontAsset GetDefault() => TMP_Settings.instance != null ? TMP_Settings.defaultFontAsset : null;
         }
 
         [LocalizationActorEditorAttribute]
         class TMPFontSizeActorEditor : LocalizationMapActorEditor<LocalizationTMP_Text.TMPFontSizeActor, float, LocalizationTMP_Text>
         {
             protected override Type GetAssetType() => typeof(FloatActorAsset);
+
+            protected override float GetDefault() => 36;
         }
     }
 }

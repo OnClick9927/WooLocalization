@@ -12,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +20,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.Networking;
+using static WooLocalization.LocalizationGraphic;
 
 namespace WooLocalization
 {
@@ -51,8 +51,46 @@ namespace WooLocalization
                 return path;
             }
         }
+        private static Dictionary<Type, Type> actorEditors = new Dictionary<Type, Type>();
+        public static bool ExistActorEditor(Type type, out Type result) => actorEditors.TryGetValue(type, out result);
+        internal static ILocalizationActorEditor CreateEditor(Type type) => Activator.CreateInstance(type) as ILocalizationActorEditor;
+
+        public static void CallAddComponent(Component obj)
+        {
+
+
+            Type type = obj.GetType();
+            if (obj is LocalizationBehavior)
+            {
+                var component = obj as LocalizationBehavior;
+                var actors = component.LoadActors();
+                foreach (var actor in actors)
+                {
+                    var actor_type = actor.GetType();
+                    if (IsSubclassOfGeneric(typeof(LocalizationMapActor<,>), actor_type))
+                    {
+                        var laguages = component.GetLocalizationTypes();
+
+                        if (ExistActorEditor(actor_type, out var result))
+                        {
+                            var editor = CreateEditor(result);
+                            var method = result.GetMethod(nameof(LocalizationMapActorEditor<GraphicColorActor, Color, LocalizationGraphic>.EnsureMap));
+                            method.Invoke(editor, new object[] { component, actor });
+                        }
+
+                    }
+                }
+            }
+        }
         static LocalizationEditorHelper()
         {
+
+            actorEditors = GetSubTypesInAssemblies(typeof(ILocalizationActorEditor))
+               .Where(x => !x.IsAbstract && x.GetCustomAttribute<LocalizationActorEditorAttribute>() != null)
+               .Select(x => new { x, target = x.BaseType.GetGenericArguments()[0] })
+               .ToDictionary(x => x.target, x => x.x);
+            ObjectFactory.componentWasAdded += CallAddComponent;
+
             if (!Directory.Exists(ObjDir))
                 Directory.CreateDirectory(ObjDir);
             Localization.SetRecorder(context);
@@ -474,13 +512,27 @@ namespace WooLocalization
             if (typeof(UnityEngine.Object).IsAssignableFrom(typeof(V)))
             {
                 UnityEngine.Object src = null;
+                UnityEngine.Object result = null;
 
                 if (value != null)
                     src = (UnityEngine.Object)(object)value;
-                var result = EditorGUILayout.ObjectField(label, src, typeof(V), false);
+                result = EditorGUILayout.ObjectField(label, src, typeof(V), false);
                 if (result != null)
-                    return (V)(object)result;
-                return default;
+                    if (src != null)
+                        if (src == result)
+                            return value;
+                        else
+                            return (V)(object)result;
+                    else
+                        return (V)(object)result;
+                else
+                {
+                    if (src != null)
+                        return default;
+                    else
+                        return value;
+                }
+
             }
             if (typeof(V).IsEnum)
             {
@@ -755,6 +807,16 @@ namespace WooLocalization
                 .Where(t => t.IsGenericType)
                 .Select(t => t.GetGenericTypeDefinition())
                 .Any(t => t == genericBaseType);
+        public static IEnumerable<Type> GetSubTypesInAssemblies(Type self)
+        {
+            if (self.IsInterface)
+                return AppDomain.CurrentDomain.GetAssemblies()
+                                .SelectMany(item => item.GetTypes())
+                                .Where(item => item.GetInterfaces().Contains(self));
+            return AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(item => item.GetTypes())
+                            .Where(item => item.IsSubclassOf(self));
+        }
         [MenuItem("Tools/WooLocalization/GenKeys")]
         public static void GenKeys()
         {

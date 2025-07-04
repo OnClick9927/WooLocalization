@@ -29,7 +29,6 @@ namespace WooLocalization
                 
             }
 
-            protected override TMP_FontAsset GetDefault() => TMP_Settings.instance != null ? TMP_Settings.defaultFontAsset : null;
 
             protected override void Execute(string language, LocalizationTMP_Text component)
             {
@@ -44,7 +43,6 @@ namespace WooLocalization
             {
             }
 
-            protected override float GetDefault() => 36;
 
             protected override void Execute(string language, LocalizationTMP_Text component)
             {

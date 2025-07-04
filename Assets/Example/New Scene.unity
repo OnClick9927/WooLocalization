@@ -182,7 +182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -216,7 +216,6 @@ MonoBehaviour:
   color:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -225,7 +224,6 @@ MonoBehaviour:
   material:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -234,7 +232,6 @@ MonoBehaviour:
   sprite:
     _enable: 1
     _name: 
-    _canRemove: 0
     map:
       list:
       - Key: zh-Hans
@@ -466,7 +463,6 @@ MonoBehaviour:
   color:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -475,7 +471,6 @@ MonoBehaviour:
   material:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -484,14 +479,12 @@ MonoBehaviour:
   text:
     _enable: 1
     _name: 
-    _canRemove: 0
     _key: Load_UpdateText_4
     formatArgs:
     - 1.000
   font:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -500,7 +493,6 @@ MonoBehaviour:
   fontSize:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -578,7 +570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: The update is being checked
+  m_Text: "\u6B63\u5728\u68C0\u67E5\u66F4\u65B0\u4E2D"
 --- !u!222 &382205953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -603,7 +595,6 @@ MonoBehaviour:
   color:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -612,7 +603,6 @@ MonoBehaviour:
   material:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -621,13 +611,11 @@ MonoBehaviour:
   text:
     _enable: 1
     _name: 
-    _canRemove: 0
     _key: Load_UpdateText
     formatArgs: []
   font:
     _enable: 1
     _name: 
-    _canRemove: 0
     map:
       list:
       - Key: zh-Hans
@@ -642,7 +630,6 @@ MonoBehaviour:
   fontSize:
     _enable: 0
     _name: 
-    _canRemove: 0
     map:
       list: []
     _mode: 0
@@ -659,6 +646,7 @@ GameObject:
   - component: {fileID: 653277881}
   - component: {fileID: 653277883}
   - component: {fileID: 653277882}
+  - component: {fileID: 653277884}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -707,7 +695,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -724,6 +712,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653277880}
   m_CullTransparentMesh: 1
+--- !u!114 &653277884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653277880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22d7c0c6904f474482df62e724ef632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  color:
+    _enable: 0
+    _name: color
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  material:
+    _enable: 0
+    _name: material
+    map:
+      list: []
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  sprite:
+    _enable: 1
+    _name: sprite
+    map:
+      list:
+      - Key: zh-CHS
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
 --- !u!1 &721698454
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +847,132 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1201256584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201256585}
+  - component: {fileID: 1201256587}
+  - component: {fileID: 1201256586}
+  - component: {fileID: 1201256588}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1201256585
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201256584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472333950}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1201256586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201256584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1201256587
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201256584}
+  m_CullTransparentMesh: 1
+--- !u!114 &1201256588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201256584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22d7c0c6904f474482df62e724ef632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
+  color:
+    _enable: 0
+    _name: color
+    map:
+      list:
+      - Key: zh-CHS
+        Value: {r: 1, g: 1, b: 1, a: 1}
+      - Key: en
+        Value: {r: 1, g: 1, b: 1, a: 1}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  material:
+    _enable: 0
+    _name: material
+    map:
+      list:
+      - Key: zh-CHS
+        Value: {fileID: 0}
+      - Key: en
+        Value: {fileID: 0}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
+  sprite:
+    _enable: 1
+    _name: sprite
+    map:
+      list:
+      - Key: zh-CHS
+        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+      - Key: en
+        Value: {fileID: 0}
+    _mode: 0
+    _key: 
+    asset: {fileID: 0}
 --- !u!1 &1472333949
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,6 +1008,7 @@ RectTransform:
   - {fileID: 382205950}
   - {fileID: 372363573}
   - {fileID: 653277881}
+  - {fileID: 1201256585}
   m_Father: {fileID: 1759332439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1072,8 +1228,7 @@ MonoBehaviour:
   _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   prefab:
     _enable: 1
-    _name: 
-    _canRemove: 0
+    _name: prefab
     map:
       list:
       - Key: zh-Hans
@@ -1101,7 +1256,6 @@ MonoBehaviour:
   _string_private:
     _enable: 1
     _name: _string_private
-    _canRemove: 0
     map:
       list:
       - Key: en
@@ -1115,8 +1269,7 @@ MonoBehaviour:
     asset: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   _enum_flag:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _enum_flag
     map:
       list:
       - Key: en
@@ -1128,8 +1281,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _enum:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _enum
     map:
       list:
       - Key: en
@@ -1141,8 +1293,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _string:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _string
     map:
       list:
       - Key: en
@@ -1154,8 +1305,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _go:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _go
     map:
       list:
       - Key: en
@@ -1167,8 +1317,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _int:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _int
     map:
       list:
       - Key: en
@@ -1180,8 +1329,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _float:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _float
     map:
       list:
       - Key: en
@@ -1193,8 +1341,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _bool:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _bool
     map:
       list:
       - Key: en
@@ -1206,8 +1353,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _double:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _double
     map:
       list:
       - Key: en
@@ -1219,8 +1365,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _long:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _long
     map:
       list:
       - Key: en
@@ -1232,8 +1377,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _color:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _color
     map:
       list:
       - Key: en
@@ -1245,8 +1389,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _v3:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _v3
     map:
       list:
       - Key: en
@@ -1258,8 +1401,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _v2:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _v2
     map:
       list:
       - Key: en
@@ -1271,8 +1413,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _v4:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _v4
     map:
       list:
       - Key: en
@@ -1284,8 +1425,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _v2i:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _v2i
     map:
       list:
       - Key: en
@@ -1297,8 +1437,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _v3i:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _v3i
     map:
       list:
       - Key: en
@@ -1310,8 +1449,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _rect:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _rect
     map:
       list:
       - Key: en
@@ -1333,8 +1471,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _recti:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _recti
     map:
       list:
       - Key: en
@@ -1354,8 +1491,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _bounds:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _bounds
     map:
       list:
       - Key: en
@@ -1371,8 +1507,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _curve:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _curve
     map:
       list:
       - Key: en
@@ -1394,8 +1529,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   _gradient:
     _enable: 0
-    _name: 
-    _canRemove: 0
+    _name: _gradient
     map:
       list:
       - Key: zh-Hans

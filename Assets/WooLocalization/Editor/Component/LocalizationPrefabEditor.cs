@@ -22,6 +22,8 @@ namespace WooLocalization
             protected override Type GetAssetType() => typeof(GameObjectActorAsset);
 
             protected override bool NeedExecute() => false;
+
+            protected override GameObject GetDefault() => null;
         }
     }
 }

@@ -43,7 +43,6 @@ namespace WooLocalization
 
             }
 
-            protected override Material GetDefault() => UnityEngine.UI.Graphic.defaultGraphicMaterial;
         }
         [NonSerialized] private Graphic _graphic; 
         public Graphic graphic

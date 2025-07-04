@@ -19,6 +19,8 @@ namespace WooLocalization
         {
 
             protected override Type GetAssetType() => typeof(SpriteActorAsset);
+
+            protected override Sprite GetDefault() => null;
         }
     }
 }
