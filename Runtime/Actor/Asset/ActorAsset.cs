@@ -52,6 +52,7 @@ namespace WooLocalization
 
         public void AddPair(string language, string key, Value value)
         {
+            if (string.IsNullOrEmpty(language) || string.IsNullOrEmpty(key)) return;
             if (!keys.Contains(key))
                 keys.Add(key);
             SerializableDictionary<string, Value> dic = null;

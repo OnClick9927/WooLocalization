@@ -13,10 +13,7 @@ namespace WooLocalization
     class ObjectActorEditor<V> : LocalizationMapActorEditor<ObjectActor<V>, V, LocalizationBehavior>
     {
         protected override Type GetAssetType() => typeof(ActorAsset<V>);
-        protected override bool NeedExecute()
-        {
-            return false;
-        }
-
+        protected override bool NeedExecute() => false;
+        protected override V GetDefault() => default;
     }
 }

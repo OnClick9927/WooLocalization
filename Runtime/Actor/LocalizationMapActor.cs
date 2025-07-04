@@ -24,16 +24,6 @@ namespace WooLocalization
                 return v;
             }
 
-            internal bool AddLocalizationTypeToMap(string language, Value _default)
-            {
-                Value value;
-                if (!map.TryGetValue(language, out value))
-                {
-                    map.Add(language, _default);
-                    return true;
-                }
-                return false;
-            }
 
             List<string> IActorContext<Value>.GetLocalizationKeys() => null;
 
@@ -101,23 +91,27 @@ namespace WooLocalization
             context.actor = this;
             base.OnEditorLoad();
         }
-        internal bool AddLocalizationTypeToMap(string language)
+        internal bool AddLocalizationTypeToMap(string language,Value value)
         {
 #if UNITY_EDITOR
-            if (Application.isPlaying)
-                return false;
-            return context.AddLocalizationTypeToMap(language, GetDefault());
+
+            Value _value;
+            if (!map.TryGetValue(language, out _value))
+            {
+                map.Add(language, value);
+                return true;
+            }
 #endif
             return false;
         }
-        internal sealed override void BeforeExecute(string language)
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-                AddLocalizationTypeToMap(language);
-#endif
-        }
-        protected virtual Value GetDefault() => default;
+        //internal sealed override void BeforeExecute(string language)
+        //{
+//#if UNITY_EDITOR
+//            if (!Application.isPlaying)
+//                AddLocalizationTypeToMap(language);
+//#endif
+        //}
+        //protected virtual Value GetDefault() => default;
         public Value GetValue() => GetValue(Localization.GetLocalizationType());
         public Value GetValue(string language)
         {

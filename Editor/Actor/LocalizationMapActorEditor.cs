@@ -17,6 +17,18 @@ namespace WooLocalization
     {
 
         protected abstract Type GetAssetType();
+        protected abstract Value GetDefault();
+        public void EnsureMap(Behavior component, Actor context)
+        {
+            var laguages = component.GetLocalizationTypes();
+            for (int i = 0; laguages.Count > i; i++)
+            {
+                var language = laguages[i];
+                //context.AddLocalizationTypeToMap(language, GetDefault());
+                context.AddLocalizationTypeToMap(language, GetDefault());
+            }
+            SetDirty(component);
+        }
         protected override void OnGUI(LocalizationBehavior component, Actor context)
         {
             if (component.context == null) return;
@@ -84,18 +96,19 @@ namespace WooLocalization
 
 
 
-            var laguages = component.GetLocalizationTypes();
-            var map = context.map;
-            for (int i = 0; laguages.Count > i; i++)
-            {
-                var key = laguages[i];
-                if (context.AddLocalizationTypeToMap(key))
-                {
-                    SetDirty(component);
-                }
-            }
+            //for (int i = 0; laguages.Count > i; i++)
+            //{
+            //    var language = laguages[i];
+            //    //context.AddLocalizationTypeToMap(language, GetDefault());
+            //    if (context.AddLocalizationTypeToMap(language, GetDefault()))
+            //    {
+            //        SetDirty(component);
+            //    }
+            //}
             if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
                 return;
+            var laguages = component.GetLocalizationTypes();
+            var map = context.map;
             for (int i = 0; i < laguages.Count; i++)
             {
                 var language = laguages[i];

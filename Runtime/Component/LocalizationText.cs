@@ -23,14 +23,7 @@ namespace WooLocalization
             {
             }
 
-            protected override Font GetDefault()
-            {
-#if UNITY_2023_1_OR_NEWER
-                return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-#else
-                return Resources.GetBuiltinResource<Font>("Arial.ttf");
-#endif
-            }
+
 
             protected override void Execute(string language, LocalizationText component)
             {
@@ -51,7 +44,6 @@ namespace WooLocalization
             {
             }
 
-            protected override int GetDefault() => 14;
 
             protected override void Execute(string language, LocalizationText component)
             {

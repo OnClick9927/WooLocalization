@@ -11,7 +11,6 @@ namespace WooLocalization
     {
         [UnityEngine.SerializeField] private bool _enable = true;
         [UnityEngine.SerializeField] private string _name = string.Empty;
-        [UnityEngine.SerializeField] private bool _canRemove = false;
         [System.NonSerialized] private string _localizationType;
         [System.NonSerialized] private bool dirty = true;
 
@@ -43,17 +42,16 @@ namespace WooLocalization
 
         string ILocalizationActor.name => _name;
 
-        public bool canRemove => _canRemove;
 
-        public LocalizationActor<T> SetCanRemove(bool canRemove)
-        {
-            _canRemove = canRemove;
-            return this;
-        }
+
         public LocalizationActor<T> SetName(string name)
         {
             _name = name;
             return this;
+        }
+        void ILocalizationActor.SetName(string name)
+        {
+            _name = name;
         }
         void ILocalizationActor.Execute()
         {
@@ -78,13 +76,15 @@ namespace WooLocalization
             _localizationType = language;
             T behavior = component as T;
             if (behavior == null) return;
-            BeforeExecute(language);
+            //BeforeExecute(language);
             Execute(language, behavior);
         }
         protected virtual void OnEditorLoad() { }
         protected abstract void Execute(string language, T component);
-        internal virtual void BeforeExecute(string language) { }
+        //internal virtual void BeforeExecute(string language) { }
 
         void ILocalizationActor.OnEditorLoad() => OnEditorLoad();
+
+  
     }
 }

@@ -9,13 +9,12 @@ namespace WooLocalization
 {
     public interface ILocalizationActor
     {
-        bool canRemove {  get; }
         string name { get; }
         bool enable { get; set; }
         void Execute(string language, LocalizationBehavior component);
         void Execute();
         void SetBehavior(LocalizationBehavior behavior);
-
+        void SetName(string name);
         void OnEditorLoad();
     }
 }
