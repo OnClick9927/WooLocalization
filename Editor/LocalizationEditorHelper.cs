@@ -10,20 +10,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using UnityEngine.Networking;
 using static WooLocalization.LocalizationGraphic;
 
 namespace WooLocalization
 {
+
+
     [UnityEditor.InitializeOnLoad]
     public static class LocalizationEditorHelper
     {
@@ -82,8 +81,28 @@ namespace WooLocalization
                 }
             }
         }
+
+
+        static List<ITranslator> translators = new List<ITranslator>();
+        static List<Type> translator_types;
+
+        public static List<Type> GetTranslatorTypes()
+        {
+            if (translator_types == null)
+            {
+                translator_types = GetSubTypesInAssemblies(typeof(ITranslator)).Where(x => !x.IsAbstract).ToList();
+            }
+            return translator_types;
+        }
         static LocalizationEditorHelper()
         {
+            translators.Clear();
+            foreach (var type in GetTranslatorTypes())
+            {
+                ITranslator translator = Activator.CreateInstance(type) as ITranslator;
+                translators.Add(translator);
+            }
+
 
             actorEditors = GetSubTypesInAssemblies(typeof(ILocalizationActorEditor))
                .Where(x => !x.IsAbstract && x.GetCustomAttribute<LocalizationActorEditorAttribute>() != null)
@@ -363,97 +382,6 @@ namespace WooLocalization
             }
         }
 
-        class YouDao
-        {
-            [System.Serializable]
-            public class Result
-            {
-                public int errorCode;
-                public string requestId;
-                public string l;
-                public List<TranslateResult> translateResults;
-            }
-
-            [System.Serializable]
-            public class TranslateResult
-            {
-                public string type;
-                public string translation;
-                public string query;
-            }
-            public static async Task<Result> Translate(string[] content, string from, string to)
-            {
-                string appKey = LocalizationSetting.youDaoAppId;
-                string appSecret = LocalizationSetting.youDaoAppSecret;
-                var dic = new Dictionary<string, string>();
-                string[] qArray = content;
-                string salt = DateTime.Now.Millisecond.ToString();
-                dic.Add("from", from);
-                dic.Add("to", to);
-                dic.Add("signType", "v3");
-                TimeSpan ts = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc));
-                long millis = (long)ts.TotalMilliseconds;
-                string curtime = Convert.ToString(millis / 1000);
-                dic.Add("curtime", curtime);
-                string signStr = appKey + Truncate(string.Join("", qArray)) + salt + curtime + appSecret; ;
-                string sign = ComputeHash(signStr, new SHA256CryptoServiceProvider());
-                dic.Add("appKey", appKey);
-                dic.Add("salt", salt);
-                dic.Add("sign", sign);
-                //dic.Add("vocabId", "您的用户词表ID");
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://openapi.youdao.com/v2/api");
-                req.Method = "POST";
-                req.ContentType = "application/x-www-form-urlencoded";
-                StringBuilder builder = new StringBuilder();
-                int i = 0;
-                foreach (var item in dic)
-                {
-                    if (i > 0)
-                        builder.Append("&");
-                    builder.AppendFormat("{0}={1}", item.Key, item.Value);
-                    i++;
-                }
-                foreach (var item in qArray)
-                {
-
-                    builder.Append("&");
-                    builder.AppendFormat("q={0}", UnityWebRequest.EscapeURL(item));
-                }
-                byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
-                req.ContentLength = data.Length;
-                using (Stream reqStream = req.GetRequestStream())
-                {
-                    reqStream.Write(data, 0, data.Length);
-                    reqStream.Close();
-                }
-                HttpWebResponse resp = (HttpWebResponse)(await req.GetResponseAsync());
-                Stream stream = resp.GetResponseStream();
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                {
-                    var result = await reader.ReadToEndAsync();
-                    return JsonUtility.FromJson<Result>(result);
-                }
-            }
-            private static string ComputeHash(string input, HashAlgorithm algorithm)
-            {
-                Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-                Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
-                return BitConverter.ToString(hashedBytes).Replace("-", "");
-            }
-
-
-            protected static string Truncate(string q)
-            {
-                if (q == null)
-                {
-                    return null;
-                }
-                int len = q.Length;
-                return len <= 20 ? q : (q.Substring(0, 10) + len + q.Substring(len - 10, 10));
-            }
-
-
-        }
         private static Type winType;
         static MethodInfo _AdvancedPopup, _AdvancedPopup_layout;
         public static int AdvancedPopup(Rect rect, int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style)
@@ -635,7 +563,7 @@ namespace WooLocalization
         }
         public static void ReadExcel(string path, LocalizationData context)
         {
-            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 using (IExcelDataReader excelDataReader = ExcelReaderFactory.CreateReader(stream))
                 {
@@ -740,24 +668,7 @@ namespace WooLocalization
             SaveContext(target);
         }
 
-        public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
-        {
-            List<string> _from = keys.Select(x => context.GetLocalization(src, x)).ToList();
-            var result = await YouDao.Translate(_from.ToArray(), src, dest);
-            if (result.errorCode == 0)
-                for (var i = 0; i < result.translateResults.Count; i++)
-                {
-                    var item = result.translateResults[i];
-                    var _key = keys[i];
-                    context.AddPair(dest, _key, item.translation);
-                }
-            else
-                Debug.LogError($"from:{src}\t to{dest} ErrCode:{result.errorCode}");
-            EditorApplication.delayCall += () =>
-            {
-                SaveContext(context);
-            };
-        }
+
 
         public static void DeleteKeys<T>(ActorAsset<T> context, List<string> keys)
         {
@@ -817,6 +728,50 @@ namespace WooLocalization
                             .SelectMany(item => item.GetTypes())
                             .Where(item => item.IsSubclassOf(self));
         }
+
+        public static ITranslator GetTranslator()
+        {
+            var type = LocalizationSetting.translatorType;
+            var param = LocalizationSetting.translatorParam;
+            foreach (var item in translators)
+            {
+                if (item.GetType().FullName == type)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static bool CanTranslate()
+        {
+            var tanslator = GetTranslator();
+            if (tanslator == null) return false;
+            return tanslator.IsValid(LocalizationSetting.translatorParam);
+        }
+        public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
+        {
+            List<string> _from = keys.Select(x => context.GetLocalization(src, x)).ToList();
+            var tanslator = GetTranslator();
+            if (tanslator == null) return;
+
+
+            var result = await tanslator.Translate(LocalizationSetting.translatorParam, _from.ToArray(), src, dest);
+            if (result.errorCode == 0)
+                for (var i = 0; i < result.translateResults.Count; i++)
+                {
+                    var item = result.translateResults[i];
+                    var _key = keys[i];
+                    context.AddPair(dest, _key, item.translation);
+                }
+            else
+                Debug.LogError($"from:{src}\t to{dest} ErrCode:{result.errorCode}");
+            EditorApplication.delayCall += () =>
+            {
+                SaveContext(context);
+            };
+        }
+
         [MenuItem("Tools/WooLocalization/GenKeys")]
         public static void GenKeys()
         {
@@ -829,6 +784,7 @@ namespace WooLocalization
 
 
             string cls = $"namespace {nameof(WooLocalization)}{{\n";
+            cls += "using System.Collections.Generic;\n";
             cls += $"public class {sriptName} {{\n";
             var types = typeof(ActorAsset<>).GetAllSubclassesOfGenericType().ToList();
             List<string> languages = new List<string>();
@@ -857,17 +813,26 @@ namespace WooLocalization
 
                 }
             }
+
+            cls += "\n}\n";
+
             cls += $"public class Languages {{\n";
+
+            string fields = " static List<string> languages = new List<string>{\n";
 
             foreach (var language in languages.Distinct())
             {
                 var src = language.Replace("\r", "\n").Replace("\n", "");
-                cls += $"public const string {src.Replace("-", "_")}=\"{src}\";\n";
-
+                var filed = src.Replace("-", "_");
+                cls += $"public const string {filed}=\"{src}\";\n";
+                fields += $"{filed},\n";
             }
+            fields += "};\n";
+            cls += fields;
+            cls += "public static List<string> GetLanguages(){return languages;}\n";
             cls += "}\n";
 
-            cls += "\n}}";
+            cls += "\n}";
 
             File.WriteAllText(path, cls);
             AssetDatabase.Refresh();
