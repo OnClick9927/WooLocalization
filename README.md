@@ -71,17 +71,12 @@ public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
 ~~~
 
 
-
+![image](https://github.com/user-attachments/assets/3f774100-1669-417e-9607-dc233fda72c5)
 <img width="382" alt="{2C20A8AB-E22C-43F7-98A2-779A58D24CA1}" src="https://github.com/user-attachments/assets/0c67feb4-432f-486f-ac47-52f23944c856" />
-
 ![f489f59c-8f8b-4fe1-b7c2-7835a6f36eb5](https://github.com/user-attachments/assets/d6f83a09-2015-45fd-83e2-80467d9ebdba)
-
 ![1e264983-dcd4-4a91-9659-485ad277ba71](https://github.com/user-attachments/assets/f735af84-b2bc-416f-bf6a-3a3bc0eb3e06)
-
 ![7541e788-84ce-4fb8-a90c-d724ff66a629](https://github.com/user-attachments/assets/8ae4c94f-2391-456e-9a3d-659ff73e9a18)
-
 ![665ff1bf-3c76-4dc1-b8e8-90c602a38bb4](https://github.com/user-attachments/assets/62e37823-9180-4782-9a8a-58fce72d8c0a)
-
 ![image](https://github.com/user-attachments/assets/2f46dd79-3e4d-4238-ae17-48ff0ec1a193)
 
 
