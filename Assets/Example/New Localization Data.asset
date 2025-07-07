@@ -72,7 +72,7 @@ MonoBehaviour:
           Value: "\u5F00\u59CB\u52A0\u8F7D\u6E38\u620F\u7EC4\u4EF6\uFF0C\u8BF7\u8010\u5FC3\u7B49\u5F85..."
         - Key: Load_UpdateText_12
           Value: "\u52A0\u8F7D\u6210\u529F"
-    - Key: en
+    - Key: zh-TW
       Value:
         list:
         - Key: Load_GameTip
@@ -111,13 +111,13 @@ MonoBehaviour:
           Value: 
         - Key: Load_UpdateText_12
           Value: 
-    - Key: zh-TW
+    - Key: en
       Value:
         list:
         - Key: Load_GameTip
           Value: 
         - Key: Load_UpdateText
-          Value: 
+          Value: The update is being checked
         - Key: Load_Tip_Title
           Value: 
         - Key: Load_Tip_Text

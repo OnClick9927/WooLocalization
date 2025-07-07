@@ -1,4 +1,5 @@
 namespace WooLocalization{
+using System.Collections.Generic;
 public class LocalizationKeys {
 public class String {
 public const string Load_GameTip="Load_GameTip";
@@ -24,9 +25,22 @@ public class Sprite {
 public const string text="text";
 public const string test2="test2";
 }
+
+}
 public class Languages {
-public const string zh_Hans="zh-Hans";
+public const string zh_CHS="zh-CHS";
+public const string zh_TW="zh-TW";
 public const string en="en";
+public const string ja="ja";
+public const string zh_Hans="zh-Hans";
+ static List<string> languages = new List<string>{
+zh_CHS,
+zh_TW,
+en,
+ja,
+zh_Hans,
+};
+public static List<string> GetLanguages(){return languages;}
 }
 
-}}
+}

@@ -17,6 +17,9 @@ MonoBehaviour:
   _lineReg: '"'
   _fieldReg: \G(?:^|,)(?:"((?>[^"]*)(?>""[^"]*)*)"|([^",]*))
   _quotesReg: '""'
-  _youDaoAppId: 
-  _youDaoAppSecret: 
+  _translatorType: WooLocalization.YouDao
+  _translatorParam:
+    list:
+    - Key: WooLocalization.YouDao
+      Value: '{"AppId":"","AppSecret":""}'
   _lastCSVPath: E:\Project\Unity\WooLocalization\Assets\Example

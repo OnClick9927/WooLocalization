@@ -182,7 +182,7 @@ namespace WooLocalization
                         var dst = lanTypes[j];
                         if (src == dst) continue;
 
-                        if (LocalizationSetting.YouDaoLegal)
+                        if (LocalizationEditorHelper.CanTranslate())
                             menu.AddItem(new GUIContent($"Translate/{src} --> {dst}"), false, () =>
                             {
                                 LocalizationEditorHelper.Translate(context, context.GetLocalizationKeys(), src, dst);
@@ -206,9 +206,8 @@ namespace WooLocalization
                             var src = lanTypes[i];
                             var dst = lanTypes[j];
                             if (src == dst) continue;
-                            string appKey = LocalizationSetting.youDaoAppId;
-                            string appSecret = LocalizationSetting.youDaoAppSecret;
-                            if (LocalizationSetting.YouDaoLegal)
+  
+                            if (LocalizationEditorHelper.CanTranslate())
                                 menu.AddItem(new GUIContent($"TranslateSelect/{src} --> {dst}"), false, () =>
                                 {
                                     LocalizationEditorHelper.Translate(context, keys, src, dst);

@@ -244,8 +244,13 @@ namespace WooLocalization
 
             EditorGUILayout.EndVertical();
 
+            EditorGUI.BeginChangeCheck();
 
             tree.OnGUI(EditorGUILayout.GetControlRect(GUILayout.MinHeight(EditorGUIUtility.GetMainWindowPosition().height - 320)));
+            if (EditorGUI.EndChangeCheck())
+            {
+                LocalizationEditorHelper.SaveContext(context);
+            }
 
         }
     }

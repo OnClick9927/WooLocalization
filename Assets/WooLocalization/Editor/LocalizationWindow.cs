@@ -4,6 +4,9 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-06-29
 *********************************************************************************/
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +20,17 @@ namespace WooLocalization
         {
             GetWindow<LocalizationWindow>();
         }
+        //List<Type> types = new List<Type>();
+        List<string> types_string = new List<string>();
+        List<string> types_string_short = new List<string>();
 
+        private void OnEnable()
+        {
+            var types = LocalizationEditorHelper.GetTranslatorTypes();
+            types_string = types.ConvertAll(x => x.FullName);
+            types_string_short = types.ConvertAll(x => x.Name);
+
+        }
 
         private void OnGUI()
         {
@@ -28,21 +41,18 @@ namespace WooLocalization
             LocalizationSetting.fieldReg = EditorGUILayout.TextField(nameof(LocalizationSetting.fieldReg), LocalizationSetting.fieldReg);
             EditorGUILayout.EndVertical();
 
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField("YouDao");
-            LocalizationSetting.youDaoAppId = EditorGUILayout.TextField(nameof(LocalizationSetting.youDaoAppId), LocalizationSetting.youDaoAppId);
-            LocalizationSetting.youDaoAppSecret = EditorGUILayout.TextField(nameof(LocalizationSetting.youDaoAppSecret), LocalizationSetting.youDaoAppSecret);
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Register"))
-            {
-                Application.OpenURL("https://ai.youdao.com/product-fanyi-text.s");
-            }
-            if (GUILayout.Button("Code && Language"))
-            {
-                Application.OpenURL("https://ai.youdao.com/DOCSIRMA/html/trans/api/plwbfy/index.html");
-            }
 
-            GUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            var _type = LocalizationSetting.translatorType;
+            var _index = types_string.IndexOf(_type);
+            _index = Mathf.Max(0, _index);
+            _index = EditorGUILayout.Popup("Translator", _index, types_string_short.ToArray());
+            LocalizationSetting.translatorType = types_string[_index];
+            var tranlator = LocalizationEditorHelper.GetTranslator();
+            LocalizationSetting.translatorParam = tranlator.OnGUI(LocalizationSetting.translatorParam);
+
+
             EditorGUILayout.EndVertical();
 
             GUILayout.Space(10);
@@ -68,7 +78,7 @@ namespace WooLocalization
                     //    }
                     //}
                 }
-     
+
 
             }
             GUILayout.EndVertical();

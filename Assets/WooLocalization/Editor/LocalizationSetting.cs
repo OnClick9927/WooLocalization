@@ -36,11 +36,8 @@ namespace WooLocalization
         [UnityEngine.SerializeField] private string _lineReg = "\"";
         [UnityEngine.SerializeField] private string _fieldReg = "\\G(?:^|,)(?:\"((?>[^\"]*)(?>\"\"[^\"]*)*)\"|([^\",]*))";
         [UnityEngine.SerializeField] private string _quotesReg = "\"\"";
-        [UnityEngine.SerializeField] private string _youDaoAppId = "";
-        [UnityEngine.SerializeField] private string _youDaoAppSecret = "";
-
-        //[UnityEngine.SerializeField] private SerializableDictionary<string, string> reflect = new SerializableDictionary<string, string>();
-
+        [UnityEngine.SerializeField] private string _translatorType;
+        [UnityEngine.SerializeField] private SerializableDictionary<string, string> _translatorParam = new SerializableDictionary<string, string>();
 
         private void Save()
         {
@@ -60,6 +57,42 @@ namespace WooLocalization
 
             }
         }
+
+        public static string translatorType
+        {
+            get { return context._translatorType; }
+            set
+            {
+                if (context._translatorType == value) return;
+                context._translatorType = value;
+                context.Save();
+
+            }
+        }
+        public static string translatorParam
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(translatorType))
+                    return string.Empty;
+                string result = string.Empty;
+                context._translatorParam.TryGetValue(translatorType, out result);
+                return result;
+            }
+            set
+            {
+                string result = string.Empty;
+                context._translatorParam.TryGetValue(translatorType, out result);
+                if (result != value)
+                {
+                    context._translatorParam[translatorType] = value;
+                    context.Save();
+                }
+
+            }
+        }
+
+
         public static string language
         {
             get { return context._localizationType; }
@@ -100,30 +133,7 @@ namespace WooLocalization
                 context.Save();
             }
         }
-        public static string youDaoAppId
-        {
-            get { return context._youDaoAppId; }
-            set
-            {
-                if (context._youDaoAppId == value) return;
-                context._youDaoAppId = value;
-                context.Save();
-            }
-        }
-        public static string youDaoAppSecret
-        {
-            get { return context._youDaoAppSecret; }
-            set
-            {
-                if (context._youDaoAppSecret == value) return;
-                context._youDaoAppSecret = value;
-                context.Save();
-            }
-        }
-        public static bool YouDaoLegal
-        {
-            get { return !string.IsNullOrEmpty(youDaoAppId) && !string.IsNullOrEmpty(youDaoAppSecret); }
-        }
+
         private static LocalizationData __defaultData;
         public static LocalizationData defaultData
         {
