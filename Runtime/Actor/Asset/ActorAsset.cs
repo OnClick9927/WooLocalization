@@ -32,6 +32,17 @@ namespace WooLocalization
             return default;
 
         }
+        public void Merge(IActorContext<Value> context,string language)
+        {
+            var keys = context.GetLocalizationKeys();
+            for (var j = 0; j < keys.Count; j++)
+            {
+                var key = keys[j];
+                var value = context.GetLocalization(language, key);
+                AddPair(language, key, value);
+            }
+        
+        }
         public void Merge(IActorContext<Value> context)
         {
             var types = context.GetLocalizationTypes();
@@ -63,7 +74,16 @@ namespace WooLocalization
             }
             dic[key] = value;
         }
-        public void ClearLanguage(string language) => map.Remove(language);
+        public void ClearLanguage(string language)
+        {
+            SerializableDictionary<string, Value> result = null;
+            if (map.TryGetValue(language, out result))
+            {
+                result.Clear();
+            }
+
+        }
+
         public void ClearKeys(IList<string> keys)
         {
             var lanTypes = this.map.Keys.ToList();

@@ -18,13 +18,11 @@ namespace WooLocalization
         class GraphicColorActorEditor : LocalizationMapActorEditor<GraphicColorActor, Color, LocalizationGraphic>
         {
             protected override Type GetAssetType() => typeof(ColorActorAsset);
-            protected override Color GetDefault() => Color.white;
         }
         [LocalizationActorEditorAttribute]
         class GraphicMaterialActorEditor : LocalizationMapActorEditor<GraphicMaterialActor, Material, LocalizationGraphic>
         {
             protected override Type GetAssetType() => typeof(MaterialActorAsset);
-            protected override Material GetDefault() => UnityEngine.UI.Graphic.defaultGraphicMaterial;
         }
     }
 }

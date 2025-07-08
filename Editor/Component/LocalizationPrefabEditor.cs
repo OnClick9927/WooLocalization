@@ -23,7 +23,6 @@ namespace WooLocalization
 
             protected override bool NeedExecute() => false;
 
-            protected override GameObject GetDefault() => null;
         }
     }
 }

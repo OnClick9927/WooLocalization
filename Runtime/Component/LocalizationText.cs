@@ -24,18 +24,29 @@ namespace WooLocalization
             }
 
 
-
+            public override Font GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.graphic.font;
+#if UNITY_2023_1_OR_NEWER
+                return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+#else
+                return Resources.GetBuiltinResource<Font>("Arial.ttf");
+#endif
+            }
             protected override void Execute(string language, LocalizationText component)
             {
-                component.graphicT.font = GetValue(language);
+                component.graphic.font = GetValue(language);
             }
         }
         [System.Serializable]
         public class TextValueActor : TextValueActor_Base<LocalizationText>
         {
             public TextValueActor(bool enable) : base(enable) { }
-            protected override string GetComponentText() => this.behavior.graphicT.text;
-            protected override void SetComponentText(string value) => this.behavior.graphicT.text = value;
+
+    
+            protected override string GetComponentText() => this.behavior.graphic.text;
+            protected override void SetComponentText(string value) => this.behavior.graphic.text = value;
         }
         [System.Serializable]
         public class TextFontSizeActor : LocalizationMapActor<LocalizationText, int>
@@ -47,8 +58,15 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationText component)
             {
-                component.graphicT.fontSize = GetValue(language);
+                component.graphic.fontSize = GetValue(language);
 
+            }
+
+            public override int GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.graphic.fontSize;
+                return 14;
             }
         }
         public TextValueActor text = new TextValueActor(true);

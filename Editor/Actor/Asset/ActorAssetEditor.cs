@@ -116,7 +116,15 @@ namespace WooLocalization
                     Value value = context.GetLocalization(language, key);
                     var rect = args.GetCellRect(i + 1);
                     var tmp = this.parent.DrawField(rect, value);
-                    context.AddPair(language, key, tmp);
+                    if (value == null && tmp == null) { }
+
+                    else if (value != null && !value.Equals(tmp))
+                        context.AddPair(language, key, tmp);
+
+                    else if (!tmp.Equals(value))
+                        context.AddPair(language, key, tmp);
+
+
                 }
             }
             public override void OnGUI(Rect rect)
@@ -148,7 +156,24 @@ namespace WooLocalization
 
                 //var lanTypes = GetLocalizationTypes();
 
+                var lanTypes = context.GetLocalizationTypes();
 
+
+
+                for (int i = 0; i < lanTypes.Count; i++)
+                {
+                    var language = lanTypes[i];
+                    menu.AddItem(new GUIContent($"Clear Language/{language}"), false, () =>
+                    {
+                        LocalizationEditorHelper.ClearLanguage(context, language);
+                        Reload();
+                    });
+                    menu.AddItem(new GUIContent($"Split Language/{language}"), false, () =>
+                    {
+                        LocalizationEditorHelper.SplitLanguage(context, language);
+                        Reload();
+                    });
+                }
 
 
                 var select = this.GetSelection();
@@ -192,7 +217,7 @@ namespace WooLocalization
         private string key;
         private Value value;
         private int control;
-  
+
 
 
         public override void OnInspectorGUI()

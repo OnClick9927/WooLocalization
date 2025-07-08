@@ -13,7 +13,7 @@ namespace WooLocalization
 {
     [UnityEngine.RequireComponent(typeof(UnityEngine.UI.Graphic))]
     [DisallowMultipleComponent]
-    public class LocalizationGraphic : LocalizationBehavior
+    public class LocalizationGraphic : LocalizationBehavior<UnityEngine.UI.Graphic>
     {
         [System.Serializable]
         public class GraphicColorActor : LocalizationMapActor<LocalizationGraphic, Color>
@@ -23,39 +23,41 @@ namespace WooLocalization
             }
 
 
+            public override Color GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.target.color;
+                return Color.white;
+            }
 
             protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.graphic.color = GetValue(language);
+                component.target.color = GetValue(language);
 
             }
         }
         [System.Serializable]
         public class GraphicMaterialActor : LocalizationMapActor<LocalizationGraphic, Material>
         {
+          
             public GraphicMaterialActor(bool enable) : base(enable)
             {
+            }
+            public override Material GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.target.material;
+                return UnityEngine.UI.Graphic.defaultGraphicMaterial;
             }
 
             protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.graphic.material = GetValue(language);
+                component.target.material = GetValue(language);
 
             }
 
         }
-        [NonSerialized] private Graphic _graphic; 
-        public Graphic graphic
-        {
-            get
-            {
-                if (_graphic == null)
-                {
-                    _graphic = GetComponent<Graphic>();
-                }
-                return _graphic;
-            }
-        }
+
         public GraphicColorActor color = new GraphicColorActor(false);
         public GraphicMaterialActor material = new GraphicMaterialActor(false);
 
@@ -71,7 +73,7 @@ namespace WooLocalization
     public class LocalizationGraphic<T> : LocalizationGraphic where T : Graphic
     {
         [NonSerialized] private T _graphic;
-        public T graphicT
+        public T graphic
         {
 
             get
@@ -79,7 +81,7 @@ namespace WooLocalization
 
                 if (_graphic == null)
                 {
-                    _graphic = graphic as T;
+                    _graphic = target as T;
                 }
                 return _graphic;
             }

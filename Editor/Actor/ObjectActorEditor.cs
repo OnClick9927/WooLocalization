@@ -14,6 +14,5 @@ namespace WooLocalization
     {
         protected override Type GetAssetType() => typeof(ActorAsset<V>);
         protected override bool NeedExecute() => false;
-        protected override V GetDefault() => default;
     }
 }

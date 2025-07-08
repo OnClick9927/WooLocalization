@@ -55,7 +55,8 @@ namespace WooLocalization
         }
         void ILocalizationActor.Execute()
         {
-            (this as ILocalizationActor).Execute(Localization.GetLocalizationType(), this.behavior);
+            var language = Localization.GetLocalizationType();
+            (this as ILocalizationActor).Execute(language, this.behavior);
         }
         void ILocalizationActor.SetBehavior(LocalizationBehavior behavior)
         {

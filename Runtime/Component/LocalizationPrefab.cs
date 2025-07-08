@@ -22,6 +22,7 @@ namespace WooLocalization
             public PrefabActor(bool enable) : base(enable)
             {
             }
+            public override GameObject GetDefault() => default;
 
             protected override void Execute(string language, LocalizationBehavior component)
             {

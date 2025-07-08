@@ -10,7 +10,21 @@ using UnityEngine;
 
 namespace WooLocalization
 {
-
+    public abstract class LocalizationBehavior<T> : LocalizationBehavior
+    {
+        private T _target;
+        public T target
+        {
+            get
+            {
+                if (_target == null)
+                {
+                    _target = GetComponent<T>();
+                }
+                return _target;
+            }
+        }
+    }
     [ExecuteAlways]
     public abstract class LocalizationBehavior : MonoBehaviour, ILocalizationEventActor
     {
@@ -19,6 +33,9 @@ namespace WooLocalization
         internal LocalizationData context { get { return _context; } set { _context = value; } }
 
         internal static LocalizationData defaultContext;
+
+
+
         public List<string> GetLocalizationTypes() => context == null ? Localization.GetLocalizationTypes() : Localization.GetLocalizationTypes(_context);
         public List<string> GetLocalizationKeys() => context == null ? Localization.GetLocalizationKeys() : Localization.GetLocalizationKeys(_context);
         public string GetLocalization(string key, params object[] args) => context == null ? Localization.GetLocalization(key, args) : Localization.GetLocalization(_context, key, args);

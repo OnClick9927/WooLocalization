@@ -54,33 +54,33 @@ namespace WooLocalization
         public static bool ExistActorEditor(Type type, out Type result) => actorEditors.TryGetValue(type, out result);
         internal static ILocalizationActorEditor CreateEditor(Type type) => Activator.CreateInstance(type) as ILocalizationActorEditor;
 
-        public static void CallAddComponent(Component obj)
-        {
+        //public static void CallAddComponent(Component obj)
+        //{
 
 
-            Type type = obj.GetType();
-            if (obj is LocalizationBehavior)
-            {
-                var component = obj as LocalizationBehavior;
-                var actors = component.LoadActors();
-                foreach (var actor in actors)
-                {
-                    var actor_type = actor.GetType();
-                    if (IsSubclassOfGeneric(typeof(LocalizationMapActor<,>), actor_type))
-                    {
-                        var laguages = component.GetLocalizationTypes();
+        //    Type type = obj.GetType();
+        //    if (obj is LocalizationBehavior)
+        //    {
+        //        var component = obj as LocalizationBehavior;
+        //        var actors = component.LoadActors();
+        //        foreach (var actor in actors)
+        //        {
+        //            var actor_type = actor.GetType();
+        //            if (IsSubclassOfGeneric(typeof(LocalizationMapActor<,>), actor_type))
+        //            {
+        //                var laguages = component.GetLocalizationTypes();
 
-                        if (ExistActorEditor(actor_type, out var result))
-                        {
-                            var editor = CreateEditor(result);
-                            var method = result.GetMethod(nameof(LocalizationMapActorEditor<GraphicColorActor, Color, LocalizationGraphic>.EnsureMap));
-                            method.Invoke(editor, new object[] { component, actor });
-                        }
+        //                if (ExistActorEditor(actor_type, out var result))
+        //                {
+        //                    var editor = CreateEditor(result);
+        //                    var method = result.GetMethod(nameof(LocalizationMapActorEditor<GraphicColorActor, Color, LocalizationGraphic>.EnsureMap));
+        //                    method.Invoke(editor, new object[] { component, actor });
+        //                }
 
-                    }
-                }
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //}
 
 
         static List<ITranslator> translators = new List<ITranslator>();
@@ -108,24 +108,24 @@ namespace WooLocalization
                .Where(x => !x.IsAbstract && x.GetCustomAttribute<LocalizationActorEditorAttribute>() != null)
                .Select(x => new { x, target = x.BaseType.GetGenericArguments()[0] })
                .ToDictionary(x => x.target, x => x.x);
-            ObjectFactory.componentWasAdded += CallAddComponent;
+            //ObjectFactory.componentWasAdded += CallAddComponent;
 
             if (!Directory.Exists(ObjDir))
                 Directory.CreateDirectory(ObjDir);
             Localization.SetRecorder(context);
             LocalizationBehavior.defaultContext = LocalizationSetting.defaultData;
         }
-        internal static T LoadContext<T>(string path) where T : UnityEngine.ScriptableObject
+        internal static UnityEngine.ScriptableObject LoadContext(Type type, string path)
         {
-            T _context;
+            ScriptableObject _context;
             if (!System.IO.File.Exists(path))
             {
-                _context = LocalizationSetting.CreateInstance<T>();
+                _context = ScriptableObject.CreateInstance(type);
                 AssetDatabase.CreateAsset(_context, path);
             }
             else
             {
-                _context = AssetDatabase.LoadAssetAtPath<T>(path);
+                _context = AssetDatabase.LoadAssetAtPath(path, type) as UnityEngine.ScriptableObject;
             }
             return _context;
         }
@@ -137,7 +137,7 @@ namespace WooLocalization
             {
                 if (_context == null)
                 {
-                    _context = LoadContext<LocalizationSetting>("Assets/Editor/LocalizationSetting.asset");
+                    _context = LoadContext(typeof(LocalizationSetting), "Assets/Editor/LocalizationSetting.asset") as LocalizationSetting;
                 }
                 return _context;
             }
@@ -677,13 +677,32 @@ namespace WooLocalization
             SaveContext(context);
 
         }
-        public static void DeleteLocalizationType(LocalizationData context, string type)
+        public static void ClearLanguage<T>(ActorAsset<T> context, string language)
         {
-            context.ClearLanguage(type);
+            context.ClearLanguage(language);
 
 
             SaveContext(context);
 
+        }
+        public static void SplitLanguage<T>(ActorAsset<T> context, string language)
+        {
+            var languages = context.GetLocalizationTypes();
+            if (!languages.Contains(language)) return;
+
+            var path = AssetDatabase.GetAssetPath(context);
+            var dir = Path.GetDirectoryName(path);
+
+
+            path = Path.Combine(dir, $"{context.name}_{language}.asset");
+            var split = LoadContext(context.GetType(), path) as ActorAsset<T>;
+            split.Clear();
+            split.Merge(context, language);
+            SaveContext(split);
+
+
+            ClearLanguage(context, language);
+            AssetDatabase.Refresh();
         }
         public static void AddLocalizationType(LocalizationData context, string type)
         {

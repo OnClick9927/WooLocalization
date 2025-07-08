@@ -17,25 +17,24 @@ namespace WooLocalization
     {
 
         protected abstract Type GetAssetType();
-        protected abstract Value GetDefault();
-        public void EnsureMap(Behavior component, Actor context)
-        {
-            var laguages = component.GetLocalizationTypes();
-            for (int i = 0; laguages.Count > i; i++)
-            {
-                var language = laguages[i];
-                //context.AddLocalizationTypeToMap(language, GetDefault());
-                context.AddLocalizationTypeToMap(language, GetDefault());
-            }
-            SetDirty(component);
-        }
+        //public void EnsureMap(Behavior component, Actor context)
+        //{
+        //    var laguages = component.GetLocalizationTypes();
+        //    bool change = false;
+        //    for (int i = 0; laguages.Count > i; i++)
+        //    {
+        //        var language = laguages[i];
+        //        change |= context.EnsureMap(language);
+        //    }
+        //    if (change)
+        //        SetDirty(component);
+
+        //}
         protected override void OnGUI(LocalizationBehavior component, Actor context)
         {
             if (component.context == null) return;
-
             var last_mode = context.mode;
             var _mode = (LocalizationMapActor<Behavior, Value>.Mode)EditorGUILayout.EnumPopup(nameof(context.mode), context.mode);
-            var last_key = context.key;
             if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
             {
                 if (context.mode == LocalizationMapActor<Behavior, Value>.Mode.Custom)
@@ -47,16 +46,24 @@ namespace WooLocalization
 
                 if (context.mode == LocalizationMapActor<Behavior, Value>.Mode.Asset)
                 {
+                    var _asset = context.asset;
+                    _asset = EditorGUILayout.ObjectField(nameof(context.asset), context.asset, GetAssetType(), false) as ActorAsset<Value>;
+                    if (_asset != null && context.asset == null)
+                    {
+                        var _default = context.GetDefault();
+                        var _key = _asset.FindKey(Localization.GetLocalizationType(), _default);
+                        context.SetKey(_key);
+                        SetDirty(component);
+                    }
 
-                    context.asset = EditorGUILayout.ObjectField(nameof(context.asset), context.asset, GetAssetType(), false) as ActorAsset<Value>;
 
+                    context.asset = _asset;
                     if (context.asset != null)
                     {
-
                         var keys = context.asset.GetLocalizationKeys();
 
                         if (keys == null || keys.Count == 0) return;
-                        var _index = keys.IndexOf(last_key);
+                        var _index = keys.IndexOf(context.key);
                         var rect = EditorGUILayout.GetControlRect();
                         GUILayout.BeginHorizontal();
                         rect = EditorGUI.PrefixLabel(rect, new GUIContent("Key"));
@@ -77,8 +84,12 @@ namespace WooLocalization
                 }
                 else
                 {
-                    last_key = EditorGUILayout.TextField(nameof(context.key), last_key);
-
+                    var _key = EditorGUILayout.TextField(nameof(context.key), context.key);
+                    if (_key != context.key)
+                    {
+                        context.SetKey(_key);
+                        SetDirty(component);
+                    }
                 }
             }
 
@@ -92,19 +103,6 @@ namespace WooLocalization
             }
 
 
-
-
-
-
-            //for (int i = 0; laguages.Count > i; i++)
-            //{
-            //    var language = laguages[i];
-            //    //context.AddLocalizationTypeToMap(language, GetDefault());
-            //    if (context.AddLocalizationTypeToMap(language, GetDefault()))
-            //    {
-            //        SetDirty(component);
-            //    }
-            //}
             if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
                 return;
             var laguages = component.GetLocalizationTypes();
@@ -112,7 +110,7 @@ namespace WooLocalization
             for (int i = 0; i < laguages.Count; i++)
             {
                 var language = laguages[i];
-                var src = map[language];
+                var src = context.GetValue(language);
 
                 var tmp = LocalizationEditorHelper.DrawObject(language, src);
                 bool change = false;
