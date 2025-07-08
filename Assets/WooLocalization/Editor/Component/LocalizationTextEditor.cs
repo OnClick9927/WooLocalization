@@ -21,14 +21,7 @@ namespace WooLocalization
         class TextFontActorEditor : LocalizationMapActorEditor<TextFontActor, Font, LocalizationText>
         {
             protected override Type GetAssetType() => typeof(FontActorAsset);
-            protected override Font GetDefault()
-            {
-#if UNITY_2023_1_OR_NEWER
-                return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-#else
-                return Resources.GetBuiltinResource<Font>("Arial.ttf");
-#endif
-            }
+
         }
         [LocalizationActorEditorAttribute]
         class TextFontSizeActorEditor : LocalizationMapActorEditor<TextFontSizeActor, int, LocalizationText>
@@ -37,7 +30,6 @@ namespace WooLocalization
 
 
 
-            protected override int GetDefault() => 14;
         }
         [LocalizationActorEditorAttribute]
         class TextValueActorEditor : TextValueActor_BaseEditor<TextValueActor, LocalizationText>

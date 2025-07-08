@@ -18,12 +18,19 @@ namespace WooLocalization
         public class TMPTextActor : TextValueActor_Base<LocalizationTMP_Text>
         {
             public TMPTextActor(bool enable) : base(enable) { }
-            protected override string GetComponentText() => this.behavior.graphicT.text;
-            protected override void SetComponentText(string value) => this.behavior.graphicT.text = value;
+            protected override string GetComponentText() => this.behavior.graphic.text;
+            protected override void SetComponentText(string value) => this.behavior.graphic.text = value;
         }
         [System.Serializable]
         public class TMPFontActor : LocalizationMapActor<LocalizationTMP_Text, TMP_FontAsset>
         {
+            public override TMP_FontAsset GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.graphic.font;
+                return TMP_Settings.instance != null ? TMP_Settings.defaultFontAsset : null;
+            }
+
             public TMPFontActor(bool enable) : base(enable)
             {
                 
@@ -32,7 +39,7 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationTMP_Text component)
             {
-                component.graphicT.font = GetValue(language);
+                component.graphic.font = GetValue(language);
             }
         }
 
@@ -46,7 +53,14 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationTMP_Text component)
             {
-                component.graphicT.fontSize = GetValue(language);
+                component.graphic.fontSize = GetValue(language);
+            }
+
+            public override float GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.graphic.fontSize;
+                return 36;
             }
         }
         public TMPTextActor text = new TMPTextActor(true);

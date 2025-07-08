@@ -182,7 +182,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -594,7 +594,7 @@ MonoBehaviour:
   _context: {fileID: 11400000, guid: 0021bbf700fa9af4090b2907de57fd27, type: 2}
   color:
     _enable: 0
-    _name: 
+    _name: color
     map:
       list: []
     _mode: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
     asset: {fileID: 0}
   material:
     _enable: 0
-    _name: 
+    _name: material
     map:
       list: []
     _mode: 0
@@ -610,12 +610,12 @@ MonoBehaviour:
     asset: {fileID: 0}
   text:
     _enable: 1
-    _name: 
+    _name: text
     _key: Load_UpdateText
     formatArgs: []
   font:
     _enable: 1
-    _name: 
+    _name: font
     map:
       list:
       - Key: zh-Hans
@@ -624,12 +624,16 @@ MonoBehaviour:
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       - Key: zh-CHS
         Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: ja
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      - Key: zh-TW
+        Value: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     _mode: 0
     _key: 
     asset: {fileID: 0}
   fontSize:
     _enable: 0
-    _name: 
+    _name: fontSize
     map:
       list: []
     _mode: 0
@@ -749,6 +753,10 @@ MonoBehaviour:
       - Key: zh-CHS
         Value: {fileID: 0}
       - Key: en
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
+      - Key: zh-TW
         Value: {fileID: 0}
     _mode: 0
     _key: 
@@ -941,11 +949,7 @@ MonoBehaviour:
     _enable: 0
     _name: color
     map:
-      list:
-      - Key: zh-CHS
-        Value: {r: 1, g: 1, b: 1, a: 1}
-      - Key: en
-        Value: {r: 1, g: 1, b: 1, a: 1}
+      list: []
     _mode: 0
     _key: 
     asset: {fileID: 0}
@@ -953,11 +957,7 @@ MonoBehaviour:
     _enable: 0
     _name: material
     map:
-      list:
-      - Key: zh-CHS
-        Value: {fileID: 0}
-      - Key: en
-        Value: {fileID: 0}
+      list: []
     _mode: 0
     _key: 
     asset: {fileID: 0}
@@ -967,12 +967,16 @@ MonoBehaviour:
     map:
       list:
       - Key: zh-CHS
-        Value: {fileID: 21300000, guid: 1f49c06b3dfcb8747a2025c8cbb44f67, type: 3}
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
       - Key: en
-        Value: {fileID: 0}
-    _mode: 0
-    _key: 
-    asset: {fileID: 0}
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+      - Key: ja
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+      - Key: zh-TW
+        Value: {fileID: 21300000, guid: 666a83e6f84faa340982aa4a13a2e55c, type: 3}
+    _mode: 2
+    _key: test2
+    asset: {fileID: 11400000, guid: 89a2e053f7951de4bbb89bda646bc86a, type: 2}
 --- !u!1 &1472333949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1240,10 @@ MonoBehaviour:
       - Key: en
         Value: {fileID: 1650236985246834161, guid: 1ce153d78190b444c8747ddf3f2ac1a9, type: 3}
       - Key: zh-CHS
+        Value: {fileID: 0}
+      - Key: ja
+        Value: {fileID: 0}
+      - Key: zh-TW
         Value: {fileID: 0}
     _mode: 0
     _key: 

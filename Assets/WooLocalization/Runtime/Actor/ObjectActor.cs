@@ -17,5 +17,7 @@ namespace WooLocalization
         {
 
         }
+
+        public override T GetDefault() => default;
     }
 }

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6632ecebdeabf2a43a189d064c61ee43, type: 3}
+  m_Name: New Localization Data_zh-TW
+  m_EditorClassIdentifier: 
+  keys:
+  - Load_GameTip
+  - Load_UpdateText
+  - Load_Tip_Title
+  - Load_Tip_Text
+  - Load_Tip_Button_Text
+  - Load_UpdateText_1
+  - Load_UpdateText_2
+  - Load_UpdateText_3
+  - Load_UpdateText_4
+  - Load_UpdateText_5
+  - Load_UpdateText_6
+  - Load_DOWNLOAD_FORMAT
+  - Load_UpdateText_7
+  - Load_UpdateText_8
+  - Load_UpdateText_9
+  - Load_UpdateText_10
+  - Load_UpdateText_11
+  - Load_UpdateText_12
+  map:
+    list:
+    - Key: zh-TW
+      Value:
+        list:
+        - Key: Load_GameTip
+          Value: xxl
+        - Key: Load_UpdateText
+          Value: 
+        - Key: Load_Tip_Title
+          Value: 
+        - Key: Load_Tip_Text
+          Value: 
+        - Key: Load_Tip_Button_Text
+          Value: 
+        - Key: Load_UpdateText_1
+          Value: 
+        - Key: Load_UpdateText_2
+          Value: 
+        - Key: Load_UpdateText_3
+          Value: 
+        - Key: Load_UpdateText_4
+          Value: 
+        - Key: Load_UpdateText_5
+          Value: 
+        - Key: Load_UpdateText_6
+          Value: 
+        - Key: Load_DOWNLOAD_FORMAT
+          Value: 
+        - Key: Load_UpdateText_7
+          Value: 
+        - Key: Load_UpdateText_8
+          Value: 
+        - Key: Load_UpdateText_9
+          Value: 
+        - Key: Load_UpdateText_10
+          Value: 
+        - Key: Load_UpdateText_11
+          Value: 
+        - Key: Load_UpdateText_12
+          Value: 

@@ -21,11 +21,16 @@ namespace WooLocalization
             {
             }
 
-
+            public override Sprite GetDefault()
+            {
+                if (behavior != null)
+                    return behavior.graphic.sprite;
+                return default;
+            }
 
             protected override void Execute(string language, LocalizationImage component)
             {
-                component.graphicT.sprite = GetValue(language);
+                component.graphic.sprite = GetValue(language);
             }
         }
         public ImageSpriteActor sprite = new ImageSpriteActor(true);

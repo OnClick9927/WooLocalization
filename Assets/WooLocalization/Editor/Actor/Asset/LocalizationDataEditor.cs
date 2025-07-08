@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -166,10 +167,15 @@ namespace WooLocalization
 
                 for (int i = 0; i < lanTypes.Count; i++)
                 {
-                    var type = lanTypes[i];
-                    menu.AddItem(new GUIContent($"Delete Localization Type/{type}"), false, () =>
+                    var language = lanTypes[i];
+                    menu.AddItem(new GUIContent($"Clear Language/{language}"), false, () =>
                     {
-                        LocalizationEditorHelper.DeleteLocalizationType(context, type);
+                        LocalizationEditorHelper.ClearLanguage(context, language);
+                        Reload();
+                    });
+                    menu.AddItem(new GUIContent($"Split Language/{language}"), false, () =>
+                    {
+                        LocalizationEditorHelper.SplitLanguage(context, language);
                         Reload();
                     });
                 }
@@ -206,7 +212,7 @@ namespace WooLocalization
                             var src = lanTypes[i];
                             var dst = lanTypes[j];
                             if (src == dst) continue;
-  
+
                             if (LocalizationEditorHelper.CanTranslate())
                                 menu.AddItem(new GUIContent($"TranslateSelect/{src} --> {dst}"), false, () =>
                                 {
@@ -257,6 +263,7 @@ namespace WooLocalization
             tree = new Tree(state, this);
         }
         private string LanType = "";
+        private int LanIndex = 0;
         private string Key = "";
         private string VAL = "";
 
@@ -313,6 +320,7 @@ namespace WooLocalization
                 GUIUtility.ExitGUI();
 
             }
+    
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
@@ -340,7 +348,7 @@ namespace WooLocalization
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
             GUILayout.BeginHorizontal();
-            LanType = EditorGUILayout.TextField("Language", LanType);
+            LanType = EditorGUILayout.TextField("New Language", LanType);
             if (GUILayout.Button("+", GUILayout.Width(20)))
             {
                 LocalizationEditorHelper.AddLocalizationType(context, LanType);
@@ -348,12 +356,16 @@ namespace WooLocalization
             }
             GUILayout.EndHorizontal();
 
+            var languages = context.GetLocalizationTypes().ToArray();
+            LanIndex = EditorGUILayout.Popup("Language", LanIndex, languages);
+
+
             Key = EditorGUILayout.TextField("Key", Key);
             GUILayout.BeginHorizontal();
             VAL = EditorGUILayout.TextField("VAL", VAL);
             if (GUILayout.Button("+", GUILayout.Width(20)))
             {
-                LocalizationEditorHelper.AddLocalizationPair(context, LanType, Key, VAL);
+                LocalizationEditorHelper.AddLocalizationPair(context, languages[LanIndex], Key, VAL);
                 tree.Reload();
             }
             GUILayout.EndHorizontal();

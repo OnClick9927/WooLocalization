@@ -5,7 +5,6 @@
  *Date:           2024-04-25
 *********************************************************************************/
 using System;
-using System.Text.RegularExpressions;
 
 namespace WooLocalization
 {
@@ -30,7 +29,7 @@ namespace WooLocalization
                 var txt = GetComponentText();
                 if (!string.IsNullOrEmpty(txt))
                 {
-                    var key = this.behavior.FindKey(Localization.language, txt);
+                    var key = this.behavior.FindKey(Localization.GetLocalizationType(), txt);
                     if (!string.IsNullOrEmpty(key))
                         SetKey(key);
                 }

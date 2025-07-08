@@ -12,25 +12,6 @@ namespace WooLocalization
 
     public abstract class LocalizationMapActor<Behavior, Value> : LocalizationActor<Behavior> where Behavior : LocalizationBehavior
     {
-        [System.Serializable]
-        class MapContext : IActorContext<Value>
-        {
-            internal SerializableDictionary<string, Value> map => actor.map;
-            internal LocalizationMapActor<Behavior, Value> actor;
-            Value IActorContext<Value>.GetLocalization(string language, string key)
-            {
-                Value v;
-                map.TryGetValue(language, out v);
-                return v;
-            }
-
-
-            List<string> IActorContext<Value>.GetLocalizationKeys() => null;
-
-            List<string> IActorContext<Value>.GetLocalizationTypes() => actor.behavior.GetLocalizationTypes();
-
-            void IActorContext<Value>.Merge(IActorContext<Value> context) { }
-        }
         internal enum Mode
         {
             Default, Custom, Asset
@@ -53,7 +34,6 @@ namespace WooLocalization
         public string key => _key;
 
 
-        [SerializeField] private MapContext context = new MapContext();
         [SerializeField]
         internal ActorAsset<Value> asset;
         private IActorContext<Value> customContext;
@@ -84,34 +64,23 @@ namespace WooLocalization
         }
         protected LocalizationMapActor(bool enable) : base(enable)
         {
-            context.actor = this;
         }
-        protected override void OnEditorLoad()
-        {
-            context.actor = this;
-            base.OnEditorLoad();
-        }
-        internal bool AddLocalizationTypeToMap(string language,Value value)
-        {
-#if UNITY_EDITOR
 
+        private bool EnsureMap(string language)
+        {
+
+            if (mode != Mode.Default) return false;
+#if UNITY_EDITOR
             Value _value;
             if (!map.TryGetValue(language, out _value))
             {
-                map.Add(language, value);
+                map.Add(language, GetDefault());
                 return true;
             }
 #endif
             return false;
         }
-        //internal sealed override void BeforeExecute(string language)
-        //{
-//#if UNITY_EDITOR
-//            if (!Application.isPlaying)
-//                AddLocalizationTypeToMap(language);
-//#endif
-        //}
-        //protected virtual Value GetDefault() => default;
+        public abstract Value GetDefault();
         public Value GetValue() => GetValue(Localization.GetLocalizationType());
         public Value GetValue(string language)
         {
@@ -119,9 +88,10 @@ namespace WooLocalization
                 return customContext.GetLocalization(language, key);
             if (mode == Mode.Asset && asset != null)
                 return asset.GetLocalization(language, key);
-            return ((IActorContext<Value>)context).GetLocalization(language, key);
+            EnsureMap(language);
+            Value v;
+            map.TryGetValue(language, out v);
+            return v;
         }
-
-
     }
 }
