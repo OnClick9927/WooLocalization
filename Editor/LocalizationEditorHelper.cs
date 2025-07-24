@@ -565,37 +565,43 @@ namespace WooLocalization
         {
             using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                using (IExcelDataReader excelDataReader = ExcelReaderFactory.CreateReader(stream))
+                using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    var FieldCount = excelDataReader.FieldCount;
-                    var row_count = excelDataReader.RowCount;
-                    string[] lanTypes = new string[FieldCount];
-                    for (int i = 0; i < row_count; i++)
+                    do
                     {
-                        excelDataReader.Read();
-                        if (i == 0)
-                        {
-                            for (int j = 0; j < FieldCount; j++)
-                                lanTypes[j] = excelDataReader.GetString(j);
-                        }
-                        else
-                        {
-                            var key = excelDataReader.GetString(0);
-                            if (!string.IsNullOrEmpty(key))
-                            {
-                                for (int j = 1; j < FieldCount; j++)
-                                {
 
-                                    var value = excelDataReader.GetValue(j);
-                                    var language = lanTypes[j];
-                                    if (value != null)
-                                        context.AddPair(language, key, value.ToString());
-                                    else
-                                        context.AddPair(language, key, string.Empty);
+                        var FieldCount = reader.FieldCount;
+                        var row_count = reader.RowCount;
+
+                        string[] lanTypes = new string[FieldCount];
+                        for (int i = 0; i < row_count; i++)
+                        {
+                            reader.Read();
+                            if (i == 0)
+                            {
+                                for (int j = 0; j < FieldCount; j++)
+                                    lanTypes[j] = reader.GetString(j);
+                            }
+                            else
+                            {
+                                var key = reader.GetString(0);
+                                if (!string.IsNullOrEmpty(key))
+                                {
+                                    for (int j = 1; j < FieldCount; j++)
+                                    {
+
+                                        var value = reader.GetValue(j);
+                                        var language = lanTypes[j];
+                                        if (value != null)
+                                            context.AddPair(language, key, value.ToString());
+                                        else
+                                            context.AddPair(language, key, string.Empty);
+                                    }
                                 }
                             }
                         }
                     }
+                    while (reader.NextResult());
                 }
             }
             SaveContext(context);
