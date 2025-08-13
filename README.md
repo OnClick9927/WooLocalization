@@ -2,7 +2,7 @@
 
 [![Stargazers over time](https://starchart.cc/OnClick9927/WooLocalization.svg?variant=adaptive)](https://starchart.cc/OnClick9927/WooLocalization)
 
-# WooLocalization [Doc](https://onclick9927.github.io/2024/10/26/Doc/WooLocalization/1-WooLocalization-%E7%AE%80%E4%BB%8B)
+# WooLocalization [Doc](https://onclick9927.github.io/WooLocalization)
 
 *  支持  文本/图片/特效/预制体/继承自UnityEngine.Object 本地化
 *  提供本地化组件（支持挖孔的文本，支持多种属性变化）
