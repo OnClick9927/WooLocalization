@@ -3,19 +3,58 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <!-- <title>Document</title> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      background: #edf7ff;
+      z-index: 1;
+      width: 100%;
+      margin-top: 0px;
+      padding-top: 10px;
+      height: 50px;
+      /* padding-right: 50px; */
+      margin-right: 0px;
+      display: flex;
+      border-bottom: 1px solid rgba(3, 50, 146, 0.227);
 
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 90px;
+      z-index: 99;
+      width: 300px;
+      bottom: 35px;
+      min-width: 180px;
+      max-width: 500px;
+    }
+
+    .sidebar .search {
+      position: fixed;
+      margin-top: -35px;
+      /* border-bottom: 1px solid #1e1e1e; */
+
+      background: rgb(255, 255, 255);
+      border: 1px solid rgba(3, 50, 146, 0.227);
+      margin: -40px 0px 0px 0px;
+      width: 300px;
+      z-index: 999;
+    }
+  </style>
 
 
 </head>
 
 <body>
-
+  <nav class="navbar"></nav>
   <div id="app"></div>
+
   <script>
     window.$docsify = {
       loadSidebar: true,
@@ -23,7 +62,6 @@
       loadNavbar: true,
       //  cornerExternalLinkTarget: 'https://www.baidu.com', // default: '_blank'
       repo: 'https://github.com/OnClick9927/WooLocalization',
-
       sidebarDisplayLevel: 2, // 左侧边栏显示的最大层级
       search: {
         maxAge: 0, // 过期时间，单位毫秒，默认一天
@@ -32,7 +70,8 @@
         noData: 'No Results!',
         depth: 6,
         hideOtherSidebarContent: true, // 是否隐藏其他侧边栏内容
-        namespace: 'woo-localization', // 命名空间，避免不同文档间搜索结果冲突
+        namespace: 'WooLocalization' // 存储搜索数据的命名空间，避免多站点数据冲突,
+
       },
       toc:// 右侧边栏
       {
