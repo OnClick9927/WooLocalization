@@ -96,6 +96,24 @@ namespace WooLocalization
         }
         static LocalizationEditorHelper()
         {
+            void CallAddComponent(Component component)
+            {
+                if (component is LocalizationBehavior behavior)
+                {
+                    var actors = behavior.LoadActors();
+                    if (!Application.isPlaying)
+
+                        foreach (var actor in actors)
+                        {
+                            actor.OnEditorLoad();
+                        }
+                    EditorUtility.SetDirty(behavior);
+                    SceneView.lastActiveSceneView?.Repaint();
+
+                }
+            }
+            ObjectFactory.componentWasAdded += CallAddComponent;
+
             translators.Clear();
             foreach (var type in GetTranslatorTypes())
             {
@@ -115,6 +133,9 @@ namespace WooLocalization
             Localization.SetRecorder(context);
             LocalizationBehavior.defaultContext = LocalizationSetting.defaultData;
         }
+
+
+
         internal static UnityEngine.ScriptableObject LoadContext(Type type, string path)
         {
             ScriptableObject _context;

@@ -9,6 +9,12 @@ public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
     public TMPro.TextMeshProUGUI text;
 
     public LocalizationData data;
+    [ContextMenu("HHHH")]
+    public void Test()
+    {
+        text.SetLocalization(LocalizationKeys.String.Load_Tip_Text);
+
+    }
     private void Start()
     {
         Localization.SetRecorder(this);
