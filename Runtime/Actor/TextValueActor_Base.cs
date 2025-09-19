@@ -23,16 +23,12 @@ namespace WooLocalization
 
         protected sealed override void OnEditorLoad()
         {
-            if (string.IsNullOrEmpty(key))
+            var txt = GetComponentText();
+            if (!string.IsNullOrEmpty(txt))
             {
-
-                var txt = GetComponentText();
-                if (!string.IsNullOrEmpty(txt))
-                {
-                    var key = this.behavior.FindKey(Localization.GetLocalizationType(), txt);
-                    if (!string.IsNullOrEmpty(key))
-                        SetKey(key);
-                }
+                var key = this.behavior.FindKey(Localization.GetLocalizationType(), txt);
+                if (!string.IsNullOrEmpty(key))
+                    SetKey(key);
             }
         }
         public string GetTargetText(LocalizationBehavior component, out Exception err)

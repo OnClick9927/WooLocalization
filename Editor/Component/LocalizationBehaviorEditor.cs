@@ -84,11 +84,11 @@ namespace WooLocalization
                 EditorUtility.SetDirty(comp);
             }
             LoadFields();
-            comp.enabled = false;
-            EditorApplication.delayCall += () =>
-            {
-                comp.enabled = true;
-            };
+            //comp.enabled = false;
+            //EditorApplication.delayCall += () =>
+            //{
+            //    comp.enabled = true;
+            //};
 
         }
         private void OnEnable() => LoadFields();

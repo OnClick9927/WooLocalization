@@ -84,14 +84,7 @@ namespace WooLocalization
                 var actor = _actors[i];
                 actor.SetBehavior(this);
             }
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-                for (int i = 0; i < _actors.Count; i++)
-                {
-                    var actor = _actors[i];
-                    actor.OnEditorLoad();
-                }
-#endif
+  
             actors = _actors;
             return _actors;
         }
@@ -126,7 +119,11 @@ namespace WooLocalization
         protected void OnEnable()
         {
             Localization.AddHandler(this);
+# if UNITY_EDITOR
+            UnityEditor.EditorApplication.delayCall += Execute;
+#else
             Execute();
+#endif
         }
 
         protected abstract List<ILocalizationActor> GetActors();
