@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02facdc7cf6749f47959bc9e742e80d8, type: 3}
   m_Name: LocalizationSetting
   m_EditorClassIdentifier: 
-  _localizationType: zh-CHS
-  _defaultData: Assets/Example/New Localization Data.asset
+  _localizationType: zh-TW
+  _defaultData: Assets/Example/New Localization Data_zh-TW.asset
   _lineReg: '"'
   _fieldReg: \G(?:^|,)(?:"((?>[^"]*)(?>""[^"]*)*)"|([^",]*))
   _quotesReg: '""'
@@ -21,5 +21,5 @@ MonoBehaviour:
   _translatorParam:
     list:
     - Key: WooLocalization.YouDao
-      Value: '{"AppId":"","AppSecret":""}'
-  _lastCSVPath: E:\Project\Unity\WooLocalization\Assets\Example
+      Value: '{"AppId":"1db431ae6d39bdbd","AppSecret":"v4hGoQMakxaBuZJEGzksA3Uf4adhHfoW"}'
+  _lastCSVPath: Assets

@@ -132,6 +132,7 @@ namespace WooLocalization
                 Directory.CreateDirectory(ObjDir);
             Localization.SetRecorder(context);
             LocalizationBehavior.defaultContext = LocalizationSetting.defaultData;
+
         }
 
 
@@ -795,7 +796,9 @@ namespace WooLocalization
             if (tanslator == null) return false;
             return tanslator.IsValid(LocalizationSetting.translatorParam);
         }
-        public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
+
+
+        private static async Task _Translate(LocalizationData context, List<string> keys, string src, string dest)
         {
             List<string> _from = keys.Select(x => context.GetLocalization(src, x)).ToList();
             var tanslator = GetTranslator();
@@ -812,6 +815,28 @@ namespace WooLocalization
                 }
             else
                 Debug.LogError($"from:{src}\t to{dest} ErrCode:{result.errorCode}");
+        }
+        public static async Task Translate(LocalizationData context, List<string> keys, string src, string dest)
+        {
+            int start = 0;
+            int once = 20;
+            while (start < keys.Count)
+            {
+                var end = Mathf.Min(keys.Count, start + once);
+
+                EditorUtility.DisplayProgressBar($"Translate {src}->{dest}", "", (float)start / keys.Count);
+
+                var _keys = new List<string>();
+                for (var i = start; i < end; i++)
+                {
+                    _keys.Add(keys[i]);
+                }
+                await _Translate(context, _keys, src, dest);
+                start = end;
+            }
+            EditorUtility.ClearProgressBar();
+
+
             EditorApplication.delayCall += () =>
             {
                 SaveContext(context);
