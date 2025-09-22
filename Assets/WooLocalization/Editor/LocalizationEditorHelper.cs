@@ -314,7 +314,7 @@ namespace WooLocalization
                 }
 
             }
-
+            public static float progress { get; private set; }
             public static string[] ReadFields()
             {
                 while (true)
@@ -344,7 +344,7 @@ namespace WooLocalization
                 {
                     c = txt[index];
                     index++;
-
+                    progress = index / (float)txt.Length;
                     if (c == '"') // 如果遇到引号，切换 inQuotes 状态
                     {
                         inQuotes = !inQuotes;
@@ -562,11 +562,16 @@ namespace WooLocalization
             string[] lanTypes = null;
             while (true)
             {
+                EditorUtility.DisplayProgressBar("ReadCSV", $"{CSVHelper.progress.ToString("0.00")}", CSVHelper.progress);
                 var fields = CSVHelper.ReadFields();
                 if (fields == null) break;
                 if (index == 0)
                 {
                     lanTypes = fields;
+                    for (int i = 0; i < lanTypes.Length; i++)
+                    {
+                        lanTypes[i] = lanTypes[i].Replace("\r", "").Replace("\n", "");
+                    }
                 }
                 else
                 {
@@ -581,6 +586,7 @@ namespace WooLocalization
 
                 index++;
             }
+            EditorUtility.ClearProgressBar();
             SaveContext(context);
         }
         public static void ReadExcel(string path, LocalizationData context)
@@ -598,6 +604,9 @@ namespace WooLocalization
                         string[] lanTypes = new string[FieldCount];
                         for (int i = 0; i < row_count; i++)
                         {
+                            var progress = (float)i / row_count;
+                            EditorUtility.DisplayProgressBar("ReadCSV", $"{progress.ToString("0.00")}", progress);
+
                             reader.Read();
                             if (i == 0)
                             {
@@ -626,6 +635,8 @@ namespace WooLocalization
                     while (reader.NextResult());
                 }
             }
+            EditorUtility.ClearProgressBar();
+
             SaveContext(context);
         }
 
@@ -823,8 +834,8 @@ namespace WooLocalization
             while (start < keys.Count)
             {
                 var end = Mathf.Min(keys.Count, start + once);
-
-                EditorUtility.DisplayProgressBar($"Translate {src}->{dest}", "", (float)start / keys.Count);
+                var progress = (float)start / keys.Count;
+                EditorUtility.DisplayProgressBar($"Translate {src}->{dest}", $"{progress.ToString("0.00")}", progress);
 
                 var _keys = new List<string>();
                 for (var i = start; i < end; i++)
@@ -876,8 +887,9 @@ namespace WooLocalization
                         cls += $"public class {_type.Name} {{\n";
                         foreach (var key in keys)
                         {
-
-                            cls += $"public const string {key.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("/", "_")}=\"{key}\";\n";
+                            var _key = key.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("/", "_")
+                                          .Replace("-", "_").Replace("&", "").Replace("|","");
+                            cls += $"public const string {_key}=\"{key}\";\n";
                         }
                         cls += "}\n";
                     }
