@@ -43,17 +43,14 @@ namespace WooLocalization
         {
             LocalizationEditorHelper.SaveContext(this);
         }
-        [UnityEngine.SerializeField] private string _lastCSVPath = "Assets";
-        public static string lastCSVPath
+        //[UnityEngine.SerializeField] private string _lastCSVPath = "Assets";
+        private const string _key = "WooLocalization/LocalizationSetting/lastCSVPath";
+        internal static string lastCSVPath
         {
-            get { return context._lastCSVPath; }
+            get { return EditorPrefs.GetString(_key, "Assets"); }
             set
             {
-                if (context._lastCSVPath != value)
-                {
-                    context._lastCSVPath = value;
-                    context.Save();
-                }
+                EditorPrefs.SetString(_key, value);
 
             }
         }
