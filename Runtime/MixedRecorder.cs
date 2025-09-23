@@ -18,6 +18,7 @@ namespace WooLocalization
         }
         LocalizationPref ILocalizationPrefRecorder.Read()
         {
+            if (recorders.Count == 0) return new LocalizationPref();
             return recorders[0].Read();
         }
 
