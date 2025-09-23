@@ -19,7 +19,7 @@ public class LocalizationGame : MonoBehaviour, ILocalizationPrefRecorder
     {
         Localization.SetRecorder(this);
         Localization.SetContext(data);
-        Localization.SetDefaultLocalizationType(Languages.zh_Hans);
+        Localization.SetDefaultLocalizationType(Languages.zh_CHS);
         text.SetLocalization(LocalizationKeys.String.Load_Tip_Text);
         image.SetLocalizationByAsset<LocalizationImage, LocalizationImage.ImageSpriteActor,Sprite>(sprite, LocalizationKeys.Sprite.text);
     }

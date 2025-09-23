@@ -4,14 +4,16 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using static UnityEditor.IMGUI.Controls.MultiColumnHeaderState;
+using static UnityEditor.SearchableEditorWindow;
 
 namespace WooLocalization
 {
@@ -20,17 +22,114 @@ namespace WooLocalization
     [CustomEditor(typeof(LocalizationData))]
     class LocalizationDataEditor : Editor
     {
+        class SearchField
+        {
+            //private Guid uuid = Guid.NewGuid();
+            public string value = "";
+            public event Action<string> onEndEdit;
+            public event Action<string> onValueChange;
+            public event Action<int> onModeChange;
+            public string[] modes;
+            public int mode;
+            private MethodInfo info;
+            private int controlID;
+            public SearchField(string value, string[] modes, int mode)
+            {
+                this.mode = mode;
+                this.value = value;
+                this.modes = modes;
+                info = typeof(EditorGUI).GetMethod("ToolbarSearchField",
+                    BindingFlags.NonPublic | BindingFlags.Static,
+                    null,
+                    new System.Type[]
+                    { typeof(int),typeof(Rect), typeof(string[]) ,typeof(int).MakeByRefType(),typeof(string)},
+                    null);
+            }
+
+            public void SetVelue(string tmp)
+            {
+                if (tmp != value)
+                {
+                    value = tmp;
+                    if (onValueChange != null)
+                        onValueChange(value);
+                }
+            }
+            public void SetMode(int tmp)
+            {
+                if (tmp != mode)
+                {
+                    mode = tmp;
+                    if (onModeChange != null)
+                        onModeChange(mode);
+                }
+            }
+            public void OnGUI(Rect position)
+            {
+                if (info != null)
+                {
+                    controlID = GUIUtility.GetControlID(("EditorSearchField" /*+ uuid.ToString()*/).GetHashCode(), FocusType.Keyboard, position);
+
+                    object[] args = new object[] { controlID, position, modes, mode, value };
+                    string tmp = (string)info.Invoke(null, args);
+                    SetMode((int)args[3]);
+                    SetVelue(tmp);
+                    Event e = Event.current;
+                    if ((e.keyCode == KeyCode.Return || e.keyCode == KeyCode.Escape || e.character == '\n'))
+                    {
+                        if (GUIUtility.keyboardControl == controlID)
+                        {
+                            GUIUtility.keyboardControl = -1;
+                            if (e.type != EventType.Repaint && e.type != EventType.Layout)
+                                Event.current.Use();
+                            if (onEndEdit != null) onEndEdit(value);
+                        }
+
+                    }
+                }
+
+            }
+
+        }
         private class Tree : TreeView
         {
-            private SearchField search = new SearchField();
+            private SearchField search;
             private LocalizationData context => parent.context;
             private LocalizationDataEditor parent;
 
+
+
+            private int serchMode;
+            private string[] searchModes;
             public Tree(TreeViewState state, LocalizationDataEditor parent) : base(state)
             {
                 this.parent = parent;
                 this.showBorder = true;
                 this.showAlternatingRowBackgrounds = true;
+                var lanTypes = context.GetLocalizationTypes();
+                searchModes = new string[lanTypes.Count + 1];
+                searchModes[0] = "Key";
+                for (int i = 0; i < lanTypes.Count; i++)
+                    searchModes[i + 1] = lanTypes[i];
+
+                search = new SearchField(this.searchString, searchModes, serchMode);
+                search.onValueChange += Search_onEndEdit;
+                search.onModeChange += Search_onModeChange;
+                search.mode = serchMode;
+                Reload();
+            }
+
+            private void Search_onModeChange(int obj)
+            {
+                if (serchMode == obj) return;
+                serchMode = obj;
+                Reload();
+            }
+
+            private void Search_onEndEdit(string obj)
+            {
+                if (obj == this.searchString) return;
+                this.searchString = obj;
                 Reload();
             }
 
@@ -83,6 +182,17 @@ namespace WooLocalization
                     {
                         var key = keys[i];
                         bool build = string.IsNullOrEmpty(this.searchString) || key.ToLower().Contains(this.searchString.ToLower());
+                        if (serchMode != 0)
+                        {
+                            string localizationText = context.GetLocalization(lanTypes[serchMode - 1], key);
+                            build = string.IsNullOrEmpty(this.searchString) || localizationText.ToLower().Contains(this.searchString.ToLower());
+                        }
+
+
+
+
+
+
                         if (!build) continue;
                         int max = 1;
                         for (int j = 0; lanTypes.Count > j; j++)
@@ -140,12 +250,8 @@ namespace WooLocalization
                 var r1 = new Rect(rect.x, rect.y, rect.width, 20);
                 var r2 = new Rect(rect.x, rect.y + 20, rect.width, rect.height - 20);
 
-                var tmp = search.OnGUI(r1, this.searchString);
-                if (tmp != this.searchString)
-                {
-                    this.searchString = tmp;
-                    Reload();
-                }
+                search.OnGUI(r1);
+
                 base.OnGUI(r2);
             }
             protected override bool CanMultiSelect(TreeViewItem item)
@@ -320,7 +426,7 @@ namespace WooLocalization
                 GUIUtility.ExitGUI();
 
             }
-    
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
