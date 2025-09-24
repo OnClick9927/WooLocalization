@@ -553,6 +553,7 @@ namespace WooLocalization
         {
             EditorUtility.SetDirty(context);
             AssetDatabase.SaveAssetIfDirty(context);
+            Localization.ForceRefreshBehaviors();
         }
 
         public static void ReadCSV(string path, LocalizationData context)
@@ -636,7 +637,6 @@ namespace WooLocalization
                 }
             }
             EditorUtility.ClearProgressBar();
-
             SaveContext(context);
         }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalizationSetting
   m_EditorClassIdentifier: 
   _localizationType: zh-TW
-  _defaultData: Assets/Example/New Localization Data_zh-TW.asset
+  _defaultData: Assets/Example/New Localization Data.asset
   _lineReg: '"'
   _fieldReg: \G(?:^|,)(?:"((?>[^"]*)(?>""[^"]*)*)"|([^",]*))
   _quotesReg: '""'
@@ -22,4 +22,3 @@ MonoBehaviour:
     list:
     - Key: WooLocalization.YouDao
       Value: '{"AppId":"1db431ae6d39bdbd","AppSecret":"v4hGoQMakxaBuZJEGzksA3Uf4adhHfoW"}'
-  _lastCSVPath: Assets

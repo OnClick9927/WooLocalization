@@ -6,8 +6,10 @@
 *********************************************************************************/
 namespace WooLocalization
 {
-    public interface ILocalizationEventActor
+    public interface ILocalizationEventBehavior
     {
         void OnLanguageChange();
+
+        void SetActorsDirty();
     }
 }

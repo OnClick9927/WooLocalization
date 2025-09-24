@@ -26,7 +26,7 @@ namespace WooLocalization
         }
     }
     [ExecuteAlways]
-    public abstract class LocalizationBehavior : MonoBehaviour, ILocalizationEventActor
+    public abstract class LocalizationBehavior : MonoBehaviour, ILocalizationEventBehavior
     {
         [SerializeField]
         private LocalizationData _context;
@@ -114,11 +114,11 @@ namespace WooLocalization
 
         protected void OnDisable()
         {
-            Localization.RemoveHandler(this);
+            Localization.RemoveBehavior(this);
         }
         protected void OnEnable()
         {
-            Localization.AddHandler(this);
+            Localization.AddBehavior(this);
 # if UNITY_EDITOR
             UnityEditor.EditorApplication.delayCall += Execute;
 #else
@@ -128,7 +128,8 @@ namespace WooLocalization
 
         protected abstract List<ILocalizationActor> GetActors();
 
-        void ILocalizationEventActor.OnLanguageChange() => Execute();
+        void ILocalizationEventBehavior.OnLanguageChange() => Execute();
+
         private void Execute()
         {
             LoadActors();
@@ -138,6 +139,11 @@ namespace WooLocalization
                 actors[i].Execute(_type, this);
         }
 
-
+        void ILocalizationEventBehavior.SetActorsDirty()
+        {
+            var actors = LoadActors();
+            for (int i = 0; i < actors.Count; i++)
+                actors[i].SetDirty();
+        }
     }
 }
