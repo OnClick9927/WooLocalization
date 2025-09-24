@@ -563,7 +563,7 @@ namespace WooLocalization
             string[] lanTypes = null;
             while (true)
             {
-                EditorUtility.DisplayProgressBar("ReadCSV", $"{CSVHelper.progress.ToString("0.00")}", CSVHelper.progress);
+                EditorUtility.DisplayProgressBar($"ReadCSV {path}", $"{GetProgressTxt(CSVHelper.progress)}", CSVHelper.progress);
                 var fields = CSVHelper.ReadFields();
                 if (fields == null) break;
                 if (index == 0)
@@ -590,6 +590,7 @@ namespace WooLocalization
             EditorUtility.ClearProgressBar();
             SaveContext(context);
         }
+        private static string GetProgressTxt(float progress) => $"{(progress * 100).ToString("0.00")} %";
         public static void ReadExcel(string path, LocalizationData context)
         {
             using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -606,9 +607,9 @@ namespace WooLocalization
                         for (int i = 0; i < row_count; i++)
                         {
                             var progress = (float)i / row_count;
-                            EditorUtility.DisplayProgressBar("ReadCSV", $"{progress.ToString("0.00")}", progress);
 
                             reader.Read();
+                            EditorUtility.DisplayProgressBar($"ReadExcel {path}", $"Sheet({reader.Name})\t\t{GetProgressTxt(progress)}", progress);
                             if (i == 0)
                             {
                                 for (int j = 0; j < FieldCount; j++)
@@ -888,7 +889,7 @@ namespace WooLocalization
                         foreach (var key in keys)
                         {
                             var _key = key.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("/", "_")
-                                          .Replace("-", "_").Replace("&", "").Replace("|","");
+                                          .Replace("-", "_").Replace("&", "").Replace("|", "");
                             cls += $"public const string {_key}=\"{key}\";\n";
                         }
                         cls += "}\n";
