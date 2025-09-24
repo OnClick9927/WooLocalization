@@ -5,7 +5,6 @@
  *Date:           2024-04-25
 *********************************************************************************/
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 namespace WooLocalization
 {
     public static class Localization
@@ -14,10 +13,22 @@ namespace WooLocalization
         public static LocalizationData context;
         private static LocalizationPref pref;
         private static ILocalizationPrefRecorder recorder = new MixedRecorder();
-        private static List<ILocalizationEventActor> handlers = new List<ILocalizationEventActor>();
+        private static List<ILocalizationEventBehavior> behaviors = new List<ILocalizationEventBehavior>();
 
-        public static void AddHandler(ILocalizationEventActor handler) => handlers.Add(handler);
-        public static void RemoveHandler(ILocalizationEventActor handler) => handlers.Remove(handler);
+        public static void AddBehavior(ILocalizationEventBehavior behavior) => behaviors.Add(behavior);
+        public static void RemoveBehavior(ILocalizationEventBehavior behavior) => behaviors.Remove(behavior);
+
+        public static void ForceRefreshBehaviors()
+        {
+            for (int i = 0; i < behaviors.Count; i++)
+            {
+                var behavior = behaviors[i];
+                behavior.SetActorsDirty();
+                behavior.OnLanguageChange();
+            }
+        }
+
+
         public static void SetRecorder(ILocalizationPrefRecorder recorder)
         {
             (Localization.recorder as MixedRecorder).Add(recorder);
@@ -42,9 +53,9 @@ namespace WooLocalization
             if (Localization.language == language) return;
             pref.language = language;
             recorder.Write(pref);
-            for (int i = 0; i < handlers.Count; i++)
+            for (int i = 0; i < behaviors.Count; i++)
             {
-                var handler = handlers[i];
+                var handler = behaviors[i];
                 if (handler == null) continue;
                 handler.OnLanguageChange();
             }
@@ -74,7 +85,7 @@ namespace WooLocalization
             if (string.IsNullOrEmpty(restult)) return key;
 
 #if UNITY_EDITOR
-            var match = Regex.Matches(restult, "{[0-9]*}");
+            var match = System.Text.RegularExpressions.Regex.Matches(restult, "{[0-9]*}");
             if (match.Count != 0 && (args == null || args.Length != match.Count))
                 throw new System.Exception($"Args Err \t\t{nameof(language)}:{language}\t{nameof(key)}:{key}\n{restult}");
 #endif

@@ -14,7 +14,7 @@ namespace WooLocalization
         [System.NonSerialized] private string _localizationType;
         [System.NonSerialized] private bool dirty = true;
 
-        protected void SetDirty()
+        public void SetDirty()
         {
             dirty = true;
         }
