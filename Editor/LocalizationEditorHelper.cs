@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using static WooLocalization.LocalizationGraphic;
 
 namespace WooLocalization
 {
@@ -404,59 +403,379 @@ namespace WooLocalization
             }
         }
 
-        private static Type winType;
-        static MethodInfo _AdvancedPopup, _AdvancedPopup_layout;
+        private class SearchTreePop : PopupWindowContent
+        {
+
+            private class Node
+            {
+                public List<Node> children;
+                private Dictionary<string, Node> map;
+                private Dictionary<int, Node> root_map = new Dictionary<int, Node>();
+
+                public int depth = -1;
+                private int start_index;
+                public string name = "Root";
+                public Node parent;
+                public Node root;
+                public int id = 0;
+                public string key;
+                private Node AddChild(string name, string key)
+                {
+                    children = children ?? new List<Node>();
+                    map = map ?? new Dictionary<string, Node>();
+
+                    if (map.TryGetValue(name, out var result))
+                    {
+                        return result;
+                    }
+                    result = new Node()
+                    {
+                        root = root_node,
+                        name = name,
+                        parent = this,
+                        depth = this.depth + 1,
+                        start_index = start_index + name.Length + 1,
+                    };
+                    children.Add(result);
+                    map[name] = result;
+                    root_map[result.id] = result;
+                    return result;
+                }
+                public void ReadKey(string key)
+                {
+                    var index = key.IndexOf('/', start_index);
+
+                    if (index == -1)
+                    {
+                        var childName = key.Substring(start_index);
+                        var child = AddChild(childName, key);
+                        child.key = key;
+                        //child.ReadKey(key);
+                    }
+                    else
+                    {
+                        //var first = key.Substring(start_index, index);
+                        var childName = key.Substring(start_index, index - start_index);
+                        var child = AddChild(childName, key);
+                        child.ReadKey(key);
+
+                    }
+
+
+
+                }
+
+                public void FreshIndex(ref int index)
+                {
+                    this.id = index;
+                    index++;
+                    var _map = parent == null ? this.root_map : root.root_map;
+                    _map[this.id] = this;
+                    if (children != null)
+                    {
+                        children.Sort((x, y) =>
+                        {
+                            var _x = x.children == null ? 0 : x.children.Count;
+                            var _y = y.children == null ? 0 : y.children.Count;
+                            return _y.CompareTo(_x);
+
+                        });
+                        for (int i = 0; i < children.Count; i++)
+                        {
+                            var child = children[i];
+                            child.FreshIndex(ref index);
+
+                        }
+                    }
+                }
+
+                public Node Find(int id)
+                {
+                    var _root = parent == null ? this : this.root;
+                    if (_root.root_map.TryGetValue(id, out var find))
+                        return find;
+                    return null;
+                }
+            }
+
+            private class SearchTree : TreeView
+            {
+                private SearchTreePop pop;
+
+                public SearchTree(SearchTreePop pop) : base(new TreeViewState())
+                {
+                    this.pop = pop;
+                    Reload();
+                }
+
+                protected override TreeViewItem BuildRoot()
+                {
+                    return new TreeViewItem()
+                    {
+                        depth = -1
+                    };
+                }
+                protected override void RowGUI(RowGUIArgs args)
+                {
+                    base.RowGUI(args);
+                    if (string.IsNullOrEmpty(searchString))
+                    {
+
+                        var id = args.item.id;
+                        var find = _view_node.Find(id);
+                        if (find.children != null)
+                        {
+                            var rect = args.rowRect;
+                            rect.x = rect.xMax - 20;
+                            rect.width = 20;
+                            GUI.Label(rect, EditorGUIUtility.IconContent("tab_next"));
+                        }
+                    }
+                }
+                protected override void SingleClickedItem(int id)
+                {
+                    var find = _view_node.Find(id);
+                    if (find.children == null)
+                    {
+                        select?.Invoke(Array.IndexOf(keys, find.key));
+                        pop.editorWindow.Close();
+                    }
+                    else
+                    {
+                        _view_node = find;
+                        Reload();
+                        SetSelection(new List<int>()
+                            {
+                            rootItem.children.First().id
+                            });
+                    }
+                }
+
+                public void ClickItem(int id)
+                {
+                    this.SingleClickedItem(id);
+                }
+                private void CreateItem(Node node, TreeViewItem parent, IList<TreeViewItem> result)
+                {
+                    TreeViewItem item = new TreeViewItem()
+                    {
+                        //depth = node.depth,
+                        displayName = node.name,
+                        parent = parent,
+                        id = node.id,
+
+                    };
+                    result.Add(item);
+                }
+                private void CreateForSearch(Node node, TreeViewItem parent, IList<TreeViewItem> result)
+                {
+                    if (node.children == null)
+                    {
+                        if (node.key.Contains(this.searchString))
+                        {
+
+                            TreeViewItem item = new TreeViewItem()
+                            {
+                                //depth = node.depth,
+                                displayName = node.key,
+                                parent = parent,
+                                id = node.id,
+
+                            };
+                            result.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in node.children)
+                        {
+                            CreateForSearch(item, parent, result);
+                        }
+                    }
+                }
+                protected override IList<TreeViewItem> BuildRows(TreeViewItem root)
+                {
+                    var rows = this.GetRows() ?? new List<TreeViewItem>();
+                    rows.Clear();
+                    _view_node = _view_node ?? root_node;
+
+                    if (string.IsNullOrEmpty(this.searchString))
+                    {
+                        if (_view_node.children != null)
+                            for (int i = 0; i < _view_node.children.Count; i++)
+                            {
+                                var node = _view_node.children[i];
+                                CreateItem(node, root, rows);
+                            }
+                    }
+                    else
+                    {
+                        _view_node = root_node;
+                        if (_view_node.children != null)
+                            for (int i = 0; i < _view_node.children.Count; i++)
+                            {
+                                var node = _view_node.children[i];
+                                CreateForSearch(node, root, rows);
+                            }
+
+                    }
+
+
+
+                    SetupParentsAndChildrenFromDepths(root, rows);
+                    return rows;
+                }
+                protected override bool CanMultiSelect(TreeViewItem item)
+                {
+                    return false;
+                }
+                public TreeViewItem root => rootItem;
+
+            }
+            public override Vector2 GetWindowSize() => size;
+            private Vector2 size;
+
+            public SearchTreePop(Vector2 size) => this.size = size;
+
+            private SearchTree tree;
+            private static Node root_node;
+            private static string[] keys;
+            private static Node _view_node;
+            private static Action<int> select;
+            public static EditorWindow Show(Rect rect, string[] keys, Action<int> call, float height)
+            {
+                SearchTreePop.keys = keys;
+                _view_node = null;
+                root_node = new Node();
+                select = call;
+                foreach (string key in keys)
+                {
+                    root_node.ReadKey(key);
+                }
+                int start = 100;
+                root_node.FreshIndex(ref start);
+                var pop = new SearchTreePop(new Vector2(rect.width, height));
+                PopupWindow.Show(rect, pop);
+                //pop.editorWindow?.Focus();
+                return pop.editorWindow;
+            }
+            SearchField search = new SearchField();
+            public override void OnGUI(Rect rect)
+            {
+                tree = tree ?? new SearchTree(this);
+                Rect top = new Rect(rect.position, new Vector2(rect.width, 30));
+                var value = 6;
+                top.x += value;
+                top.y += value;
+                top.width -= value * 2;
+                top.height -= value * 2;
+                var temp = tree.searchString;
+                tree.searchString = search.OnGUI(top, tree.searchString);
+                top.x = 0; ;
+                //top.y -= value;
+                top.width = rect.width;
+                top.height = 20;
+                top.y += 20;
+                top.height = 25;
+                if (GUI.Button(top, _view_node.name))
+                {
+                    if (_view_node != root_node)
+                    {
+                        _view_node = _view_node.parent;
+                        tree.Reload();
+                    }
+
+                }
+                var _rect = new Rect(top.position, new Vector2(20, top.height));
+                //_rect.y += 4;
+                if (_view_node != root_node)
+                    GUI.Label(_rect, EditorGUIUtility.FindTexture("tab_prev"));
+
+
+
+                if (tree.searchString != temp)
+                {
+                    tree.Reload();
+                }
+                tree.OnGUI(new Rect(new Vector2(rect.x, top.yMax + 2), new Vector2(rect.width, rect.height - top.yMax)));
+
+                var eve = Event.current;
+                var key = eve.keyCode;
+                var select = tree.GetSelection();
+                if (tree.root.children.Count == 0) return;
+                if (key == KeyCode.LeftArrow && eve.type == EventType.KeyUp)
+                {
+                    if (_view_node != root_node)
+                    {
+                        _view_node = _view_node.parent;
+                        tree.Reload();
+                        tree.SetSelection(new List<int>()
+                            {
+                               tree.root.children.First().id
+                            });
+                        tree.SetFocus();
+
+                    }
+                    Event.current.Use();
+                }
+                else if ((key == KeyCode.RightArrow || key == KeyCode.KeypadEnter || key == KeyCode.Return) && eve.type == EventType.KeyUp)
+                {
+                    if (select.Count != 0)
+                    {
+
+                        var find = _view_node.Find(select.First());
+                        tree.ClickItem(find.id);
+                    }
+                    Event.current.Use();
+
+                }
+                else if (key == KeyCode.UpArrow)
+                    tree.SetFocus();
+                else if (key == KeyCode.DownArrow)
+                    tree.SetFocus();
+
+
+                editorWindow.Repaint();
+
+            }
+        }
+
+        static bool win_close = false;
+        static int _index;
+        private static int s_CurrentControl;
+
         public static int AdvancedPopup(Rect rect, int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style)
         {
-            if (_AdvancedPopup == null)
+            int controlID = GUIUtility.GetControlID("AdvancedPopup".GetHashCode(), FocusType.Keyboard, rect);
+            if (EditorGUI.DropdownButton(rect, new GUIContent(displayedOptions[selectedIndex]), FocusType.Passive))
             {
-                _AdvancedPopup = typeof(EditorGUI).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
-                 typeof(Rect),   typeof(int),typeof(string[]),typeof(GUIStyle)
-                }, null);
-            }
-            if (winType == null)
-                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
-            var find = Resources.FindObjectsOfTypeAll(winType);
-            if (find != null && find.Length != 0)
-            {
-                var win = (find[0] as EditorWindow);
-                var pos = win.position;
-                win.minSize = new Vector2(win.minSize.x, minHeight);
-            }
-            var value = _AdvancedPopup.Invoke(null, new object[]
+                win_close = false;
+                s_CurrentControl = controlID;
+
+                var win = SearchTreePop.Show(rect, displayedOptions, (value) =>
                 {
-                       rect, selectedIndex,displayedOptions,style
-                });
-            return (int)value;
-
-        }
-        public static int AdvancedPopup(int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style, params GUILayoutOption[] options)
-        {
-            if (_AdvancedPopup_layout == null)
-            {
-                _AdvancedPopup_layout = typeof(EditorGUILayout).GetMethod(nameof(AdvancedPopup), BindingFlags.Static | BindingFlags.NonPublic, null, new Type[] {
-                    typeof(int),typeof(string[]),typeof(GUIStyle),typeof(GUILayoutOption[])
-                }, null);
-
+                    _index = value;
+                    win_close = true;
+                }, minHeight);
 
             }
-
-            var value = _AdvancedPopup_layout.Invoke(null, new object[]
-                  {
-                        selectedIndex,displayedOptions,style,options
-                  });
-            if (winType == null)
-                winType = typeof(TreeView).Assembly.GetTypes().First(x => x.Name == "AdvancedDropdownWindow");
-
-            var find = Resources.FindObjectsOfTypeAll(winType);
-            if (find != null && find.Length != 0)
+            if (win_close && s_CurrentControl == controlID)
             {
-                var win = (find[0] as EditorWindow);
-                var pos = win.position;
-                win.minSize = new Vector2(win.minSize.x, minHeight);
+                s_CurrentControl = 0;
+                return _index;
             }
-            return (int)value;
+            return selectedIndex;
+
         }
+
+
+
+
+
+
+
+
+
         public static V DrawObject<V>(string label, V value)
         {
             if (typeof(UnityEngine.Object).IsAssignableFrom(typeof(V)))
