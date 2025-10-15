@@ -746,7 +746,9 @@ namespace WooLocalization
 
         public static int AdvancedPopup(Rect rect, int selectedIndex, string[] displayedOptions, float minHeight, GUIStyle style)
         {
+            selectedIndex = Mathf.Clamp(selectedIndex, 0, displayedOptions.Length);
             int controlID = GUIUtility.GetControlID("AdvancedPopup".GetHashCode(), FocusType.Keyboard, rect);
+
             if (EditorGUI.DropdownButton(rect, new GUIContent(displayedOptions[selectedIndex]), FocusType.Passive))
             {
                 win_close = false;
