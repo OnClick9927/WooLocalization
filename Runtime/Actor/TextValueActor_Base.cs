@@ -12,7 +12,7 @@ namespace WooLocalization
     {
         [UnityEngine.SerializeField] private string _key;
         public string key => _key;
-        public string[] formatArgs = new string[0];
+        public string[] formatArgs = Array.Empty<string>();
 
         public TextValueActor_Base(bool enable) : base(enable)
         {
@@ -48,10 +48,9 @@ namespace WooLocalization
         }
         protected sealed override void Execute(string language, T component)
         {
-            Exception err;
-            SetComponentText(GetTargetText(component, out err));
-            if (err != null)
-                throw err;
+            var value = component.GetLocalization(key, formatArgs);
+            if (!string.Equals(GetComponentText(), value, StringComparison.Ordinal))
+                SetComponentText(value);
         }
         public void SetKey(string key)
         {

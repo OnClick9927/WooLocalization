@@ -14,18 +14,7 @@ namespace WooLocalization
 
         public void Merge(LocalizationData context)
         {
-            var types = context.GetLocalizationTypes();
-            var keys = context.GetLocalizationKeys();
-            for (var i = 0; i < types.Count; i++)
-            {
-                var type = types[i];
-                for (var j = 0; j < keys.Count; j++)
-                {
-                    var key = keys[j];
-                    var value = context.GetLocalization(type, key);
-                    AddPair(type, key, value);
-                }
-            }
+            Merge((IActorContext<string>)context);
         }
     }
 }

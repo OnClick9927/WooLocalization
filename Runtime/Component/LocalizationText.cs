@@ -36,7 +36,9 @@ namespace WooLocalization
             }
             protected override void Execute(string language, LocalizationText component)
             {
-                component.graphic.font = GetValue(language);
+                var value = GetValue(language);
+                if (component.graphic.font != value)
+                    component.graphic.font = value;
             }
         }
         [System.Serializable]
@@ -58,8 +60,9 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationText component)
             {
-                component.graphic.fontSize = GetValue(language);
-
+                var value = GetValue(language);
+                if (component.graphic.fontSize != value)
+                    component.graphic.fontSize = value;
             }
 
             public override int GetDefault()
@@ -72,6 +75,8 @@ namespace WooLocalization
         public TextValueActor text = new TextValueActor(true);
         public TextFontActor font = new TextFontActor(false);
         public TextFontSizeActor fontSize = new TextFontSizeActor(false);
+        protected override int ActorCapacity => 5;
+
         protected override List<ILocalizationActor> GetActors()
         {
             var _base = base.GetActors();

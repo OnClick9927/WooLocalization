@@ -32,8 +32,9 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.target.color = GetValue(language);
-
+                var value = GetValue(language);
+                if (!component.target.color.Equals(value))
+                    component.target.color = value;
             }
         }
         [System.Serializable]
@@ -52,8 +53,9 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationGraphic component)
             {
-                component.target.material = GetValue(language);
-
+                var value = GetValue(language);
+                if (component.target.material != value)
+                    component.target.material = value;
             }
 
         }
@@ -62,11 +64,14 @@ namespace WooLocalization
         public GraphicMaterialActor material = new GraphicMaterialActor(false);
 
 
+        protected virtual int ActorCapacity => 4;
+
         protected override List<ILocalizationActor> GetActors()
         {
-            return new List<ILocalizationActor>() {
-                color,material,
-           };
+            var actors = new List<ILocalizationActor>(ActorCapacity);
+            actors.Add(color);
+            actors.Add(material);
+            return actors;
         }
     }
 

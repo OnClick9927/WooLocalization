@@ -6,7 +6,6 @@
 *********************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,16 +19,21 @@ namespace WooLocalization
         {
             GetWindow<LocalizationWindow>();
         }
-        //List<Type> types = new List<Type>();
-        List<string> types_string = new List<string>();
-        List<string> types_string_short = new List<string>();
+        private string[] translatorTypeNames = Array.Empty<string>();
+        private string[] translatorDisplayNames = Array.Empty<string>();
+        private IReadOnlyList<string> cachedLanguageTypes;
+        private string[] languageOptions = Array.Empty<string>();
 
         private void OnEnable()
         {
             var types = LocalizationEditorHelper.GetTranslatorTypes();
-            types_string = types.ConvertAll(x => x.FullName);
-            types_string_short = types.ConvertAll(x => x.Name);
-
+            translatorTypeNames = new string[types.Count];
+            translatorDisplayNames = new string[types.Count];
+            for (var i = 0; i < types.Count; i++)
+            {
+                translatorTypeNames[i] = types[i].FullName;
+                translatorDisplayNames[i] = types[i].Name;
+            }
         }
 
         private void OnGUI()
@@ -45,10 +49,10 @@ namespace WooLocalization
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             var _type = LocalizationSetting.translatorType;
-            var _index = types_string.IndexOf(_type);
+            var _index = Array.IndexOf(translatorTypeNames, _type);
             _index = Mathf.Max(0, _index);
-            _index = EditorGUILayout.Popup("Translator", _index, types_string_short.ToArray());
-            LocalizationSetting.translatorType = types_string[_index];
+            _index = EditorGUILayout.Popup("Translator", _index, translatorDisplayNames);
+            LocalizationSetting.translatorType = translatorTypeNames[_index];
             var tranlator = LocalizationEditorHelper.GetTranslator();
             LocalizationSetting.translatorParam = tranlator.OnGUI(LocalizationSetting.translatorParam);
 
@@ -61,11 +65,12 @@ namespace WooLocalization
 
             if (LocalizationSetting.defaultData)
             {
-                var types = LocalizationSetting.defaultData.GetLocalizationTypes();
+                var types = LocalizationSetting.defaultData.GetLocalizationTypesReadOnly();
                 if (types.Count != 0)
                 {
-                    var index = EditorGUILayout.Popup("LanguageType", types.IndexOf(LocalizationSetting.language), types.ToArray());
-                    Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count)]);
+                    UpdateLanguageOptions(types);
+                    var index = EditorGUILayout.Popup("LanguageType", IndexOf(types, LocalizationSetting.language), languageOptions);
+                    Localization.SetLocalizationType(types[Mathf.Clamp(index, 0, types.Count - 1)]);
                     //GUILayout.Label("Type Reflect", EditorStyles.boldLabel);
                     //for (var i = 0; i < types.Count; i++)
                     //{
@@ -88,6 +93,39 @@ namespace WooLocalization
                 string path = $"{LocalizationEditorHelper.pkgPath}/Package Resources/LocalizationTmp Extend.unitypackage";
                 AssetDatabase.ImportPackage(path, true);
             }
+        }
+
+        private void UpdateLanguageOptions(IReadOnlyList<string> types)
+        {
+            var needsRefresh = !ReferenceEquals(cachedLanguageTypes, types) || languageOptions.Length != types.Count;
+            if (!needsRefresh)
+            {
+                for (var i = 0; i < types.Count; i++)
+                {
+                    if (!string.Equals(languageOptions[i], types[i], StringComparison.Ordinal))
+                    {
+                        needsRefresh = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!needsRefresh)
+                return;
+            cachedLanguageTypes = types;
+            languageOptions = new string[types.Count];
+            for (var i = 0; i < types.Count; i++)
+                languageOptions[i] = types[i];
+        }
+
+        private static int IndexOf(IReadOnlyList<string> values, string value)
+        {
+            for (var i = 0; i < values.Count; i++)
+            {
+                if (string.Equals(values[i], value, StringComparison.Ordinal))
+                    return i;
+            }
+            return -1;
         }
 
 

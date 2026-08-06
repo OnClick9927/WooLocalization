@@ -164,6 +164,7 @@ namespace WooLocalization
             }
         }
 
+        public static LocalizationData defaultData => LocalizationSetting.defaultData;
 
         class CSVHelper
         {
@@ -979,7 +980,7 @@ namespace WooLocalization
         {
 
             if (string.IsNullOrEmpty(path)) return;
-            var types = context.GetLocalizationTypes();
+            var types = context.GetLocalizationTypesReadOnly();
             var keys = context.GetLocalizationKeys();
             var header = new List<string>(types);
             header.Insert(0, "Key");
@@ -1016,7 +1017,7 @@ namespace WooLocalization
         public static void ReadContext<T>(ActorAsset<T> src, ActorAsset<T> target)
         {
             if (src == null) return;
-            var types = src.GetLocalizationTypes();
+            var types = src.GetLocalizationTypesReadOnly();
             var keys = src.GetLocalizationKeys();
             foreach (var key in keys)
             {
@@ -1048,7 +1049,7 @@ namespace WooLocalization
         }
         public static void SplitLanguage<T>(ActorAsset<T> context, string language)
         {
-            var languages = context.GetLocalizationTypes();
+            var languages = context.GetLocalizationTypesReadOnly();
             if (!languages.Contains(language)) return;
 
             var path = AssetDatabase.GetAssetPath(context);

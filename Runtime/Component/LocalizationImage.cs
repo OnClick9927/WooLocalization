@@ -30,10 +30,13 @@ namespace WooLocalization
 
             protected override void Execute(string language, LocalizationImage component)
             {
-                component.graphic.sprite = GetValue(language);
+                var value = GetValue(language);
+                if (component.graphic.sprite != value)
+                    component.graphic.sprite = value;
             }
         }
         public ImageSpriteActor sprite = new ImageSpriteActor(true);
+        protected override int ActorCapacity => 3;
 
         protected override List<ILocalizationActor> GetActors()
         {

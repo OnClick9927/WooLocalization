@@ -66,20 +66,6 @@ namespace WooLocalization
         {
         }
 
-        private bool EnsureMap(string language)
-        {
-
-            if (mode != Mode.Default) return false;
-#if UNITY_EDITOR
-            Value _value;
-            if (!map.TryGetValue(language, out _value))
-            {
-                map.Add(language, GetDefault());
-                return true;
-            }
-#endif
-            return false;
-        }
         public abstract Value GetDefault();
         public Value GetValue() => GetValue(Localization.GetLocalizationType());
         public Value GetValue(string language)
@@ -88,10 +74,19 @@ namespace WooLocalization
                 return customContext.GetLocalization(language, key);
             if (mode == Mode.Asset && asset != null)
                 return asset.GetLocalization(language, key);
-            EnsureMap(language);
+
             Value v;
-            map.TryGetValue(language, out v);
-            return v;
+            if (map.TryGetValue(language, out v))
+                return v;
+#if UNITY_EDITOR
+            if (mode == Mode.Default)
+            {
+                v = GetDefault();
+                map.Add(language, v);
+                return v;
+            }
+#endif
+            return default;
         }
     }
 }

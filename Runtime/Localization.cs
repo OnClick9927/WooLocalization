@@ -11,9 +11,9 @@ namespace WooLocalization
     {
         public static string language => pref.language;
         public static LocalizationData context;
-        private static LocalizationPref pref;
-        private static ILocalizationPrefRecorder recorder = new MixedRecorder();
-        private static List<ILocalizationEventBehavior> behaviors = new List<ILocalizationEventBehavior>();
+        private static LocalizationPref pref = new LocalizationPref();
+        private static readonly MixedRecorder recorder = new MixedRecorder();
+        private static readonly List<ILocalizationEventBehavior> behaviors = new List<ILocalizationEventBehavior>();
 
         public static void AddBehavior(ILocalizationEventBehavior behavior) => behaviors.Add(behavior);
         public static void RemoveBehavior(ILocalizationEventBehavior behavior) => behaviors.Remove(behavior);
@@ -31,8 +31,8 @@ namespace WooLocalization
 
         public static void SetRecorder(ILocalizationPrefRecorder recorder)
         {
-            (Localization.recorder as MixedRecorder).Add(recorder);
-            pref = Localization.recorder.Read();
+            Localization.recorder.Add(recorder);
+            pref = Localization.recorder.Read() ?? new LocalizationPref();
         }
 
         public static void SetDefaultLocalizationType(string type)
@@ -64,9 +64,11 @@ namespace WooLocalization
 
 
         public static List<string> GetLocalizationTypes<T>(ActorAsset<T> context) => context?.GetLocalizationTypes();
+        public static IReadOnlyList<string> GetLocalizationTypesReadOnly<T>(ActorAsset<T> context) => context?.GetLocalizationTypesReadOnly();
         public static List<string> GetLocalizationKeys<T>(ActorAsset<T> context) => context?.GetLocalizationKeys();
 
         public static List<string> GetLocalizationTypes() => GetLocalizationTypes(context);
+        public static IReadOnlyList<string> GetLocalizationTypesReadOnly() => GetLocalizationTypesReadOnly(context);
         public static List<string> GetLocalizationKeys() => GetLocalizationKeys(context);
 
 
@@ -85,8 +87,8 @@ namespace WooLocalization
             if (string.IsNullOrEmpty(restult)) return key;
 
 #if UNITY_EDITOR
-            var match = System.Text.RegularExpressions.Regex.Matches(restult, "{[0-9]*}");
-            if (match.Count != 0 && (args == null || args.Length != match.Count))
+            var formatArgumentCount = CountFormatArguments(restult);
+            if (formatArgumentCount != 0 && (args == null || args.Length != formatArgumentCount))
                 throw new System.Exception($"Args Err \t\t{nameof(language)}:{language}\t{nameof(key)}:{key}\n{restult}");
 #endif
             if (args == null || args.Length == 0)
@@ -98,6 +100,26 @@ namespace WooLocalization
         public static string GetLocalization(string language, string key, params object[] args) => GetLocalization(context, language, key, args);
         public static string GetLocalization(string key, params object[] args) => GetLocalization(context, key, args);
 
+#if UNITY_EDITOR
+        private static int CountFormatArguments(string value)
+        {
+            var count = 0;
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (value[i] != '{')
+                    continue;
 
+                var end = i + 1;
+                while (end < value.Length && value[end] >= '0' && value[end] <= '9')
+                    end++;
+                if (end < value.Length && value[end] == '}')
+                {
+                    count++;
+                    i = end;
+                }
+            }
+            return count;
+        }
+#endif
     }
 }
