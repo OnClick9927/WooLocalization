@@ -4,6 +4,7 @@
  *UnityVersion:   2021.3.33f1c1
  *Date:           2024-04-25
 *********************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -76,7 +77,7 @@ namespace WooLocalization
                     for (int i = 0; i < keys.Count; i++)
                     {
                         var key = keys[i];
-                        bool build = string.IsNullOrEmpty(this.searchString) || key.ToLower().Contains(this.searchString.ToLower());
+                        bool build = string.IsNullOrEmpty(this.searchString) || key.IndexOf(this.searchString, StringComparison.OrdinalIgnoreCase) >= 0;
                         if (!build) continue;
                         //int max = 1;
                         //for (int j = 0; lanTypes.Count > j; j++)
@@ -156,7 +157,7 @@ namespace WooLocalization
 
                 //var lanTypes = GetLocalizationTypes();
 
-                var lanTypes = context.GetLocalizationTypes();
+                var lanTypes = context.GetLocalizationTypesReadOnly();
 
 
 
@@ -204,12 +205,16 @@ namespace WooLocalization
         private Tree tree;
         private TreeViewState state = new TreeViewState();
         private ActorAsset<Value> context;
-        private static List<string> LocalizationTypes;
+        private static IReadOnlyList<string> LocalizationTypes;
+        private static string[] LocalizationTypeOptions;
         protected abstract Value DrawField(Rect pos, Value src);
         protected virtual float GetRowHeight() => 18;
         private void OnEnable()
         {
-            LocalizationTypes = LocalizationSetting.defaultData.GetLocalizationTypes();
+            LocalizationTypes = LocalizationSetting.defaultData.GetLocalizationTypesReadOnly();
+            LocalizationTypeOptions = new string[LocalizationTypes.Count];
+            for (var i = 0; i < LocalizationTypes.Count; i++)
+                LocalizationTypeOptions[i] = LocalizationTypes[i];
             context = target as ActorAsset<Value>;
             tree = new Tree(state, this);
         }
@@ -250,7 +255,7 @@ namespace WooLocalization
 
             GUILayout.EndHorizontal();
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            lan_index = EditorGUILayout.Popup("Language", lan_index, LocalizationTypes.ToArray());
+            lan_index = EditorGUILayout.Popup("Language", lan_index, LocalizationTypeOptions);
             key = EditorGUILayout.TextField(nameof(key), key);
             value = LocalizationEditorHelper.DrawObject(nameof(value), value);
             GUILayout.BeginHorizontal();

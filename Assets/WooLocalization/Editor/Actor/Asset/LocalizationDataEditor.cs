@@ -106,7 +106,7 @@ namespace WooLocalization
                 this.parent = parent;
                 this.showBorder = true;
                 this.showAlternatingRowBackgrounds = true;
-                var lanTypes = context.GetLocalizationTypes();
+                var lanTypes = context.GetLocalizationTypesReadOnly();
                 searchModes = new string[lanTypes.Count + 1];
                 searchModes[0] = "Key";
                 for (int i = 0; i < lanTypes.Count; i++)
@@ -136,7 +136,7 @@ namespace WooLocalization
             protected override TreeViewItem BuildRoot()
             {
 
-                var lanTypes = context.GetLocalizationTypes();
+                var lanTypes = context.GetLocalizationTypesReadOnly();
                 var columns = new List<Column>() {
                 new Column()
                         {
@@ -172,20 +172,21 @@ namespace WooLocalization
                 row_lines.Clear();
                 var keys = context.GetLocalizationKeys();
 
-                var rows = new List<TreeViewItem>();
+                var rows = _rows;
                 rows.Clear();
                 if (keys != null)
                 {
-                    var lanTypes = context.GetLocalizationTypes();
+                    var lanTypes = context.GetLocalizationTypesReadOnly();
 
                     for (int i = 0; i < keys.Count; i++)
                     {
                         var key = keys[i];
-                        bool build = string.IsNullOrEmpty(this.searchString) || key.ToLower().Contains(this.searchString.ToLower());
+                        bool build = string.IsNullOrEmpty(this.searchString) || key.IndexOf(this.searchString, StringComparison.OrdinalIgnoreCase) >= 0;
                         if (serchMode != 0)
                         {
                             string localizationText = context.GetLocalization(lanTypes[serchMode - 1], key);
-                            build = string.IsNullOrEmpty(this.searchString) || localizationText.ToLower().Contains(this.searchString.ToLower());
+                            build = string.IsNullOrEmpty(this.searchString) ||
+                                (localizationText != null && localizationText.IndexOf(this.searchString, StringComparison.OrdinalIgnoreCase) >= 0);
                         }
 
 
@@ -202,7 +203,13 @@ namespace WooLocalization
                             if (localizationText != null)
                             {
 
-                                max = Mathf.Max(localizationText.Replace("\r\n", "\n").Count(x => x == '\n'), max);
+                                var lineBreakCount = 0;
+                                for (var charIndex = 0; charIndex < localizationText.Length; charIndex++)
+                                {
+                                    if (localizationText[charIndex] == '\n')
+                                        lineBreakCount++;
+                                }
+                                max = Mathf.Max(lineBreakCount, max);
                             }
                         }
                         row_lines[key] = max;
@@ -236,7 +243,7 @@ namespace WooLocalization
 
                 GUI.Label(r, key);
 
-                var lanTypes = context.GetLocalizationTypes();
+                var lanTypes = context.GetLocalizationTypesReadOnly();
                 for (int i = 0; lanTypes.Count > i; i++)
                 {
                     var type = lanTypes[i];
@@ -267,7 +274,7 @@ namespace WooLocalization
             {
                 GenericMenu menu = new GenericMenu();
 
-                var lanTypes = context.GetLocalizationTypes();
+                var lanTypes = context.GetLocalizationTypesReadOnly();
 
 
 
@@ -462,7 +469,7 @@ namespace WooLocalization
             }
             GUILayout.EndHorizontal();
 
-            var languages = context.GetLocalizationTypes().ToArray();
+            var languages = context.GetLocalizationTypesReadOnly().ToArray();
             LanIndex = EditorGUILayout.Popup("Language", LanIndex, languages);
 
 

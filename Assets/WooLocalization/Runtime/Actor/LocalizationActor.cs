@@ -56,7 +56,7 @@ namespace WooLocalization
         void ILocalizationActor.Execute()
         {
             var language = Localization.GetLocalizationType();
-            (this as ILocalizationActor).Execute(language, this.behavior);
+            ((ILocalizationActor)this).Execute(language, behavior);
         }
         void ILocalizationActor.SetBehavior(LocalizationBehavior behavior)
         {
@@ -66,19 +66,18 @@ namespace WooLocalization
         }
         protected bool NeedExecute(string language)
         {
-            if (!((ILocalizationActor)this).enable) return false;
+            if (!_enable) return false;
             if (_localizationType != language) return true;
             return dirty;
         }
         void ILocalizationActor.Execute(string language, LocalizationBehavior component)
         {
             if (!NeedExecute(language)) return;
+            T targetBehavior = component as T;
+            if (targetBehavior == null) return;
             dirty = false;
             _localizationType = language;
-            T behavior = component as T;
-            if (behavior == null) return;
-            //BeforeExecute(language);
-            Execute(language, behavior);
+            Execute(language, targetBehavior);
         }
         protected virtual void OnEditorLoad() { }
         protected abstract void Execute(string language, T component);

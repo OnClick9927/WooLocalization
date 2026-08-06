@@ -37,6 +37,7 @@ namespace WooLocalization
 
 
         public List<string> GetLocalizationTypes() => context == null ? Localization.GetLocalizationTypes() : Localization.GetLocalizationTypes(_context);
+        public IReadOnlyList<string> GetLocalizationTypesReadOnly() => context == null ? Localization.GetLocalizationTypesReadOnly() : Localization.GetLocalizationTypesReadOnly(_context);
         public List<string> GetLocalizationKeys() => context == null ? Localization.GetLocalizationKeys() : Localization.GetLocalizationKeys(_context);
         public string GetLocalization(string key, params object[] args) => context == null ? Localization.GetLocalization(key, args) : Localization.GetLocalization(_context, key, args);
 
@@ -69,7 +70,8 @@ namespace WooLocalization
             var actors = LoadActors();
             for (int i = 0; i < actors.Count; i++)
             {
-                if (actors[i] is T) return actors[i] as T;
+                var actor = actors[i] as T;
+                if (actor != null) return actor;
             }
             return default;
         }
@@ -132,7 +134,6 @@ namespace WooLocalization
 
         private void Execute()
         {
-            LoadActors();
             var _type = Localization.GetLocalizationType();
             var actors = LoadActors();
             for (int i = 0; i < actors.Count; i++)

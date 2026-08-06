@@ -105,7 +105,7 @@ namespace WooLocalization
 
             if (context.mode != LocalizationMapActor<Behavior, Value>.Mode.Default)
                 return;
-            var laguages = component.GetLocalizationTypes();
+            var laguages = component.GetLocalizationTypesReadOnly();
             var map = context.map;
             for (int i = 0; i < laguages.Count; i++)
             {

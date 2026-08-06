@@ -18,6 +18,8 @@ namespace WooLocalization
         public class PrefabActor : LocalizationMapActor<LocalizationBehavior, GameObject>
         {
             private GameObject ins;
+            private GameObject currentPrefab;
+            private string currentLanguage;
 
             public PrefabActor(bool enable) : base(enable)
             {
@@ -29,21 +31,25 @@ namespace WooLocalization
 #if UNITY_EDITOR
                 if (!Application.isPlaying) return;
 
-                var root = component.transform.root.GetChild(0).gameObject;
-
                 if (UnityEditor.SceneManagement.EditorSceneManager.IsPreviewSceneObject(component)) return;
 #endif
                 var prefab = GetValue(language);
-                if (prefab != null)
+                if (ReferenceEquals(prefab, currentPrefab) && currentLanguage != language && (prefab == null || ins != null))
                 {
-                    if (ins != null)
-                    {
-                        GameObject.Destroy(ins);
-                        ins = null;
-                    }
-
-                    ins = GameObject.Instantiate(prefab, component.transform);
+                    currentLanguage = language;
+                    return;
                 }
+
+                currentPrefab = prefab;
+                currentLanguage = language;
+                if (ins != null)
+                {
+                    GameObject.Destroy(ins);
+                    ins = null;
+                }
+
+                if (prefab != null)
+                    ins = GameObject.Instantiate(prefab, component.transform);
 
             }
 
@@ -58,9 +64,7 @@ namespace WooLocalization
         public PrefabActor prefab = new PrefabActor(true);
         protected override List<ILocalizationActor> GetActors()
         {
-            return new List<ILocalizationActor>() {
-            prefab
-            };
+            return new List<ILocalizationActor>(1) { prefab };
         }
     }
 }

@@ -21,6 +21,9 @@ public static string GetLocalizationType();
 // 获取所有支持的语言
 public static List<string> GetLocalizationTypes();
 
+// Read-only cached language list. Use this API on hot paths to avoid allocations.
+public static IReadOnlyList<string> GetLocalizationTypesReadOnly();
+
 // 基础文本本地化获取（支持格式化参数）
 public static string GetLocalization(string key, params object[] args);
 
@@ -90,6 +93,9 @@ public List<string> GetLocalizationKeys();
 // 获取所有支持的语言
 public List<string> GetLocalizationTypes();
 
+// Read-only cached language list. Use this API on hot paths to avoid allocations.
+public IReadOnlyList<string> GetLocalizationTypesReadOnly();
+
 public static void GenKeys();
 
 // 拆分语言数据到新文件
@@ -109,6 +115,9 @@ public List<string> GetLocalizationKeys();
 
 // 获取所有支持的语言类型
 public List<string> GetLocalizationTypes();
+
+// Read-only cached language list. Use this API on hot paths to avoid allocations.
+public IReadOnlyList<string> GetLocalizationTypesReadOnly();
 
 // 获取指定语言和键的本地化资源
 public Value GetLocalization(string language, string key);
@@ -147,6 +156,9 @@ internal static LocalizationData defaultContext;
 
 // 获取所有支持的语言类型（优先使用自身 context，否则使用全局数据）
 public List<string> GetLocalizationTypes()
+
+// Read-only cached language list. Use this API on hot paths to avoid allocations.
+public IReadOnlyList<string> GetLocalizationTypesReadOnly()
 
 // 获取所有本地化键（优先使用自身 context，否则使用全局数据）
 public List<string> GetLocalizationKeys()
